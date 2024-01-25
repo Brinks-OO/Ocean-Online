@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { Rating } from 'primereact/rating';
 import { Tag } from 'primereact/tag';
 
-export default function page() {
+export default function GridView() {
     const [products, setProducts] = useState([]);
     const mock = [
         {
