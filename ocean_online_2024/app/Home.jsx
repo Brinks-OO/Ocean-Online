@@ -1,10 +1,12 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { Button } from 'primereact/button';
 
 function Home() {
     return (
         <div>
+            <Button label="Submit" />
             <ul>
                 <li>
                     <Link href="/menu">Menu</Link>

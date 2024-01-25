@@ -10,11 +10,8 @@
   },
   "dependencies": {
     "next": "14.1.0",
-<<<<<<< HEAD
-=======
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
->>>>>>> ef3e8da20cba80002d638ba1effe5e4fb7af180a
     "primereact": "^10.3.3",
     "react": "^18",
     "react-dom": "^18"
