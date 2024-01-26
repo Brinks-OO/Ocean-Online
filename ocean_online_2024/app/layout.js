@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
       <head>
         <link
           id="theme-link"
-          href={`/themes/lara-light-blue/theme.css`}
+          href={`primereact/resources/themes/lara-light-blue/theme.css`}
           rel="stylesheet"
         ></link>
       </head>
