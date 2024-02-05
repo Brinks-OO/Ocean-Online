@@ -1,5 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import dynamic from 'next/dynamic'
+const SidebarDemo = dynamic(() => import('../app/components/Sidebar'))
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,11 +17,14 @@ export default function RootLayout({ children }) {
       <head>
         <link
           id="theme-link"
-          href={`primereact/resources/themes/lara-light-blue/theme.css`}
+          href={`/themes/lara-dark-indigo/theme.css`}
           rel="stylesheet"
         ></link>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} h-full h-screen w-full`}>
+      {/* <SidebarDemo /> */}
+        {children}
+      </body>
     </html>
   );
 }
