@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState } from 'react'
 import { Menu } from 'primereact/menu';
 import { Button } from 'primereact/button';
@@ -12,6 +12,11 @@ import Modal from './data_display/Modal';
 import TreeView from './data_display/TreeView';
 import Card from './data_display/Card';
 import PageSplitter from './data_display/PageSplitter';
+import NavigationBar from './data_display/NavigationBar';
+import TabsDemo from './data_display/Tabs';
+import ContextMenuDemo from './data_display/ContextMenu';
+
+
 
 function Home() {
     const [mainContent, setMainContent] = useState(null);
@@ -38,21 +43,21 @@ function Home() {
                     label: 'Navigation Bar',
                     icon: 'pi pi-plus',
                     command: () => {
-                        setMainContent(<Label />)
+                        setMainContent(<NavigationBar />)
                     }
                 },
                 {
                     label: 'Context Menu',
                     icon: 'pi pi-search',
                     command: () => {
-                        setMainContent(<Label />)
+                        setMainContent(<ContextMenuDemo />)
                     }
                 },
                 {
                     label: 'Tabs',
                     icon: 'pi pi-cog',
                     command: () => {
-                        setMainContent(<Label />)
+                        setMainContent(<TabsDemo />)
                     }
                 }
             ]
@@ -281,21 +286,21 @@ function Home() {
                 </div>
                 <div className="flex-grow-1">
                     <div className="flex flex-column">
-                        <div className="flex ">
+                        {/* <div className="flex ">
                             <div style={{ width: '100%', height: '54px', padding: 0, borderBottom: 'solid 1px rgba(0, 0, 0, .2)' }}>
-                                <div class="flex align-items-center flex-row-reverse gap-3 pr-3" style={{ minHeight: "54px" }}>
-                                    <div class="flex align-items-center justify-content-center">
+                                <div className="flex align-items-center flex-row-reverse gap-3 pr-3" style={{ minHeight: "54px" }}>
+                                    <div className="flex align-items-center justify-content-center">
                                         <Button label='Theme1' />
                                     </div>
-                                    <div class="flex align-items-center justify-content-center">
+                                    <div className="flex align-items-center justify-content-center">
                                         <Button label='Theme2' />
                                     </div>
-                                    <div class="flex align-items-center justify-content-center">
+                                    <div className="flex align-items-center justify-content-center">
                                         <Button label='Theme3' />
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="flex">
                             <ScrollPanel style={{ width: '100%', height: '93vh', padding: 0 }}>
                                 {mainContent}
