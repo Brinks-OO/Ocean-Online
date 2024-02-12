@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
     <div className="">
         <SidebarDemo />
-      <div className="mx-4 my-4">{children}</div>
+      <div className="px-4 py-4">{children}</div>
     </div>
   );
 }

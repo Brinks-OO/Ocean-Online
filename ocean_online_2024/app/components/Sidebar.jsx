@@ -19,7 +19,7 @@ const SidebarDemo = () => {
   const btnRef4 = useRef(null);
 
   useEffect(() => {
-    if (pathname != "/main/home") {
+    if (pathname != "/") {
       setVisible(false);
     }
   }, [pathname]);
@@ -43,6 +43,24 @@ const SidebarDemo = () => {
         {/* <Button label="Close" onClick={() => setVisible(false)} /> */}
         <div className="overflow-y-auto">
           <ul className="list-none p-3 m-0">
+          <li>
+            <Link href={'/home'} className={` ${
+                      pathname === "/home" ? "bg-primary" : ""
+                    } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}>
+              <i className="pi pi-home mr-2"></i>
+              <span className="font-medium">Home</span>
+              <Ripple />
+            </Link>
+          </li>
+          <li>
+            <Link href={'/customer_location'} className={` ${
+                      pathname === "/customer_location" ? "bg-primary" : ""
+                    } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}>
+              <i className="mr-2"></i>
+              <span className="font-medium">Customer Location</span>
+              <Ripple />
+            </Link>
+          </li>
             <li>
               <StyleClass
                 nodeRef={btnRef1}
@@ -65,37 +83,50 @@ const SidebarDemo = () => {
               <ul className="list-none p-0 m-0 overflow-hidden">
                 <li>
                   <Link
-                    href={"/main/home/menu"}
+                    href={"/home/menu"}
                     className={` ${
-                      pathname === "/main/home/menu" ? "bg-primary" : ""
+                      pathname === "/home/menu" ? "bg-primary" : ""
                     } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
                   >
-                    <i className="pi pi-home mr-2"></i>
+                    <i className="mr-2"></i>
                     <span className="font-medium">Navigation Bar</span>
 
                     <Ripple />
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
-                    href={"/main/home/contextmenu"}
+                    href={"/home/menu"}
                     className={` ${
-                      pathname === "/main/home/contextmenu" ? "bg-primary" : ""
+                      pathname === "/home/menu" ? "bg-primary" : ""
                     } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
                   >
-                    <i className="pi pi-bookmark mr-2"></i>
+                    <i className="mr-2"></i>
+                    <span className="font-medium">Navigation Bar (SideBar)</span>
+
+                    <Ripple />
+                  </Link>
+                </li> */}
+                <li>
+                  <Link
+                    href={"/home/contextmenu"}
+                    className={` ${
+                      pathname === "/home/contextmenu" ? "bg-primary" : ""
+                    } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
+                  >
+                    <i className="mr-2"></i>
                     <span className="font-medium">Context Menu</span>
                     <Ripple />
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href={"/main/home/tab"}
+                    href={"/home/tab"}
                     className={` ${
-                      pathname === "/main/home/tab" ? "bg-primary " : ""
+                      pathname === "/home/tab" ? "bg-primary " : ""
                     } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
                   >
-                    <i className="pi pi-bookmark mr-2"></i>
+                    <i className="mr-2"></i>
                     <span className="font-medium">Tabs</span>
                     <Ripple />
                   </Link>
@@ -224,40 +255,110 @@ const SidebarDemo = () => {
             <ul className="list-none p-0 m-0 overflow-hidden">
               <li>
                 <Link
-                  href={"/main/home/textbox"}
+                  href={"/home/inputtext"}
                   className={` ${
-                    pathname === "/main/home/Textbox" ? "bg-primary" : ""
+                    pathname === "/home/inputtext" ? "bg-primary" : ""
                   } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
                 >
-                  <i className="pi pi-home mr-2"></i>
-                  <span className="font-medium">Textbox</span>
+                  <i className="mr-2"></i>
+                  <span className="font-medium">Input Text</span>
 
                   <Ripple />
                 </Link>
               </li>
               <li>
                 <Link
-                  href={"/main/home/textarea"}
+                  href={"/home/textarea"}
                   className={` ${
-                    pathname === "/main/home/textarea" ? "bg-primary" : ""
+                    pathname === "/home/textarea" ? "bg-primary" : ""
                   } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
                 >
-                  <i className="pi pi-bookmark mr-2"></i>
+                  <i className="mr-2"></i>
                   <span className="font-medium">Textarea</span>
                   <Ripple />
                 </Link>
               </li>
               <li>
                 <Link
-                  href={"/main/home/numurictextbox"}
+                  href={"/home/InputNumber"}
                   className={` ${
-                    pathname === "/main/home/numurictextbox"
-                      ? "bg-primary "
-                      : ""
+                    pathname === "/home/InputNumber" ? "bg-primary " : ""
                   } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
                 >
-                  <i className="pi pi-bookmark mr-2"></i>
-                  <span className="font-medium">Numuric Textbox</span>
+                  <i className="mr-2"></i>
+                  <span className="font-medium">Input Number</span>
+                  <Ripple />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/home/calendar"}
+                  className={` ${
+                    pathname === "/home/calendar" ? "bg-primary " : ""
+                  } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
+                >
+                  <i className="mr-2"></i>
+                  <span className="font-medium">Calandar</span>
+                  <Ripple />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/home/dropdown"}
+                  className={` ${
+                    pathname === "/home/dropdown" ? "bg-primary " : ""
+                  } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
+                >
+                  <i className="mr-2"></i>
+                  <span className="font-medium">DropDown</span>
+                  <Ripple />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/home/toggleswitch"}
+                  className={` ${
+                    pathname === "/home/toggleswitch" ? "bg-primary " : ""
+                  } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
+                >
+                  <i className="mr-2"></i>
+                  <span className="font-medium">Toggle Switch</span>
+                  <Ripple />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/home/checkbox"}
+                  className={` ${
+                    pathname === "/home/checkbox" ? "bg-primary " : ""
+                  } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
+                >
+                  <i className="mr-2"></i>
+                  <span className="font-medium">Checkbox</span>
+                  <Ripple />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/home/radiobutton"}
+                  className={` ${
+                    pathname === "/home/radiobutton" ? "bg-primary " : ""
+                  } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
+                >
+                  <i className=" mr-2"></i>
+                  <span className="font-medium">Radio Button</span>
+                  <Ripple />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/home/listbox"}
+                  className={` ${
+                    pathname === "/home/listbox" ? "bg-primary " : ""
+                  } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
+                >
+                  <i className=" mr-2"></i>
+                  <span className="font-medium">List box</span>
                   <Ripple />
                 </Link>
               </li>
@@ -309,21 +410,20 @@ const SidebarDemo = () => {
             </li>
           </ul> */}
           <div className="mt-auto ">
-          <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
-          <Link
-            href={"/"}
-            v-ripple
-            className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-          >
-            <Avatar
-              image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-              shape="circle"
-            />
-            <span className="font-bold">Amy Elsner</span>
-          </Link>
+            <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
+            <Link
+              href={"/"}
+              className="no-underline m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+            >
+              {/* <Avatar
+                image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+                shape="circle"
+              /> */}
+              <i className="pi pi-sign-out pr-3"></i>
+              <span className="font-bold">Log Out</span>
+            </Link>
+          </div>
         </div>
-        </div>
-        
       </Sidebar>
       <Button
         icon="pi pi-bars"

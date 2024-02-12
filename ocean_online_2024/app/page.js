@@ -26,7 +26,8 @@ import { PrimeReactProvider } from "primereact/api";
 import "primeflex/primeflex.css";
 import "primereact/resources/primereact.css";
 import Home from "./Home";
-import Login from "./main/login/Login";
+import Login from "./(main)/login/Login";
+// import page from '../app/(main)/home/page'
 
 function page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,6 +41,7 @@ function page() {
     <PrimeReactProvider>
       {/* {isLoggedIn && <SidebarDemo />}  */}
       {isLoggedIn ? <Home /> : <Login onLoginSuccess={handleLoginSuccess} />}
+      <page />
     </PrimeReactProvider>
   );
 }

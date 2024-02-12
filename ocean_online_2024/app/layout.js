@@ -17,11 +17,11 @@ export default function RootLayout({ children }) {
       <head>
         <link
           id="theme-link"
-          href={`/themes/lara-dark-indigo/theme.css`}
+          href={`/themes/lara-light-blue/theme.css`}
           rel="stylesheet"
         ></link>
       </head>
-      <body className={`${inter.className} h-full h-screen w-full`}>
+      <body className={`${inter.className} h-screen w-full`}>
       {/* <SidebarDemo /> */}
         {children}
       </body>

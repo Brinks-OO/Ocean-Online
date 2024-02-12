@@ -73,3 +73,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#header a[class="p-menubar-button"] {
+  display: none !important;
+}
