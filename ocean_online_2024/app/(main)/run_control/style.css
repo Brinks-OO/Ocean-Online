@@ -1,0 +1,62 @@
+.p-panel-header {
+    /* border-radius: var(--border-0); */
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
+    border-color: var(--primary-color);
+    border-radius: 6px 6px 0px 0px !important;
+    height: 32px;
+}
+
+.p-panel-content {
+    border-radius: 0px;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    ;
+    border-width: 2px;
+}
+
+#navigation_bar_cus_lo .p-menuitem-content:hover {
+    background: #2563eb;
+    color: white;
+    z-index: 999999;
+}
+
+#navigation_bar_cus_lo .p-menuitem-content a {
+    color: white;
+}
+
+#navigation_bar_cus_lo .p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-content .p-menuitem-link .p-submenu-icon {
+    color: white;
+}
+
+#navigation_bar_cus_lo .p-menubar .p-menuitem.p-highlight>.p-menuitem-content {
+    background: #2563eb;
+    color: white;
+}
+
+
+#navigation_bar_cus_lo .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled)>.p-menuitem-content:hover {
+    color: white;
+}
+
+div.p-multiselect-header>div.p-multiselect-filter-container>input {
+    height: 3rem;
+}
+
+div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-done>div.p-multiselect-items-wrapper>ul {
+    font-size: medium;
+}
+
+.p-rowgroup-header {
+    color: var(--surface-a);
+    background-color: var(--primary-color);
+    height: 2rem;
+    z-index: 0;
+}
+
+.p-submenu-list {
+    z-index: 999;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    padding: 1rem
+}
