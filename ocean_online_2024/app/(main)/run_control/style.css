@@ -60,3 +60,11 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
     padding: 1rem
 }
+
+#drag > div.p-datatable-wrapper > table > thead > tr > th > div > div > input{
+    height: 2rem;
+}
+
+.p-datatable-wrapper{
+    height: 74vh;
+}

@@ -10,11 +10,11 @@ import { useEffect, useState } from 'react';
 
 export default function Page() {
 
-  const [contentWidth, setContentWidth] = useState(0);
-  const [hideRun, setHideRun] = useState(true);
+  const [hideRun, setHideRun] = useState(false);
+  const [gridJobOnRun, setGridJobOnRun] = useState([])
 
   useEffect(() => {
-    setContentWidth(1000);
+
   }, [])
 
   const headerTemplate = (options) => {
@@ -35,7 +35,7 @@ export default function Page() {
     setHideRun((prev) => !prev);
   }
 
-  function test(){
+  function test() {
     console.log('555')
   }
 
@@ -63,12 +63,61 @@ export default function Page() {
         <Splitter
           style={{ height: '93%' }}
           pt={{ gutterHandler: { className: 'bg-primary', onClick: handleSplitPage } }}
-          >
+        >
           <SplitterPanel className='flex' size={15} >
             {hideRun ? <></> : <GridRun />}
           </SplitterPanel>
           <SplitterPanel className='flex w-full' size={85} >
-            <GridJob />
+            <TabView
+              pt={{
+                panelContainer: {
+                  style: {
+                    padding: 0
+                  }
+                }
+              }}
+            // pt={{
+            //   navContent: {
+            //     style: {
+            //       height: "2rem",
+            //       fontSize: "16px",
+            //       lineHeight: "8px"
+            //     }
+            //   }
+            // }}
+            >
+              <TabPanel header="Job(s)"
+
+              // pt={{
+              //   headerTitle: {
+              //     style: {
+              //       height: "2rem",
+              //       fontSize: "16px",
+              //       lineHeight: "0px"
+              //     }
+              //   },
+              // }}
+              >
+                <GridJob />
+              </TabPanel>
+              <TabPanel header="Unassigned Job(s)"
+              // pt={{
+              //   headerTitle: {
+              //     style: {
+              //       height: "2rem",
+              //       fontSize: "16px",
+              //       lineHeight: "0px"
+              //     }
+              //   },
+              // }}
+              >
+                <GridUnassign />
+              </TabPanel>
+            </TabView>
+
+
+
+
           </SplitterPanel>
         </Splitter >
       </Panel>

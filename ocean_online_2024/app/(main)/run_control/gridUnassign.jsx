@@ -6,7 +6,7 @@ import { mockRunControl } from './mock';
 import { ContextMenu } from 'primereact/contextmenu';
 
 function GridUnassign() {
-  const [jobOnRun, setJobOnRun] = useState([]);
+  const [unassignJob, setUnassignJob] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   // const [filters, setFilters] = useState({
@@ -26,44 +26,24 @@ function GridUnassign() {
 
   useEffect(() => {
     // var dat1 = mockRunControl.getJobOnRun('4d948591-0807-a018-9fed-b0ef1c003159')[0].Jobs;
-    var dat2 = mockRunControl.getUnAssignJob()[0].JobsUnassigned;
+    var dat2 = mockRunControl.getUnAssignJob();
     // setJobOnRun(dat1)
-    setJobOnRun(dat2)
+    setUnassignJob(dat2)
     // ProductService.getProductsData().then((data) => setCustomers(data));
   }, []);
 
-  const viewProduct = (product) => {
-    console.log("view")
-  };
-
-  const deleteProduct = (product) => {
-    console.log("delete")
-  };
-
-
-
   function onDragStart(ev) {
-    console.log(selectedJob);
     ev.dataTransfer.setData('data', JSON.stringify(selectedJob));
     ev.dataTransfer.effectAllowed = 'movecopy';
     ev.target = '<></>'
-    console.log(ev)
   }
 
 
-
-  const defaultBody = (rowData) => {
-    debugger;
-    return (
-      <div className="flex align-items-center gap-2">
-        <div>{{}}</div>
-      </div>
-    );
-  };
-
   function openContextMenu(e) {
-    // console.log(e)
     cm.current.show(e.originalEvent)
+  }
+  function handleOnSelectionChange(e) {
+    setSelectedJob(e.value)
   }
 
   function bodyIconContextMenu(rowData) {
@@ -77,47 +57,54 @@ function GridUnassign() {
   }
   return (
     <>
-      <ContextMenu model={menuModel} ref={cm} onHide={() => setSelectedProduct(null)} />
-      <DataTable
-        size='small'
-        value={jobOnRun}
-        selectionMode={'checkbox'}
-        selection={selectedJob}
-        onSelectionChange={(e) => setSelectedJob(e.value)}
-        dataKey="Jobs[0].Guid"
-        scrollable
-        scrollHeight="200vh"
-        draggable={true}
-        onDragStart={onDragStart}
-        onContextMenu={openContextMenu}
-        contextMenuSelection={selectedProduct}
-        onContextMenuSelectionChange={(e) => setSelectedProduct(e.value)}
-        columnResizeMode="expand" resizableColumns
-        filterDisplay="row"
-        showGridlines
-        stripedRows
-      >
-        <Column style={{ width: '50px' }} body={bodyIconContextMenu}  ></Column>
-        <Column selectionMode="multiple" style={{ width: '50px' }}  ></Column>
-        <Column style={{ width: '50px' }}></Column>
-        <Column style={{ width: '50px' }}></Column>
-        <Column field="SeqIndex" header="Seq" style={{ width: '50px' }}></Column>
-        <Column field="JobNo" header="Job ID" style={{ width: '100px' }} filter showFilterMenu={false}></Column>
-        <Column field="ServiceJobTypeNameAbb" header="Type" style={{ width: '100px' }} filter showFilterMenu={false}></Column>
-        <Column field="JobStatus" header="Job Status" style={{ width: '100px' }} filter showFilterMenu={false}></Column>
-        <Column field="ActionFlag" header="Action" style={{ width: '100px' }}></Column>
-        <Column field="LOBAbbrevaitionName" header="LOB" style={{ width: '100px' }}></Column>
-        <Column field="STC" header="STC" style={{ width: '100px' }}></Column>
-        <Column field="MachineID" header="Machine ID" style={{ width: '100px' }}></Column>
-        <Column field="LocationName" header="Location" style={{ width: '300px' }}></Column>
-        <Column field="LocationAddress" header="Location Address" style={{ width: '200px' }}></Column>
-        <Column field="Country" header="Province/State" style={{ width: '100px' }}></Column>
-        <Column field="District" header="District/City" style={{ width: '100px' }}></Column>
-        <Column field="RouteGroupDetailName" header="Route Group" style={{ width: '100px' }}></Column>
-        <Column field="WindowsTimeServiceTimeStart" header="Time" style={{ width: '100px' }}></Column>
-        <Column field="ActualTime" header="Actual Time" style={{ width: '100px' }}></Column>
-        <Column field="UserModifed" header="Modify By" style={{ width: '100px' }}></Column>
-      </DataTable>
+      <div style={{
+        width: '1611px',
+        overflow: 'hidden'
+      }}>
+        <ContextMenu model={menuModel} ref={cm} onHide={() => setSelectedProduct(null)} />
+        <DataTable
+          size='small'
+          value={unassignJob}
+          selectionMode={'checkbox'}
+          selection={selectedJob}
+          onSelectionChange={handleOnSelectionChange}
+          dataKey="Guid"
+          scrollable
+          scrollHeight="74vh"
+          id='drag'
+          draggable={true}
+          onDragStart={onDragStart}
+          onContextMenu={openContextMenu}
+          contextMenuSelection={selectedProduct}
+          onContextMenuSelectionChange={(e) => setSelectedProduct(e.value)}
+          columnResizeMode="expand"
+          resizableColumns
+          showGridlines
+          stripedRows
+          filterDisplay="row"
+        >
+          <Column style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column>
+          <Column selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
+          <Column style={{ minWidth: '50px' }}></Column>
+          <Column style={{ minWidth: '50px' }}></Column>
+          <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
+          <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '200px' }}></Column>
+          <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }}></Column>
+          <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }}></Column>
+          <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+          <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+        </DataTable>
+      </div>
     </>
   )
 }
