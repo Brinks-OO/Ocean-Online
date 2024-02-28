@@ -7,6 +7,7 @@ import Toolbar from "./toolbar";
 import { TabPanel, TabView } from 'primereact/tabview';
 import { Panel } from 'primereact/panel';
 import { useEffect, useState } from 'react';
+import { mockRunControl } from './mock';
 
 export default function Page() {
 
@@ -14,7 +15,8 @@ export default function Page() {
   const [gridJobOnRun, setGridJobOnRun] = useState([])
 
   useEffect(() => {
-
+    var dat1 = mockRunControl.getJobOnRun(1);
+    setGridJobOnRun(dat1)
   }, [])
 
   const headerTemplate = (options) => {
@@ -62,10 +64,10 @@ export default function Page() {
         <Toolbar />
         <Splitter
           style={{ height: '93%' }}
-          pt={{ gutterHandler: { className: 'bg-primary', onClick: handleSplitPage } }}
+          pt={{ gutterHandler: { className: 'bg-primary', onDoubleClick: handleSplitPage } }}
         >
           <SplitterPanel className='flex' size={15} >
-            {hideRun ? <></> : <GridRun />}
+            {hideRun ? <></> : <GridRun setGridJobOnRun={setGridJobOnRun}/>}
           </SplitterPanel>
           <SplitterPanel className='flex w-full' size={85} >
             <TabView
@@ -98,7 +100,7 @@ export default function Page() {
               //   },
               // }}
               >
-                <GridJob />
+                <GridJob gridJobOnRun={gridJobOnRun} />
               </TabPanel>
               <TabPanel header="Unassigned Job(s)"
               // pt={{

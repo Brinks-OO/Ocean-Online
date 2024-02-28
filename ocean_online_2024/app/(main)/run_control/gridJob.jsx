@@ -4,10 +4,11 @@ import { DataTable } from 'primereact/datatable';
 import React, { useEffect, useRef, useState } from 'react'
 import { mockRunControl } from './mock';
 import { ContextMenu } from 'primereact/contextmenu';
+import { Row } from 'primereact/row';
 
-function GridJob() {
+function GridJob(props) {
 
-  const [jobOnRun, setJobOnRun] = useState([]);
+  // const [jobOnRun, setJobOnRun] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const cm = useRef(null);
@@ -18,9 +19,10 @@ function GridJob() {
   ];
 
   useEffect(() => {
-    var dat1 = mockRunControl.getJobOnRun(2);
-    setJobOnRun(dat1)
-  }, []);
+    // var dat1 = mockRunControl.getJobOnRun(2);
+    // setJobOnRun(dat1)
+    console.log(props.gridJobOnRun)
+  }, [props.gridJobOnRun]);
 
   function handleOnSelectionChange(e) {
     setSelectedJob(e.value)
@@ -30,6 +32,30 @@ function GridJob() {
   function onDragStart(ev) {
     ev.dataTransfer.setData('data', JSON.stringify(selectedJob));
     ev.dataTransfer.effectAllowed = 'movecopy';
+
+    const customElement = document.createElement('div');
+    customElement.innerHTML = onDragIcon(3);
+    document.body.appendChild(customElement);
+
+    ev.dataTransfer.setDragImage(customElement, 0, 0)
+    // ev.target.style.opacity = '1';
+  }
+
+  function onDragIcon(countItem = 0) {
+    return `
+        <div style="background-color: #eae27a; color: black; width:150px; text-align:center; font-size:15px;">
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <i class="pi pi-truck"></i>
+                  <i style="color:green;" class="pi pi-arrow-left" aria-hidden="true"></i> : <b>${countItem}</b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        `
   }
 
 
@@ -47,6 +73,20 @@ function GridJob() {
     )
   }
 
+  const jobStatusFlag = (rowData) => {
+    return (
+      <div className="flex align-items-center gap-2">
+        {rowData.FlagJobClose ? <img alt='close' src='/Images/RunControl/job_closed.png' width={16} /> : <img alt='close' src='/Images/RunControl/job_ontruck.png' width={16} />}
+
+      </div>
+    );
+  };
+
+  function test(e) {
+    console.log('test');
+    console.log(e.data)
+  }
+
   return (
     <>
       <div style={{
@@ -56,7 +96,7 @@ function GridJob() {
         <ContextMenu model={menuModel} ref={cm} onHide={() => setSelectedProduct(null)} />
         <DataTable
           size='small'
-          value={jobOnRun}
+          value={props.gridJobOnRun}
           selectionMode={'checkbox'}
           selection={selectedJob}
           onSelectionChange={handleOnSelectionChange}
@@ -66,6 +106,7 @@ function GridJob() {
           id='drag'
           draggable={true}
           onDragStart={onDragStart}
+          // dragSelection={true}
           onContextMenu={openContextMenu}
           contextMenuSelection={selectedProduct}
           onContextMenuSelectionChange={(e) => setSelectedProduct(e.value)}
@@ -74,11 +115,12 @@ function GridJob() {
           showGridlines
           stripedRows
           filterDisplay="row"
+        // onRowSelect={test}
         >
-          <Column style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column>
-          <Column selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
-          <Column style={{ minWidth: '50px' }}></Column>
-          <Column style={{ minWidth: '50px' }}></Column>
+          <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column>
+          <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
+          <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
+          <Column draggable={true} style={{ minWidth: '50px' }}></Column>
           <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
           <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
           <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>

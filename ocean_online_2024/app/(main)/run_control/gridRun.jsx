@@ -6,7 +6,7 @@ import { Column } from 'primereact/column';
 import { mockRunControl } from './mock';
 
 
-function GridRun() {
+function GridRun(props) {
 
   const [cities, setCities] = useState([])
   const [originalGridData, setOriginalGridData] = useState([])
@@ -58,6 +58,7 @@ function GridRun() {
   function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("data");
+    console.log(data);
     // ev.target.appendChild(document.getElementById(data));
   }
 
@@ -76,7 +77,9 @@ function GridRun() {
   function handleOnSelectRun(e) {
     setSelectedProduct(e.value)
     var indexData = originalGridData.findIndex(item => item?.Guid === e?.value?.Guid)
-    console.log(mockRunControl.getJobOnRun(indexData+1));
+    var newGrid = mockRunControl.getJobOnRun(indexData+1);
+    console.log(newGrid);
+    props.setGridJobOnRun(newGrid)
   }
 
   return (

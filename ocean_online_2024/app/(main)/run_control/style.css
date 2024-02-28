@@ -68,3 +68,10 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
 .p-datatable-wrapper{
     height: 74vh;
 }
+
+.p-rowgroup-header > td {
+    padding: 0px 0px 4px 0px;
+}
+.p-row-toggler.p-link{
+    color: white !important;
+}

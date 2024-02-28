@@ -74,6 +74,7 @@ function GridUnassign() {
           id='drag'
           draggable={true}
           onDragStart={onDragStart}
+          dragSelection={true}
           onContextMenu={openContextMenu}
           contextMenuSelection={selectedProduct}
           onContextMenuSelectionChange={(e) => setSelectedProduct(e.value)}
@@ -86,7 +87,7 @@ function GridUnassign() {
           <Column style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column>
           <Column selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
           <Column style={{ minWidth: '50px' }}></Column>
-          <Column style={{ minWidth: '50px' }}></Column>
+          {/* <Column style={{ minWidth: '50px' }}></Column> */}
           <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
           <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
           <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
