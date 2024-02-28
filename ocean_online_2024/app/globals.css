@@ -89,3 +89,16 @@ code {
 #header a[class="p-menubar-button"] {
   display: none !important;
 }
+
+.p-highlight {
+  background-color: #F7CA18;
+  color: #000;
+  border-color: #fff;
+  background-image: linear-gradient(to bottom, #F7CA18, #F4D03F)
+}
+
+.p-highlight:hover {
+  background-color: #F89406;
+  background-image: linear-gradient(to bottom, #F89406, #F4D03F)
+}
+
