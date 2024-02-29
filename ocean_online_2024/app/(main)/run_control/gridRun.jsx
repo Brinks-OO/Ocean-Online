@@ -7,14 +7,11 @@ import { mockRunControl } from './mock';
 
 
 function GridRun(props) {
-  const defaultSelect = {
-    "Guid": "32c7f0a5-5450-08b4-b87e-3f5f7d5385f7",
-  }
+
   const [runDropDown, setRunDropDown] = useState([])
   const [originalGridData, setOriginalGridData] = useState([])
   const [gridData, setGridData] = useState([])
   const [selectedRunDropDown, setSelectedRunDropDown] = useState(null);
-  const [selectrun, setselectrun] = useState({ ...defaultSelect });
 
 
   const [expandedRows, setExpandedRows] = useState([]);
@@ -78,7 +75,8 @@ function GridRun(props) {
     var jobsSelectData = JSON.parse(ev.dataTransfer.getData("data"));
     var from = JSON.parse(ev.dataTransfer.getData("from")); // 1 from assign, 2 from unassign
     const runTargetGuid = ev.currentTarget.children[0].innerHTML;
-    mockRunControl.setJobOnRun(runTargetGuid, jobsSelectData, from);
+    props.handleJobDropOnRun(runTargetGuid, jobsSelectData, from);
+    // mockRunControl.setJobOnRun(runTargetGuid, jobsSelectData, from);
   }
 
   function handleOnChangeSelectRun(e) {
@@ -94,10 +92,7 @@ function GridRun(props) {
   }
 
   function handleOnSelectRun(e) {
-    setselectrun(e.value)
-    var indexData = originalGridData.findIndex(item => item?.Guid === e?.value?.Guid)
-    var newGrid = mockRunControl.getJobOnRun(indexData + 1);
-    props.setGridJobOnRun(newGrid)
+    props.setSelectRun(e.value)
   }
 
   return (
@@ -152,7 +147,7 @@ function GridRun(props) {
             // onDrop={drop}
             onDragOver={allowDrop}
             selectionMode="single"
-            selection={selectrun}
+            selection={props.selectRun}
             dataKey="Guid"
             metaKeySelection={true}
             onSelectionChange={handleOnSelectRun}

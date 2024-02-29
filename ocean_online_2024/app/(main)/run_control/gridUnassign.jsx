@@ -12,42 +12,11 @@ import { Tag } from 'primereact/tag';
 function GridUnassign(props) {
   const menu = useRef(null);
   const items = [
-    { label: 'Dispatch Run', },
-    { label: 'Close Run', },
-    { label: 'Manual Close Run', },
+    { label: 'Edit Job Details' },
     { separator: true },
-    {
-      label: 'Action Job',
-      items: [
-        { label: 'Cancel Jobs', },
-        { separator: true },
-        { label: 'Assign to Another Run', },
-        { label: 'Change Schedule Time', },
-        { label: 'Change Work Date', },
-      ]
-    },
-    {
-      label: 'Sorting',
-      items: [
-        { label: 'By Customization', },
-        { label: 'By Schedule Time', }
-      ]
-    },
-    {
-      label: 'Options ',
-      items: [
-        { label: 'Hide/Show Filter', },
-        { label: 'Column Setting', }
-      ]
-    },
+    { label: 'Assign To Run' },
     { separator: true },
-    { label: 'Run Properties' },
-    {
-      label: 'Run Option',
-      items: [
-        { label: 'Collapse/Expand All', }
-      ]
-    },
+    { label: 'Job Properties' }
   ];
   const [checked, setChecked] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -87,7 +56,7 @@ function GridUnassign(props) {
         }
       })
       ev.dataTransfer.setData('data', JSON.stringify(dataSelectJob));
-      ev.dataTransfer.setData('from', 1); // 1 from assign, 2 from unassign
+      ev.dataTransfer.setData('from', 2); // 1 from assign, 2 from unassign
       ev.dataTransfer.effectAllowed = 'movecopy';
 
       const customElement = document.createElement('div');
@@ -255,7 +224,7 @@ function GridUnassign(props) {
           <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
           <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
           <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '200px' }}></Column>
+          <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
           <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
           <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
           <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>

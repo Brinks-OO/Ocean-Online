@@ -3033,12 +3033,10 @@ export const mockRunControl = {
 
     },
     setJobOnRun(targetRunGuid, jobsSelectData, from) { // from 1 assign,2 unassign 
-        console.log(jobsSelectData);
         if (from == 1) {
             let newData = [];
             jobsSelectData.forEach(jobSelect => {
                 const jobOnRunIndex = mockJobOnRun.findIndex(item => item.Guid === jobSelect.masterRunGuid);
-                debugger;
                 if (jobOnRunIndex != -1) {
                     const jobIndex = mockJobOnRun[jobOnRunIndex].Jobs.findIndex(inItem => inItem.Guid === jobSelect.jobGuid)
                     if (jobIndex != -1) {
@@ -3047,7 +3045,6 @@ export const mockRunControl = {
                     }
                 }
             })
-            debugger;
         } else if (from == 2) {
 
         }
