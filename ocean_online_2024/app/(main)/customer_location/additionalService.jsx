@@ -65,9 +65,9 @@ export default function AdditionalService() {
         <>
             <Tooltip target=".custom-target-icon" />
             <div>
-                <div className="flex gap-5 pt-2 align-content-start">
+                <div className="flex gap-5 pt-2 align-content-start w-8">
                     <div className="flex flex-auto align-items-start">
-                        <div className=" flex w-full flex-column gap-5 w-full">
+                        <div className=" flex w-full flex-column gap-5">
                             <div className="flex flex-auto  gap-5 w-full">
                                 <span className="p-float-label w-full">
                                     <InputText
