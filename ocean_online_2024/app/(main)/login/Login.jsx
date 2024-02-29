@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    console.log("enter");
+    // console.log("enter");
     if (username === "admin" && password === "password") {
       router.push("/home");
     } else {
@@ -26,7 +26,7 @@ const Login = () => {
   };
 
   return (
-    <div className="h-full flex justify-content-center flex-column align-items-center" style={{ "backgroundColor": "#2E4452"}}>
+    <div className="h-full flex justify-content-center flex-column align-items-center" style={{ "backgroundColor": "#364150"}}>
       <div className="card flex flex-column justify-content-center align-items-center ">
         <div className="flex-column justify-content-center mb-0">
           {/* <div className="col-6"> */}

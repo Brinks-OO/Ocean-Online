@@ -1,41 +1,90 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import NavigationBar from "./tabMenu";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
-import { TabView, TabPanel } from 'primereact/tabview';
-import DetailTab from './detailTab'
+import { TabView, TabPanel } from "primereact/tabview";
+import DetailTab from "./detailTab";
+import CustomerLocationNewPage from "./new";
+import CustomerLocation from "./index";
+import { useLocalStorage } from 'primereact/hooks';
+import { useSessionStorage } from 'primereact/hooks';
 
+import "./style.scss";
 export default function Page() {
-  const items = [{ label: "Customer Location" }, { label: "New" }];
-  const home = { label: "Home", url: "/home" };
+  const [showNewPage, setShowNewPage] = useState(false);
+  const [close, setClose] = useState(false);
+  const [detailData, setDetailData] = useState()
+  // const [allData, setAllData] = useLocalStorage([
+  //   {
+  //     tab4: null
+  //   },
+  //   {
+  //     detail: null
+  //   }
+  // ], 'allData');
+  const [allData, setAllData] = useLocalStorage({ tab4: [] }, 'allData');
+
+  console.log('allData', allData)
+  console.log('detailData', detailData)
+  console.log('showNewPage', showNewPage)
+
+
+  // function onClickNew(state) {
+  //   if (!state) {
+  //     setAllData([{
+  //       tab4: null
+  //     }])
+  //   }
+    
+  //   setShowNewPage(state);
+  // }
+
+  function onClickNew(state) {
+    if (!state) {
+        setAllData({ tab4: [] });
+    }
+    setShowNewPage(state);
+}
+  // function onClickSave(state) {
+  //   // setAllData([{
+  //   //   ...allData.tab4,
+  //   //   tab4: detailData
+  //   // }])
+    
+  //   setShowNewPage(state);
+  // }
+
+//   function onClickSave(state) {
+//     const newTab4 = [...(allData.tab4 || []), detailData]; // สร้างอาเรย์ใหม่โดยเพิ่ม detailData เข้าไป
+//     setAllData({ ...allData, tab4: newTab4 }); // อัปเดต allData ด้วยอาเรย์ใหม่
+//     setShowNewPage(state);
+// }
+
+function onClickSave(state) {
+  setAllData({ tab4: [detailData] });
+  // setAllData(prevAllData => {
+  //     const newTab4 = [...prevAllData?.tab4, detailData];
+  //     return { ...prevAllData, tab4: newTab4 };
+  // });
+  setShowNewPage(state);
+}
+useEffect(() => {
+  setAllData({ tab4: [] },'allData');
+}, [])
+
   return (
     <>
-      <div>
-        <NavigationBar />
-        <div className="card" style={{ "backgroundColor": "none" }}>
-          <BreadCrumb
-            model={items}
-            home={home}
-            className="border-noround border-round-top"
-          />
-          <div className="p-0 flex border-200 border-1 gap-2 py-1 px-1">
-              <Button className="" size="small">Save</Button>
-              <Button className="" size="small">Save & New</Button>
-              <Button className="" size="small">Save & Copy</Button>
-              <Button className="" size="small">Save & Close</Button>
-              <Button className="surface-400" size="small"><i className="pi pi-times pr-2" />Close</Button>
-            </div>
-          <div className="  border-200 border-1 border-top-none border-noround border-round-bottom">
-          <TabView>
-                <TabPanel header="Detail">
-                    <DetailTab />
-                </TabPanel>
-                <TabPanel header="Site Handle">
-                </TabPanel>
-                <TabPanel header="Additional Service">
-                </TabPanel>
-            </TabView>
-          </div>
+      <div id="customer_location">
+        <div>
+          {/* <NavigationBar /> */}
+        </div>
+        <div>
+          {showNewPage ? (
+            <CustomerLocationNewPage onClickNew={onClickNew} onClickSave={onClickSave} setAllData={setAllData} allData={allData} setDetailData={setDetailData} detailData={detailData}  />
+          ) : (
+            <CustomerLocation onClickNew={onClickNew} onClickSave={onClickSave} setAllData={setAllData} allData={allData} />
+          )}
         </div>
       </div>
     </>

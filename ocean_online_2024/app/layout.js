@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         ></link>
       </head>
-      <body className={`${inter.className} h-screen w-full`}>
+      <body id="bodyMain" className={`${inter.className} h-screen w-full`}>
       {/* <SidebarDemo /> */}
         {children}
       </body>

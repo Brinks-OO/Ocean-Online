@@ -14,6 +14,7 @@ export default function NumeralsDemo() {
     const [value12, setValue12] = useState(2500);
     const [value13, setValue13] = useState(4250);
     const [value14, setValue14] = useState(5002);
+    const [value16, setValue16] = useState(10000);
     console.log('value13', value13)
     const [value15, setValue15] = useState();
 
@@ -62,6 +63,12 @@ export default function NumeralsDemo() {
             <div className="flex-auto">
                 <label htmlFor="currency-japan" className="font-bold block mb-2">Japan</label>
                 <InputNumber inputId="currency-japan" value={value14} onValueChange={(e) => setValue14(e.value)} mode="currency" currency="JPY" locale="jp-JP" />
+            </div>
+        </div>
+        <div className="card flex flex-wrap flex-column gap-3 p-fluid">
+            <div className="flex-auto">
+                <label htmlFor="currency-test1" className="font-bold block mb-2">Test 1</label>
+                <InputNumber inputId="currency-test1" value={value16} onValueChange={(e) => setValue16(e.value)} mode="currency"  tooltip="test 1 test" autoFocus currency="EUR" locale="de-DE"/>
             </div>
         </div>
         </>
