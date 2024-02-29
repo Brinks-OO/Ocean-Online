@@ -55,6 +55,19 @@ export default function Page() {
     setHideRun((prev) => !prev);
   }
 
+  function handleOnClickUnassignJob(job) {
+    let newData = [];
+    const jobGuid = job.Guid
+    const masterRunGuid = job.MasterRunResource_Guid
+    const masterRunIndex = mapRunJob.findIndex(item => item.Guid === masterRunGuid)
+    const jobIndex = mapRunJob[masterRunIndex].Jobs.findIndex(inItem => inItem.Guid === jobGuid)
+    mapRunJob[masterRunIndex].Jobs[jobIndex].MasterRunResource_Guid = "";
+    newData.push(mapRunJob[masterRunIndex].Jobs[jobIndex]);
+    setGridUnassign(prev => ([...prev, ...newData]));
+      mapRunJob[masterRunIndex].Jobs.splice(jobIndex, 1);
+    setGridJobOnRun([...mapRunJob[masterRunIndex].Jobs]);
+  }
+
   function handleJobDropOnRun(targetRunGuid, jobsSelectData, from) {
     if (from == 1) {
       let newData = [];
@@ -78,13 +91,12 @@ export default function Page() {
         const jobUnassignIndex = gridUnassign.findIndex(item => item.Guid === jobSelect.jobGuid)
         const targetRunIndex = mapRunJob.findIndex(item => item.Guid === targetRunGuid)
         gridUnassign[jobUnassignIndex].MasterRunResource_Guid = targetRunGuid;
-        mapRunJob[targetRunIndex].Jobs = [...mapRunJob[targetRunIndex].Jobs, {...gridUnassign[jobUnassignIndex]}]
+        mapRunJob[targetRunIndex].Jobs = [...mapRunJob[targetRunIndex].Jobs, { ...gridUnassign[jobUnassignIndex] }]
         gridUnassign.splice(jobUnassignIndex, 1);
         setGridUnassign([...gridUnassign]);
-        const selectRunIndex = mapRunJob.findIndex(item=>item.Guid === selectRun.Guid);
+        const selectRunIndex = mapRunJob.findIndex(item => item.Guid === selectRun.Guid);
         setGridJobOnRun([...mapRunJob[selectRunIndex].Jobs]);
       })
-
     }
   }
 
@@ -153,7 +165,7 @@ export default function Page() {
               //   },
               // }}
               >
-                <GridJob gridJobOnRun={gridJobOnRun} />
+                <GridJob gridJobOnRun={gridJobOnRun} handleOnClickUnassignJob={handleOnClickUnassignJob} />
               </TabPanel>
               <TabPanel header="Unassigned Job(s)"
               // pt={{

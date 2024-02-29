@@ -52,9 +52,11 @@ function GridJob(props) {
   const [checked, setChecked] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [dataSelectContextMenu, setDataSelectContextMenu] = useState({});
   const cm = useRef(null);
 
   const menuModel = [
+    { label: 'Unassign Job', command: () => handleOnUnAssignJob() },
     { label: 'Unable To Service', command: () => console.log("Unable To Service") },
     { separator: true },
     { label: 'Update Job In Progress', command: () => console.log("Update Job In Progress") },
@@ -64,6 +66,10 @@ function GridJob(props) {
     { separator: true },
     { label: 'Job Properties', command: () => console.log("Job Properties") },
   ];
+
+  function handleOnUnAssignJob() {
+    props.handleOnClickUnassignJob(dataSelectContextMenu);
+  }
 
 
   function handleOnSelectionChange(e) {
@@ -122,6 +128,7 @@ function GridJob(props) {
 
 
   function openContextMenu(e) {
+    setDataSelectContextMenu({ ...e.data });
     cm.current.show(e.originalEvent)
   }
 

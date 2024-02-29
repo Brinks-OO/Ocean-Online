@@ -12,11 +12,27 @@ import { Tag } from 'primereact/tag';
 function GridUnassign(props) {
   const menu = useRef(null);
   const items = [
-    { label: 'Edit Job Details' },
+    { label: 'Create Adhoc Jobs' },
     { separator: true },
-    { label: 'Assign To Run' },
+    {
+      label: 'Action Job',
+      items: [
+        { label: 'Cancel Jobs', },
+        { separator: true },
+        { label: 'Assign To Run', },
+        { separator: true },
+        { label: 'Change Work Date', },
+        { label: 'Automatic assign jobs to Run', },
+      ]
+    },
     { separator: true },
-    { label: 'Job Properties' }
+    {
+      label: 'Options',
+      items: [
+        { label: 'Hide/Show Filter', },
+        { label: 'Column Setting', },
+      ]
+    },
   ];
   const [checked, setChecked] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -25,14 +41,11 @@ function GridUnassign(props) {
   const cm = useRef(null);
 
   const menuModel = [
-    { label: 'Unable To Service', command: () => console.log("Unable To Service") },
+    { label: 'Edit Job Details' },
     { separator: true },
-    { label: 'Update Job In Progress', command: () => console.log("Update Job In Progress") },
-    { label: 'Update Now', command: () => console.log("Update Now") },
-    { label: 'Edit Data', command: () => console.log("Edit Data") },
-    { label: 'Edit Job Detail', command: () => console.log("Edit Job Detail") },
+    { label: 'Assign To Run' },
     { separator: true },
-    { label: 'Job Properties', command: () => console.log("Job Properties") },
+    { label: 'Job Properties' }
   ];
 
 
