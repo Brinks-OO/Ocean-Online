@@ -41,12 +41,24 @@ export default function NavigationBar() {
       </a>
     </>
   );
+  const itemRendererColumnSubmenuLang = (item) => (
+    <>
+      <Dropdown
+        value={selectedCity}
+        onChange={(e) => setSelectedCity(e.value)}
+        options={cities}
+        optionLabel="name"
+        placeholder="Select"
+        className="sm:w-10rem md:w-10rem border-none ml-2"
+      />
+    </>
+  );
   const items = [
-    {
-      label: "Home",
-      icon: "pi pi-home",
-      template: itemRendererColumn,
-    },
+    // {
+    //   label: "Home",
+    //   icon: "pi pi-home",
+    //   template: itemRendererColumn,
+    // },
     {
       label: "Pre-Vault Management",
       icon: "pi pi-map",
@@ -189,7 +201,7 @@ export default function NavigationBar() {
       template: itemRendererColumn,
     },
     {
-      label: "Service Request Explorer",
+      label: "Service Request",
       icon: "pi pi-phone",
       badge: 3,
       template: itemRendererColumnSubmenu,
@@ -240,7 +252,8 @@ export default function NavigationBar() {
       alt="logo"
       src="/ocean_w.png"
       // src="/Logo-Ocean_login.png"
-      height="40"
+      // width={300}
+      height={40}
       className="mr-2"
     ></img>
   );
@@ -248,6 +261,17 @@ export default function NavigationBar() {
   const menuRight = useRef(null);
   const toast = useRef(null);
   const itemss = [
+    {
+      label: "Import",
+      icon: "pi pi-file-import",
+      badge: 3,
+      template: itemRendererColumnSubmenuLang,
+      // items: [
+      //   {
+      //       label: "test"
+      //   }
+      // ]
+    },
     {
       label: "Little Cat",
       icon: "pi pi-user",
@@ -260,6 +284,7 @@ export default function NavigationBar() {
       label: "Log Out",
       icon: "pi pi-sign-out",
     },
+
   ];
   // const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" className="mr-2"></img>;
 
@@ -267,14 +292,14 @@ export default function NavigationBar() {
     <div className="flex align-items-center gap-2">
       {/* <InputText placeholder="Search" type="text" className="w-8rem sm:w-auto" /> */}
 
-      <Dropdown
+      {/* <Dropdown
         value={selectedCity}
         onChange={(e) => setSelectedCity(e.value)}
         options={cities}
         optionLabel="name"
         placeholder="Select a City"
         className="sm:w-10rem md:w-10rem "
-      />
+      /> */}
       <Menu model={itemss} popup ref={menuLeft} id="popup_menu_left" />
       {/* <Button label="Show Left" icon="pi pi-user" className="" onClick={(event) => menuLeft.current.toggle(event)} aria-controls="popup_menu_left" aria-haspopup />  */}
 
@@ -300,12 +325,16 @@ export default function NavigationBar() {
 
   return (
     <>
-        <Menubar
+      <div id="navigation_bar_cus_lo">
+        {/* <Menubar
         //   model={items}
           start={start}
           end={end}
-          style={{ "fontSize": "18px", "borderRadius": "0px", "backgroundColor": "#428BCA" }}
-          mobileActive={false}
+          className="bg-primary border-primary"
+          style={{ "fontSize": "18px", "borderRadius": "0px", 
+          // "backgroundColor": "#428BCA" 
+        }}
+          // mobileActive={false}
           aria-expanded={false}
           id="header"
           // className="p-menubar-horizontal p-menubar-labels-bottom"
@@ -318,11 +347,23 @@ export default function NavigationBar() {
         />
         <Menubar
           model={items}
+          // className="bg-primary border-primary text-white"
           // start={start}
           // end={end}
+          style={{ fontSize: "18px", borderRadius: "0px" }}
+          // aria-expanded={false}
+          // id="header"
+        /> */}
+
+        <Menubar
+          model={items}
+          start={start}
+          end={end}
           style={{ "fontSize": "18px", borderRadius: "0px" }}
+          className="bg-primary border-primary text-white"
         />
-        {/* <div className="">content</div> */}
+      </div>
+
     </>
   );
 }

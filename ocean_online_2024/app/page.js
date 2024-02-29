@@ -31,7 +31,6 @@ import Login from "./(main)/login/Login";
 
 function page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log('isLoggedIn',isLoggedIn)
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
