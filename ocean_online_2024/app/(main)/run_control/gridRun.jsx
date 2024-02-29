@@ -7,24 +7,31 @@ import { mockRunControl } from './mock';
 
 
 function GridRun(props) {
-
-  const [cities, setCities] = useState([])
+  const defaultSelect = {
+    "Guid": "32c7f0a5-5450-08b4-b87e-3f5f7d5385f7",
+  }
+  const [runDropDown, setRunDropDown] = useState([])
   const [originalGridData, setOriginalGridData] = useState([])
   const [gridData, setGridData] = useState([])
-  const [selectedCities, setSelectedCities] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedRunDropDown, setSelectedRunDropDown] = useState(null);
+  const [selectrun, setselectrun] = useState({ ...defaultSelect });
 
 
   const [expandedRows, setExpandedRows] = useState([]);
 
   useEffect(() => {
     var dropDown = mockRunControl.getRunDropDown();
-    setCities(dropDown)
-    var runResource = mockRunControl.getRun();
-    setGridData(runResource);
-    setExpandedRows(runResource);
-    setOriginalGridData(runResource);
+    setRunDropDown(dropDown)
   }, []);
+
+  useEffect(() => {
+    if (props?.gridRun?.length != 0) {
+      setGridData(props.gridRun);
+      setExpandedRows(props.gridRun);
+      setOriginalGridData(props.gridRun);
+    }
+  }, [props.gridRun])
+
 
 
   const employeeBodyTemplate = (rowData) => {
@@ -51,19 +58,31 @@ function GridRun(props) {
     );
   };
 
+  const carDetailBodyTemplate = (data) => {
+    return (
+      <>
+        <div className="vertical-align-middle ml-2 text-sm">{data.MasterRouteGroupName}</div>
+        <div className="vertical-align-middle ml-2 text-sm ">{data.VehicleNumber}</div>
+      </>
+    );
+  };
+
+
+
   function allowDrop(ev) {
     ev.preventDefault();
   }
 
-  function drop(ev) {
+  function handleDrop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("data");
-    console.log(data);
-    // ev.target.appendChild(document.getElementById(data));
+    var jobsSelectData = JSON.parse(ev.dataTransfer.getData("data"));
+    var from = JSON.parse(ev.dataTransfer.getData("from")); // 1 from assign, 2 from unassign
+    const runTargetGuid = ev.currentTarget.children[0].innerHTML;
+    mockRunControl.setJobOnRun(runTargetGuid, jobsSelectData, from);
   }
 
   function handleOnChangeSelectRun(e) {
-    setSelectedCities(e.value)
+    setSelectedRunDropDown(e.value)
     var newGrid = [];
     e.value.forEach((item) => {
       let dat = originalGridData.find((gridItem) => {
@@ -75,10 +94,9 @@ function GridRun(props) {
   }
 
   function handleOnSelectRun(e) {
-    setSelectedProduct(e.value)
+    setselectrun(e.value)
     var indexData = originalGridData.findIndex(item => item?.Guid === e?.value?.Guid)
-    var newGrid = mockRunControl.getJobOnRun(indexData+1);
-    console.log(newGrid);
+    var newGrid = mockRunControl.getJobOnRun(indexData + 1);
     props.setGridJobOnRun(newGrid)
   }
 
@@ -88,9 +106,9 @@ function GridRun(props) {
         <div className="flex align-items-center justify-content-center">
           <MultiSelect
             id='selectRun'
-            value={selectedCities}
+            value={selectedRunDropDown}
             onChange={handleOnChangeSelectRun}
-            options={cities}
+            options={runDropDown}
             optionLabel="Text"
             filter
             placeholder="== Please Select =="
@@ -131,16 +149,23 @@ function GridRun(props) {
             onRowToggle={(e) => setExpandedRows(e.data)}
             rowGroupHeaderTemplate={headerTemplate}
             showHeaders={false}
-            onDrop={drop}
+            // onDrop={drop}
             onDragOver={allowDrop}
             selectionMode="single"
-            selection={selectedProduct}
+            selection={selectrun}
+            dataKey="Guid"
+            metaKeySelection={true}
             onSelectionChange={handleOnSelectRun}
             showGridlines
+            pt={{
+              bodyRow: {
+                onDrop: handleDrop
+              }
+            }}
           >
-            <Column ></Column>
+            <Column field="Guid" header="ID" style={{ display: 'none' }} />
             <Column field="PathPicModeOfTransport" body={carBodyTemplate}></Column>
-            <Column field="MasterRouteGroupDetailName" ></Column>
+            <Column field="MasterRouteGroupDetailName" body={carDetailBodyTemplate}></Column>
             <Column field="DetailRun" body={employeeBodyTemplate}></Column>
           </DataTable>
         </div>

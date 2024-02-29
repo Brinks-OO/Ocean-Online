@@ -12,11 +12,21 @@ import { mockRunControl } from './mock';
 export default function Page() {
 
   const [hideRun, setHideRun] = useState(false);
+  const [gridRun, setGridRun] = useState([]);
   const [gridJobOnRun, setGridJobOnRun] = useState([])
+  const [gridUnassign, setGridUnassign] = useState([])
+  const [mapRunJob,setMapRunJob] = useState([])
 
   useEffect(() => {
     var dat1 = mockRunControl.getJobOnRun(1);
+    var dat2 = mockRunControl.getUnAssignJob();
+    var dat3 = mockRunControl.getRun();
+    var dat4 = mockRunControl.getMockJobOnRun();
+    console.log(dat3);
     setGridJobOnRun(dat1)
+    setGridUnassign(dat2)
+    setGridRun(dat3)
+    setMapRunJob(dat4)
   }, [])
 
   const headerTemplate = (options) => {
@@ -28,6 +38,7 @@ export default function Page() {
           <span className="font-bold">Run Control</span>
         </div>
         <div>{options.togglerElement}</div>
+        <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times"></i></button></div>
       </div>
     );
   };
@@ -64,10 +75,16 @@ export default function Page() {
         <Toolbar />
         <Splitter
           style={{ height: '93%' }}
-          pt={{ gutterHandler: { className: 'bg-primary', onDoubleClick: handleSplitPage } }}
+          pt={{
+            gutterHandler: {
+              style: { display: 'none' },
+              // className: 'bg-primary', 
+              onDoubleClick: handleSplitPage
+            }
+          }}
         >
           <SplitterPanel className='flex' size={15} >
-            {hideRun ? <></> : <GridRun setGridJobOnRun={setGridJobOnRun}/>}
+            {hideRun ? <></> : <GridRun gridRun={gridRun} setGridJobOnRun={setGridJobOnRun} />}
           </SplitterPanel>
           <SplitterPanel className='flex w-full' size={85} >
             <TabView
@@ -113,7 +130,7 @@ export default function Page() {
               //   },
               // }}
               >
-                <GridUnassign />
+                <GridUnassign gridUnassign={gridUnassign} />
               </TabPanel>
             </TabView>
 

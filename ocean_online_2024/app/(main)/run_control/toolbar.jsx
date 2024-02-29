@@ -66,7 +66,7 @@ function Toolbar() {
                         <Dropdown value={selectedJob} onChange={(e) => setSelectedJob(e.value)} options={jobList} optionLabel="name"
                             placeholder="Display : Job" className="md:w-10rem " style={{ fontSize: "16px", lineHeight: "8px" }} />
                     </div>
-                    <div className="flex justify-items-center align-items-center h-2rem ml-2">
+                    <div className="flex justify-items-center  align-items-center h-2rem ml-2">
                         <i className="pi pi-info-circle text-2xl font-bold text-blue-500" ></i>
                     </div>
                 </div>

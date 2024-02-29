@@ -61,17 +61,26 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
     padding: 1rem
 }
 
-#drag > div.p-datatable-wrapper > table > thead > tr > th > div > div > input{
+#grdAssign>div.p-datatable-wrapper>table>thead>tr>th>div>div>input {
+    height: 2rem;
+}
+#grdUnassign>div.p-datatable-wrapper>table>thead>tr>th>div>div>input {
     height: 2rem;
 }
 
-.p-datatable-wrapper{
+.p-datatable-wrapper {
     height: 74vh;
 }
 
-.p-rowgroup-header > td {
+.p-rowgroup-header>td {
     padding: 0px 0px 4px 0px;
 }
-.p-row-toggler.p-link{
+
+.p-row-toggler.p-link {
     color: white !important;
+}
+
+#dragIcon {
+    position: absolute;
+    left: -100%;
 }
