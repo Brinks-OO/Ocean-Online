@@ -329,7 +329,6 @@ export default function NavigationBar() {
           end={end}
           style={{ "fontSize": "18px", borderRadius: "0px" }}
         />
-        {/* <div className="">content</div> */}
       </div>
     </>
   );

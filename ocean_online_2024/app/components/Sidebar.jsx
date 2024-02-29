@@ -12,7 +12,7 @@ import { usePathname } from "next/navigation";
 const SidebarDemo = () => {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
-  console.log("pathname", pathname);
+  // console.log("pathname", pathname);
   const btnRef1 = useRef(null);
   const btnRef2 = useRef(null);
   const btnRef3 = useRef(null);
@@ -421,7 +421,8 @@ const SidebarDemo = () => {
       </Sidebar>
       <Button
         icon="pi pi-bars"
-        className="fixed"
+        className="fixed z-1"
+        style={{ marginTop: "120px"}}
         onClick={() => setVisible(true)}
       />
     </div>
