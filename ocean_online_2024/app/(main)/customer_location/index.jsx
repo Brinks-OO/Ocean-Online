@@ -90,21 +90,25 @@ export default function CustomerLocation(props) {
   }, [heightNav.height, eventData.height]);
 
   const headerTemplate = (options) => {
-    const className = `${options.className} justify-content-space-between`;
+    const className = `${options.className} `;
     return (
       <div className={className}>
         <div className="flex align-items-center gap-2 p-0">
           <SidebarDemo2 />
           {/* <i className="pi pi-chevron-left ml-2" onClick={() => router.back()} /> */}
-          <Button
+          {/* <Button
             icon="pi pi-chevron-left"
             className="w-2rem h-2rem"
             onClick={() => router.back()}
             size="medium"
-          />
+          /> */}
           <span className="font-bold">Customer Location</span>
         </div>
+        <div className="flex flex-row">
+
         <div>{options.togglerElement}</div>
+        <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times" onClick={() => router.push('/home')}></i></button></div>
+        </div>
       </div>
     );
   };
@@ -148,7 +152,7 @@ export default function CustomerLocation(props) {
           onCollapse={(e) => toggleState(e, "collapse")}
           className=""
           id="panel-cuslo"
-          // className="bg-primary border-200 border-top-none border-noround border-2"
+        // className="bg-primary border-200 border-top-none border-noround border-2"
         >
           <div className="flex flex-row align-items-center justify-content-between">
             <div>
@@ -161,6 +165,7 @@ export default function CustomerLocation(props) {
                 placeholder="Select a Table"
                 className="ml-5 w-full md:w-16rem border-2"
                 showClear
+                tooltip="Select a Table" tooltipOptions={{ position: 'top' }}
               />
             </div>
 
@@ -178,6 +183,7 @@ export default function CustomerLocation(props) {
               icon="pi pi-plus"
               size="small"
               onClick={() => onClickNew(true)}
+              tooltip="New" tooltipOptions={{ position: 'top' }}
             />
           </div>
           <Divider />
@@ -191,6 +197,7 @@ export default function CustomerLocation(props) {
                       placeholder="Select a Country"
                       className="w-full  border-2"
                       showClear
+                      tooltip="Select a Country" tooltipOptions={{ position: 'top' }}
                     />
                   </div>
                   <div className="col-3">
@@ -199,6 +206,7 @@ export default function CustomerLocation(props) {
                       placeholder="Select a Customer"
                       className="w-full border-2"
                       showClear
+                      tooltip="Select a Customer" tooltipOptions={{ position: 'top' }}
                     />
                   </div>
                   <div className="col-3">
@@ -213,6 +221,7 @@ export default function CustomerLocation(props) {
                       onChange={(e) => setLocationNameFil(e.target.value)}
                       className="w-full border-2"
                       placeholder="Location Name"
+                      tooltip="Location Name" tooltipOptions={{ position: 'top' }}
                     />
                   </div>
                   <div className="col-3 pb-0">
@@ -221,6 +230,7 @@ export default function CustomerLocation(props) {
                       optionLabel="name"
                       placeholder="Select Service Type"
                       className="w-full border-2"
+                      tooltip="Select Service Type" tooltipOptions={{ position: 'top' }}
                       showClear
                       value={selectServiceType}
                       onChange={(e) => setSelectServiceType(e.value)}
@@ -228,25 +238,27 @@ export default function CustomerLocation(props) {
                   </div>
                   <div className="col-3 pb-0">
                     <Dropdown
-                    options={country}
+                      options={country}
                       optionLabel="name"
                       placeholder="Select Province/State"
                       className="w-full border-2"
                       showClear
                       value={proState}
                       onChange={(e) => setProviceState(e.value)}
+                      tooltip="Select a Province/State" tooltipOptions={{ position: 'top' }}
                     />
                   </div>
                   <div className="col-3 pb-0">
                     <Dropdown
-                    options={city}
+                      options={city}
                       optionLabel="name"
                       placeholder="Select District/City"
                       className="w-full border-2"
                       showClear
-                      
+
                       value={disCity}
                       onChange={(e) => setDistCity(e.value)}
+                      tooltip="Select a District/City" tooltipOptions={{ position: 'top' }}
                     />
                   </div>
                   <div className="col-3 flex align-content-start pb-0">
@@ -257,6 +269,7 @@ export default function CustomerLocation(props) {
                       className=""
                       onChange={(e) => setChecked(e.checked)}
                       checked={checked}
+                      tooltip="Checkbox" tooltipOptions={{ position: 'top' }}
                     />
                     <label htmlFor="check01" className="ml-2">
                       Include Disable
@@ -271,9 +284,10 @@ export default function CustomerLocation(props) {
                       className="w-full justify-content-center"
                       label="Refresh"
                       icon="pi pi-refresh"
-                      onClick={(e)=> onRefreshClick()}
+                      onClick={(e) => onRefreshClick()}
                       size="small"
                       style={{ marginTop: "3px" }}
+                      tooltip="Refresh" tooltipOptions={{ position: 'top' }}
                     />
                   </div>
                   <div className="col-6">
@@ -283,6 +297,7 @@ export default function CustomerLocation(props) {
                       icon="pi pi-file-export"
                       size="small"
                       style={{ marginTop: "3px" }}
+                      tooltip="Export" tooltipOptions={{ position: 'top' }}
                     />
                   </div>
                 </div>

@@ -39,9 +39,19 @@ export default function DataTableNewSave(props) {
 
   const menuModel = [
     {
-      label: "View",
-      icon: "pi pi-fw pi-search",
-      command: () => viewProduct(selectedProduct),
+      label: "Edit",
+      icon: "pi pi-fw pi-file-edit",
+    //   command: () => viewProduct(selectedProduct),
+    },
+    {
+      label: "Disable",
+      icon: "pi pi-times",
+    //   command: () => viewProduct(selectedProduct),
+    },
+    {
+      label: "Change Customer",
+      icon: "pi pi-fw pi-reply",
+    //   command: () => viewProduct(selectedProduct),
     },
     // { label: 'Delete', icon: 'pi pi-fw pi-times', command: () => deleteProduct(selectedProduct) }
   ];
@@ -572,6 +582,7 @@ function LoadDataTest() {
             model={menuModel}
             ref={cm}
             onHide={() => setSelectedProduct(null)}
+            className="w-13rem"
           />
           <DataTable
             onContextMenu={(e) => cm.current.show(e.originalEvent)}
@@ -594,12 +605,12 @@ function LoadDataTest() {
             loading={loading}
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           >
-            <Column
+            {/* <Column
               field=""
               header=""
               style={{ width: "3%" }}
               body={actionBodyTemplate}
-            ></Column>
+            ></Column> */}
             <Column
               field="locationCode"
               header="Location Code"

@@ -1,4 +1,4 @@
-@layer tailwind-base, primereact, tailwind-utilities;
+/* @layer tailwind-base, primereact, tailwind-utilities;
 
 @layer tailwind-base {
   @tailwind base;
@@ -7,7 +7,7 @@
 @layer tailwind-utilities {
   @tailwind components;
   @tailwind utilities;
-}
+} */
 
 /* @tailwind base;
 @tailwind components;
@@ -89,7 +89,7 @@ code {
 #header a[class="p-menubar-button"] {
   display: none !important;
 }
-
+/* 
 .p-highlight {
   background-color: #F7CA18;
   color: #000;
@@ -100,5 +100,37 @@ code {
 .p-highlight:hover {
   background-color: #F89406;
   background-image: linear-gradient(to bottom, #F89406, #F4D03F)
+} */
+
+/*  */
+
+.p-datatable-table .p-highlight {
+  /* background-color: #F7CA18; */
+  background-color: #ffffc0;
+  color: #000;
+  border-color: #fff;
+  /* background-image: linear-gradient(to bottom, #F7CA18, #F4D03F) */
+  /* background-image: linear-gradient(to bottom, #fdfd95, #fbee95) */
+}
+ 
+.p-datatable-table .p-highlight:hover {
+  /* background-color: #F89406; */
+  background-color: #fbee95;
+  /* background-image: linear-gradient(to bottom, #F89406, #F4D03F) */
+  background-image: linear-gradient(to bottom, #fbee95, #fdfd95)
+}
+ 
+.p-datatable-table .p-checkbox .p-checkbox-box.p-highlight{
+  background-color: #fff;
+  border-color: #fbee95;
+  color: #000;
+}
+ 
+.p-datatable-table .p-checkbox .p-checkbox-box.p-highlight > *{
+  color: #000;
+}
+ 
+.p-datatable-table .p-radiobutton .p-radiobutton-box.p-highlight > *{
+  color: #000;
 }
 
