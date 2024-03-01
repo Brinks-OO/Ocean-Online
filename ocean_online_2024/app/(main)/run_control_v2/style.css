@@ -84,3 +84,8 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
     position: absolute;
     left: -100%;
 }
+
+#tooltip td, #tooltip th{
+    border: 1px solid #dddddd;
+    padding: 4px;
+}

@@ -75,7 +75,7 @@ function GridJob(props) {
       setLoading(false);
     }, 1000);
   }, [])
-  
+
 
   function handleOnUnAssignJob() {
     props.handleOnClickUnassignJob(dataSelectContextMenu);
@@ -155,6 +155,7 @@ function GridJob(props) {
   const jobStatusFlag = (rowData) => {
     let colorFlag = 'transparent';
     let textFlag = '';
+    let colorText = '#ffffff';
     switch (rowData.FlagSyncToMobile) {
       case 0:
         colorFlag = "var(--red-500)";
@@ -179,6 +180,7 @@ function GridJob(props) {
       case 7:
         colorFlag = "var(--yellow-400)"
         textFlag = "waiting"
+        colorText = "#000"
         break;
       default:
         break;
@@ -186,7 +188,7 @@ function GridJob(props) {
     return (
       <div className="flex align-items-center">
         {/* <Tag value={textFlag} severity={colorFlag} ></Tag> */}
-        <Tag value={textFlag} style={{ background: colorFlag }}></Tag>
+        <Tag value={textFlag} style={{ background: colorFlag,color:colorText }}></Tag>
         {/* {rowData.FlagJobClose ? <img alt='close' src='/Images/RunControl/job_closed.png' width={16} /> : <img alt='close' src='/Images/RunControl/job_ontruck.png' width={16} />} */}
       </div>
     );
@@ -232,10 +234,21 @@ function GridJob(props) {
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
-            <DataTable value={itemsGrid} className="p-datatable-striped">
+            <DataTable value={itemsGrid} className="p-datatable-striped" header={header} scrollable
+              scrollHeight="80vh"
+              pt={{
+                header: {
+                  style: {
+                    padding: 4,
+                    background: 'var(--primary-color)',
+                    color: '#fff',
+                    fontWeight: 100
+                  }
+                }
+              }}>
               {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
-              <Column draggable={true}  style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
+              <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
               {/* <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />}></Column> */}
               <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
               <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>

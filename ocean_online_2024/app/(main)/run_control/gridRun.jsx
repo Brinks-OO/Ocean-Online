@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { mockRunControl } from './mock';
+import { Tooltip } from 'primereact/tooltip';
 
 
 function GridRun(props) {
@@ -12,7 +13,11 @@ function GridRun(props) {
   const [originalGridData, setOriginalGridData] = useState([])
   const [gridData, setGridData] = useState([])
   const [selectedRunDropDown, setSelectedRunDropDown] = useState(null);
-
+  const [detailTooltip, setDetailTooptip] = useState({
+    role: '',
+    employeeId: '555',
+    fullname: ''
+  })
 
   const [expandedRows, setExpandedRows] = useState([]);
 
@@ -34,7 +39,7 @@ function GridRun(props) {
   const employeeBodyTemplate = (rowData) => {
     return (
       <div className="flex align-items-center gap-2">
-        <img alt={rowData.DetailRun} src='/Images/RunControl/Crews.png' width={32} />
+        <img className='custom-tooltip-btn'  alt={rowData.DetailRun} src='/Images/RunControl/Crews.png' width={32} />
       </div>
     );
   };
@@ -95,8 +100,36 @@ function GridRun(props) {
     props.setSelectRun(e.value)
   }
 
+  function handleBeforeShowToolTip(da) {
+    const detail = da.target.alt.split("|")
+    setDetailTooptip(prev => ({
+      role: detail[1],
+      employeeId: detail[2],
+      fullname: detail[3],
+    }))
+  }
+
   return (
     <>
+      <Tooltip target=".custom-tooltip-btn" onBeforeShow={handleBeforeShowToolTip}>
+        <table id='tooltip' className='text-sm' >
+          <thead>
+            <tr >
+              <th>Role</th>
+              <th>EMP ID</th>
+              <th>Fullnam</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{detailTooltip.role}</td>
+              <td>{detailTooltip.employeeId}</td>
+              <td>{detailTooltip.fullname}</td>
+            </tr>
+          </tbody>
+        </table>
+        {/* <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" data-pr-tooltip="PrimeReact-Logo" height="80px" /> */}
+      </Tooltip>
       <div className="flex flex-column w-full">
         <div className="flex align-items-center justify-content-center">
           <MultiSelect

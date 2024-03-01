@@ -205,7 +205,18 @@ function GridUnassign(props) {
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
-            <DataTable value={props.gridUnassign} className="p-datatable-striped">
+            <DataTable value={props.gridUnassign} className="p-datatable-striped" header={header} scrollable
+              scrollHeight="80vh"
+              pt={{
+                header: {
+                  style: {
+                    padding: 4,
+                    background: 'var(--primary-color)',
+                    color: '#fff',
+                    fontWeight: 100
+                  }
+                }
+              }}>
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
               <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />} ></Column>
               <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} body={<Skeleton />} ></Column>

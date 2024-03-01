@@ -225,13 +225,23 @@ function GridJob(props) {
   return (
     <>
       <div style={{
-        width: '1635px',
+        width: '1650px',
         overflow: 'hidden'
       }}>
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
-            <DataTable value={itemsGrid} className="p-datatable-striped">
+            <DataTable value={itemsGrid} className="p-datatable-striped" header={header}
+              pt={{
+                header: {
+                  style: {
+                    padding: 4,
+                    background: 'var(--primary-color)',
+                    color: '#fff',
+                    fontWeight: 100,
+                  }
+                }
+              }}>
               {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
               <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
