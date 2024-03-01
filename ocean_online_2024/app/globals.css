@@ -113,6 +113,10 @@ code {
   color: #000;
 }
 
+.p-datatable-table .p-checkbox .p-checkbox-box.p-highlight > *{
+  color: #000;
+}
+
 .p-datatable-table .p-radiobutton .p-radiobutton-box.p-highlight > *{
   color: #000;
   background: #000;
