@@ -120,4 +120,6 @@ code {
   color: #000;
   background: #000;
 }
-
+.p-sidebar-content {
+  padding-bottom: 0 !important;
+}
