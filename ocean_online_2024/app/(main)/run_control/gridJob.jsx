@@ -8,8 +8,10 @@ import { TieredMenu } from 'primereact/tieredmenu';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
+import { Skeleton } from 'primereact/skeleton';
 
 function GridJob(props) {
+  const itemsGrid = Array.from({ length: 10 }, (v, i) => i);
   const menu = useRef(null);
   const items = [
     { label: 'Dispatch Run', },
@@ -49,6 +51,7 @@ function GridJob(props) {
       ]
     },
   ];
+  const [loading, setLoading] = useState(true);
   const [checked, setChecked] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -66,6 +69,12 @@ function GridJob(props) {
     { separator: true },
     { label: 'Job Properties', command: () => console.log("Job Properties") },
   ];
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [])
 
   function handleOnUnAssignJob() {
     props.handleOnClickUnassignJob(dataSelectContextMenu);
@@ -216,67 +225,95 @@ function GridJob(props) {
   return (
     <>
       <div style={{
-        width: '1625px',
+        width: '1635px',
         overflow: 'hidden'
       }}>
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
-        <DataTable
-          size='small'
-          value={props.gridJobOnRun}
-          selectionMode={'checkbox'}
-          selection={selectedJob}
-          onSelectionChange={handleOnSelectionChange}
-          dataKey="Guid"
-          scrollable
-          scrollHeight="70vh"
-          id='grdAssign'
-          draggable={true}
-          onDragStart={onDragStart}
-          onDragEnd={handleOnDragEnd}
-          // dragSelection={true}
-          onContextMenu={openContextMenu}
-          contextMenuSelection={selectedProduct}
-          onContextMenuSelectionChange={(e) => setSelectedProduct(e.value)}
-          columnResizeMode="expand"
-          resizableColumns
-          showGridlines
-          stripedRows
-          filterDisplay="row"
-          header={header}
-          pt={{
-            header: {
-              style: {
-                padding: 4,
-                background: 'var(--primary-color)',
-                color: '#fff',
-                fontWeight: 100
-              }
-            }
-          }}
-        >
-          {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
-          <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
-          <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
-          {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
-          <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
-          <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }}></Column>
-          <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }}></Column>
-          <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-          <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-        </DataTable>
+        {
+          loading ?
+            <DataTable value={itemsGrid} className="p-datatable-striped">
+              {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
+              <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
+              <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
+              {/* <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />}></Column> */}
+              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
+              <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }} body={<Skeleton />}></Column>
+              <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }} body={<Skeleton />}></Column>
+              <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+            </DataTable>
+            :
+            <DataTable
+              size='small'
+              value={props.gridJobOnRun}
+              selectionMode={'checkbox'}
+              selection={selectedJob}
+              onSelectionChange={handleOnSelectionChange}
+              dataKey="Guid"
+              scrollable
+              scrollHeight="80vh"
+              id='grdAssign'
+              draggable={true}
+              onDragStart={onDragStart}
+              onDragEnd={handleOnDragEnd}
+              // dragSelection={true}
+              onContextMenu={openContextMenu}
+              contextMenuSelection={selectedProduct}
+              onContextMenuSelectionChange={(e) => setSelectedProduct(e.value)}
+              columnResizeMode="expand"
+              resizableColumns
+              showGridlines
+              stripedRows
+              filterDisplay="row"
+              header={header}
+              pt={{
+                header: {
+                  style: {
+                    padding: 4,
+                    background: 'var(--primary-color)',
+                    color: '#fff',
+                    fontWeight: 100
+                  }
+                }
+              }}
+            >
+              {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
+              <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
+              <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
+              {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
+              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
+              <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }}></Column>
+              <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }}></Column>
+              <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+            </DataTable>
+        }
       </div>
     </>
   )

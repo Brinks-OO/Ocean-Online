@@ -10,44 +10,64 @@ import { Checkbox } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
 
-function GridUnassign(props) {
+function GridJob(props) {
+  const itemsGrid = Array.from({ length: 10 }, (v, i) => i);
   const menu = useRef(null);
-  const [loading, setLoading] = useState(true);
   const items = [
-    { label: 'Create Adhoc Jobs' },
+    { label: 'Dispatch Run', },
+    { label: 'Close Run', },
+    { label: 'Manual Close Run', },
     { separator: true },
     {
       label: 'Action Job',
       items: [
         { label: 'Cancel Jobs', },
         { separator: true },
-        { label: 'Assign To Run', },
-        { separator: true },
+        { label: 'Assign to Another Run', },
+        { label: 'Change Schedule Time', },
         { label: 'Change Work Date', },
-        { label: 'Automatic assign jobs to Run', },
+      ]
+    },
+    {
+      label: 'Sorting',
+      items: [
+        { label: 'By Customization', },
+        { label: 'By Schedule Time', }
+      ]
+    },
+    {
+      label: 'Options ',
+      items: [
+        { label: 'Hide/Show Filter', },
+        { label: 'Column Setting', }
       ]
     },
     { separator: true },
+    { label: 'Run Properties' },
     {
-      label: 'Options',
+      label: 'Run Option',
       items: [
-        { label: 'Hide/Show Filter', },
-        { label: 'Column Setting', },
+        { label: 'Collapse/Expand All', }
       ]
     },
   ];
+  const [loading, setLoading] = useState(true);
   const [checked, setChecked] = useState(false);
-  const [checked2, setChecked2] = useState(false);
-  const [selectedJob, setSelectedJob] = useState([]);
+  const [selectedJob, setSelectedJob] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [dataSelectContextMenu, setDataSelectContextMenu] = useState({});
   const cm = useRef(null);
 
   const menuModel = [
-    { label: 'Edit Job Details' },
+    { label: 'Unassign Job', command: () => handleOnUnAssignJob() },
+    { label: 'Unable To Service', command: () => console.log("Unable To Service") },
     { separator: true },
-    { label: 'Assign To Run' },
+    { label: 'Update Job In Progress', command: () => console.log("Update Job In Progress") },
+    { label: 'Update Now', command: () => console.log("Update Now") },
+    { label: 'Edit Data', command: () => console.log("Edit Data") },
+    { label: 'Edit Job Detail', command: () => console.log("Edit Job Detail") },
     { separator: true },
-    { label: 'Job Properties' }
+    { label: 'Job Properties', command: () => console.log("Job Properties") },
   ];
 
   useEffect(() => {
@@ -55,6 +75,12 @@ function GridUnassign(props) {
       setLoading(false);
     }, 1000);
   }, [])
+  
+
+  function handleOnUnAssignJob() {
+    props.handleOnClickUnassignJob(dataSelectContextMenu);
+  }
+
 
   function handleOnSelectionChange(e) {
     setSelectedJob(e.value)
@@ -62,7 +88,7 @@ function GridUnassign(props) {
 
   useEffect(() => {
     setSelectedJob(null);
-  }, [props.gridUnassign])
+  }, [props.gridJobOnRun])
 
 
 
@@ -76,7 +102,7 @@ function GridUnassign(props) {
         }
       })
       ev.dataTransfer.setData('data', JSON.stringify(dataSelectJob));
-      ev.dataTransfer.setData('from', 2); // 1 from assign, 2 from unassign
+      ev.dataTransfer.setData('from', 1); // 1 from assign, 2 from unassign
       ev.dataTransfer.effectAllowed = 'movecopy';
 
       const customElement = document.createElement('div');
@@ -112,6 +138,7 @@ function GridUnassign(props) {
 
 
   function openContextMenu(e) {
+    setDataSelectContextMenu({ ...e.data });
     cm.current.show(e.originalEvent)
   }
 
@@ -167,30 +194,30 @@ function GridUnassign(props) {
 
 
   const header = (data) => {
-    // debugger;
     const dat = data.props.value[0];
-    // const runData = mockRunControl.getRunByGuid(dat?.MasterRunResource_Guid || "")[0];
+    const runData = mockRunControl.getRunByGuid(dat?.MasterRunResource_Guid || "")[0];
     return (
       <div className="flex flex-wrap align-items-center justify-content-between gap-2">
         <span className="text-sm font-light">
           <TieredMenu model={items} popup ref={menu} breakpoint="767px" />
           <Button size="small" style={{ height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
+
         </span>
         <span className="text-sm font-light">
-          Unassigned Job(s) | Total Job(s): {data?.props?.value?.length} | Total STC:{0} | Total Selected(s): {selectedJob?.length} | Total STC Selected : {0}
+          Assigned Job(s) :Run Resource No :{runData?.VehicleNumber} | Route:{runData?.MasterRouteGroupDetailName} | Total Job(s): {data?.props?.value?.length} | Run Status :{dat?.JobStatus} | 02/29/2024
+          <i className="pi pi-info-circle text-xs" ></i>
+        </span>
+        <span className="text-sm font-light " style={{ opacity: 0 }}>
+          <div className="flex align-items-center">
+            <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
+            <label htmlFor="ingredient1" className="ml-2">Show Interbranch job with </label>
+          </div>
         </span>
         <span className="text-sm font-light ">
           <div className="flex align-items-center">
             <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
-            <label htmlFor="ingredient1" className="ml-2">Show Interbranch job with missing items</label>
-          </div>
-        </span>
-        <span className="text-sm font-light ">
-          <div className="flex align-items-center">
-            <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked2(e.checked)} checked={checked2} />
             <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label>
           </div>
-
         </span>
       </div>
     )
@@ -199,45 +226,47 @@ function GridUnassign(props) {
   return (
     <>
       <div style={{
-        width: '1635px',
+        width: '1660px',
         overflow: 'hidden'
       }}>
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
-            <DataTable value={props.gridUnassign} className="p-datatable-striped">
+            <DataTable value={itemsGrid} className="p-datatable-striped">
+              {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
-              <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />} ></Column>
-              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} body={<Skeleton />} ></Column>
-              <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }} body={<Skeleton />} ></Column>
-              <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }} body={<Skeleton />} ></Column>
-              <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
+              <Column draggable={true}  style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
+              {/* <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />}></Column> */}
+              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
+              <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }} body={<Skeleton />}></Column>
+              <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }} body={<Skeleton />}></Column>
+              <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
             </DataTable>
             :
             <DataTable
               size='small'
-              value={props.gridUnassign}
+              value={props.gridJobOnRun}
               selectionMode={'checkbox'}
               selection={selectedJob}
               onSelectionChange={handleOnSelectionChange}
               dataKey="Guid"
               scrollable
               scrollHeight="80vh"
-              id='grdUnassign'
+              id='grdAssign'
               draggable={true}
               onDragStart={onDragStart}
               onDragEnd={handleOnDragEnd}
@@ -263,7 +292,7 @@ function GridUnassign(props) {
               }}
             >
               {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
-              <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} ></Column>
+              <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
               <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
               {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
               <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
@@ -291,4 +320,4 @@ function GridUnassign(props) {
   )
 }
 
-export default GridUnassign
+export default GridJob

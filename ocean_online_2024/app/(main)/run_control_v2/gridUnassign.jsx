@@ -199,7 +199,7 @@ function GridUnassign(props) {
   return (
     <>
       <div style={{
-        width: '1635px',
+        width: '1660px',
         overflow: 'hidden'
       }}>
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
@@ -286,6 +286,7 @@ function GridUnassign(props) {
               <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
             </DataTable>
         }
+
       </div>
     </>
   )
