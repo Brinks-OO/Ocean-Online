@@ -3,7 +3,7 @@
     background-color: var(--primary-color);
     color: var(--primary-color-text);
     border-color: var(--primary-color);
-    border-radius: 6px 6px 0px 0px !important;
+    border-radius: 0px 0px 0px 0px !important;
     height: 32px;
 }
 
@@ -69,7 +69,7 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
 }
 
 .p-datatable-wrapper {
-    height: 74vh;
+    height: 84vh;
 }
 
 .p-rowgroup-header>td {

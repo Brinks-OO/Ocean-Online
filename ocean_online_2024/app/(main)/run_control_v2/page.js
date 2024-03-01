@@ -8,8 +8,12 @@ import { TabPanel, TabView } from 'primereact/tabview';
 import { Panel } from 'primereact/panel';
 import { useEffect, useState } from 'react';
 import { mockRunControl } from './mock';
+import SidebarDemo2 from '@/app/components/Sidebar2';
+import { Button } from 'primereact/button';
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const defaultSelect = {
     "Guid": "32c7f0a5-5450-08b4-b87e-3f5f7d5385f7",
   }
@@ -41,11 +45,19 @@ export default function Page() {
     return (
       <div className={className}>
         <div className="flex align-items-center gap-2">
-          <i className="pi pi-bars" />
+          <SidebarDemo2 />
+          {/* <i className="pi pi-chevron-left ml-2" onClick={() => router.back()} /> */}
+          <Button
+            icon="pi pi-chevron-left"
+            className="w-2rem h-2rem"
+            onClick={() => router.back()}
+            size="medium"
+          />
+          {/* <i className="pi pi-bars" /> */}
           <span className="font-bold">Run Control</span>
         </div>
         <div>{options.togglerElement}</div>
-        <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times"></i></button></div>
+        <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times" onClick={() => router.back()}></i></button></div>
       </div>
     );
   };
@@ -64,7 +76,7 @@ export default function Page() {
     mapRunJob[masterRunIndex].Jobs[jobIndex].MasterRunResource_Guid = "";
     newData.push(mapRunJob[masterRunIndex].Jobs[jobIndex]);
     setGridUnassign(prev => ([...prev, ...newData]));
-      mapRunJob[masterRunIndex].Jobs.splice(jobIndex, 1);
+    mapRunJob[masterRunIndex].Jobs.splice(jobIndex, 1);
     setGridJobOnRun([...mapRunJob[masterRunIndex].Jobs]);
   }
 
@@ -108,13 +120,13 @@ export default function Page() {
         pt={{
           toggleableContent: {
             style: {
-              height: '86vh',
+              height: '95vh',
               padding: 0
             }
           },
           content: {
             style: {
-              height: '86vh',
+              height: '95vh',
               padding: 0
             }
           }
@@ -122,7 +134,7 @@ export default function Page() {
       >
         <Toolbar />
         <Splitter
-          style={{ height: '93%' }}
+          style={{ height: '94%' }}
           pt={{
             gutterHandler: {
               style: { display: 'none' },

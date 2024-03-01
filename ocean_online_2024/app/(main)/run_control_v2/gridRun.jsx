@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { mockRunControl } from './mock';
-
+import { Skeleton } from 'primereact/skeleton';
 
 function GridRun(props) {
-
+  const items = Array.from({ length: 5 }, (v, i) => i);
+  const [loading, setLoading] = useState(true);
   const [runDropDown, setRunDropDown] = useState([])
   const [originalGridData, setOriginalGridData] = useState([])
   const [gridData, setGridData] = useState([])
@@ -19,6 +20,9 @@ function GridRun(props) {
   useEffect(() => {
     var dropDown = mockRunControl.getRunDropDown();
     setRunDropDown(dropDown)
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, []);
 
   useEffect(() => {
@@ -131,38 +135,48 @@ function GridRun(props) {
 
         </div>
         <div className="flex align-items-center justify-content-center ">
-          <DataTable
-            size='small'
-            value={gridData}
-            rowGroupMode="subheader"
-            groupRowsBy="MasterRouteGroupName"
-            scrollable
-            scrollHeight="768px"
-            style={{ width: '100%' }}
-            expandableRowGroups
-            expandedRows={expandedRows}
-            onRowToggle={(e) => setExpandedRows(e.data)}
-            rowGroupHeaderTemplate={headerTemplate}
-            showHeaders={false}
-            // onDrop={drop}
-            onDragOver={allowDrop}
-            selectionMode="single"
-            selection={props.selectRun}
-            dataKey="Guid"
-            metaKeySelection={true}
-            onSelectionChange={handleOnSelectRun}
-            showGridlines
-            pt={{
-              bodyRow: {
-                onDrop: handleDrop
-              }
-            }}
-          >
-            <Column field="Guid" header="ID" style={{ display: 'none' }} />
-            <Column field="PathPicModeOfTransport" body={carBodyTemplate}></Column>
-            <Column field="MasterRouteGroupDetailName" body={carDetailBodyTemplate}></Column>
-            <Column field="DetailRun" body={employeeBodyTemplate}></Column>
-          </DataTable>
+          {
+            loading ?
+              <DataTable value={items} className="p-datatable-striped">
+                <Column field="Guid" header="ID" style={{ display: 'none' }}/>
+                <Column field="PathPicModeOfTransport" body={<Skeleton />}></Column>
+                <Column field="MasterRouteGroupDetailName" body={<Skeleton />}></Column>
+                <Column field="DetailRun" body={<Skeleton />}></Column>
+              </DataTable>
+              :
+              <DataTable
+                size='small'
+                value={gridData}
+                rowGroupMode="subheader"
+                groupRowsBy="MasterRouteGroupName"
+                scrollable
+                scrollHeight="768px"
+                style={{ width: '100%' }}
+                expandableRowGroups
+                expandedRows={expandedRows}
+                onRowToggle={(e) => setExpandedRows(e.data)}
+                rowGroupHeaderTemplate={headerTemplate}
+                showHeaders={false}
+                // onDrop={drop}
+                onDragOver={allowDrop}
+                selectionMode="single"
+                selection={props.selectRun}
+                dataKey="Guid"
+                metaKeySelection={true}
+                onSelectionChange={handleOnSelectRun}
+                showGridlines
+                pt={{
+                  bodyRow: {
+                    onDrop: handleDrop
+                  }
+                }}
+              >
+                <Column field="Guid" header="ID" style={{ display: 'none' }} />
+                <Column field="PathPicModeOfTransport" body={carBodyTemplate}></Column>
+                <Column field="MasterRouteGroupDetailName" body={carDetailBodyTemplate}></Column>
+                <Column field="DetailRun" body={employeeBodyTemplate}></Column>
+              </DataTable>
+          }
         </div>
       </div>
     </>
