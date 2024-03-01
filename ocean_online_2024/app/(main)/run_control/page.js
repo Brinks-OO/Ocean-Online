@@ -8,8 +8,10 @@ import { TabPanel, TabView } from 'primereact/tabview';
 import { Panel } from 'primereact/panel';
 import { useEffect, useState } from 'react';
 import { mockRunControl } from './mock';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
   const defaultSelect = {
     "Guid": "32c7f0a5-5450-08b4-b87e-3f5f7d5385f7",
   }
@@ -45,7 +47,7 @@ export default function Page() {
           <span className="font-bold">Run Control</span>
         </div>
         <div>{options.togglerElement}</div>
-        <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times"></i></button></div>
+        <div><button className="p-panel-header-icon p-link mr-2 text-white" onClick={() => router.push('/home')}><i className="pi pi-times" ></i></button></div>
       </div>
     );
   };

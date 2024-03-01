@@ -199,13 +199,23 @@ function GridUnassign(props) {
   return (
     <>
       <div style={{
-        width: '1635px',
+        width: '1650px',
         overflow: 'hidden'
       }}>
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
-            <DataTable value={props.gridUnassign} className="p-datatable-striped">
+            <DataTable value={props.gridUnassign} className="p-datatable-striped" header={header}
+              pt={{
+                header: {
+                  style: {
+                    padding: 4,
+                    background: 'var(--primary-color)',
+                    color: '#fff',
+                    fontWeight: 100
+                  }
+                }
+              }}>
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
               <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />} ></Column>
               <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} body={<Skeleton />} ></Column>

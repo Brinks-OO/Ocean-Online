@@ -47,23 +47,22 @@ export default function Page() {
         <div className="flex align-items-center gap-2">
           <SidebarDemo2 />
           {/* <i className="pi pi-chevron-left ml-2" onClick={() => router.back()} /> */}
-          <Button
+          {/* <Button
             icon="pi pi-chevron-left"
             className="w-2rem h-2rem"
             onClick={() => router.back()}
             size="medium"
-          />
+          /> */}
           {/* <i className="pi pi-bars" /> */}
           <span className="font-bold">Run Control</span>
         </div>
         <div>{options.togglerElement}</div>
-        <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times" onClick={() => router.back()}></i></button></div>
+        <div><button className="p-panel-header-icon p-link mr-2 text-white" onClick={() => router.push('/home')}><i className="pi pi-times" ></i></button></div>
       </div>
     );
   };
 
   function handleSplitPage() {
-    console.log('test')
     setHideRun((prev) => !prev);
   }
 
@@ -134,7 +133,7 @@ export default function Page() {
       >
         <Toolbar />
         <Splitter
-          style={{ height: '94%' }}
+          style={{ height: '95%' }}
           pt={{
             gutterHandler: {
               style: { display: 'none' },
