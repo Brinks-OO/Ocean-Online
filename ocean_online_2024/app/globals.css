@@ -93,6 +93,7 @@ code {
 .p-datatable-table .p-highlight {
   /* background-color: #F7CA18; */
   background-color: #ffffc0;
+
   color: #000;
   border-color: #fff;
   /* background-image: linear-gradient(to bottom, #F7CA18, #F4D03F) */
@@ -109,10 +110,6 @@ code {
 .p-datatable-table .p-checkbox .p-checkbox-box.p-highlight{
   background-color: #fff;
   border-color: #fbee95;
-  color: #000;
-}
-
-.p-datatable-table .p-checkbox .p-checkbox-box.p-highlight > *{
   color: #000;
 }
 

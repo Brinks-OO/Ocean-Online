@@ -6,6 +6,7 @@ import DetailTab from "./detailTab";
 import SiteHandle from "./siteHandle";
 import AdditionalService from "./additionalService";
 import ServiceHour from "./serviceHour"
+import RemarkPage from "./remark"
 
 import { useResizeListener } from "primereact/hooks";
 
@@ -124,18 +125,31 @@ export default function CustomerLocationNewPage(props) {
             >
               <SiteHandle />
             </TabPanel>
-            <TabPanel
-              header="Additional Service"
+            {/* <TabPanel
+              header="Equipment"
+              className=""
               contentStyle={{ height: `${heightContent.height - 207}px` }}
             >
-                <AdditionalService />
-            </TabPanel>
+            </TabPanel> */}
             <TabPanel
               header="Service Hour"
               contentStyle={{ height: `${heightContent.height - 207}px` }}
             >
                 <ServiceHour setAllData={setAllData} allData={allData} />
             </TabPanel>
+            <TabPanel
+              header="Remark"
+              contentStyle={{ height: `${heightContent.height - 207}px` }}
+            >
+                <RemarkPage />
+            </TabPanel>
+            <TabPanel
+              header="Additional Service"
+              contentStyle={{ height: `${heightContent.height - 207}px` }}
+            >
+                <AdditionalService />
+            </TabPanel>
+           
           </TabView>
         </div>
       </div>

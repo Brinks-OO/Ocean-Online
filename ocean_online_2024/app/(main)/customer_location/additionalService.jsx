@@ -8,10 +8,7 @@ import { InputText } from "primereact/inputtext";
 
 import { Dropdown } from "primereact/dropdown";
 
-import { Button } from 'primereact/button';
-
-
-
+import { Button } from "primereact/button";
 
 export default function AdditionalService() {
     const categories = [
@@ -64,6 +61,7 @@ export default function AdditionalService() {
     return (
         <>
             <Tooltip target=".custom-target-icon" />
+            <Tooltip target=".custom-target-icon2" />
             <div>
                 <div className="flex gap-5 pt-2 align-content-start w-8">
                     <div className="flex flex-auto align-items-start">
@@ -131,9 +129,14 @@ export default function AdditionalService() {
                                     <label htmlFor="preTime">Email</label>
                                 </span>
                                 <div className="flex">
-                                    <Checkbox inputId="email" onChange={e => setChecked(e.checked)} checked={checked}></Checkbox>
-                                    <label htmlFor="email" className="ml-2">Send POD Email</label>
-
+                                    <Checkbox
+                                        inputId="email"
+                                        onChange={(e) => setChecked(e.checked)}
+                                        checked={checked}
+                                    ></Checkbox>
+                                    <label htmlFor="email" className="ml-2">
+                                        Send POD Email
+                                    </label>
                                 </div>
                             </div>
                             <div className="flex flex-auto gap-5 w-full">
@@ -161,8 +164,6 @@ export default function AdditionalService() {
                             </div> */}
                         </div>
                     </div>
-
-
 
                     <div className="flex flex-auto gap-3 flex-column">
                         <div className="card flex-auto flex border-2 border-black-alpha-20 w-10">
@@ -209,7 +210,6 @@ export default function AdditionalService() {
                         <div className="flex flex-auto ">
                             <div className="flex flex-auto flex-column gap-1 w-30rem">
                                 <div className="flex">
-
                                     <span className="p-float-label w-full">
                                         <InputText
                                             id="preTime"
@@ -221,27 +221,49 @@ export default function AdditionalService() {
                                     </span>
                                 </div>
                                 <div className="flex mb-3">
-                                    <Checkbox inputId="email" onChange={e => setChecked(e.checked)} checked={checked}></Checkbox>
-                                    <label htmlFor="email" className="ml-2">Email Missed Stop Notification</label>
-
+                                    <Checkbox
+                                        inputId="email"
+                                        onChange={(e) => setChecked(e.checked)}
+                                        checked={checked}
+                                    ></Checkbox>
+                                    <label htmlFor="email" className="ml-2">
+                                        Email Missed Stop Notification
+                                    </label>
                                 </div>
-
-
                             </div>
                         </div>
                         <div className="flex flex-auto ">
-                                <div className="flex flex-auto flex-column gap-5 w-full">
-                                    <span className="p-float-label w-full">
-                                        <InputText
-                                            id="preTime"
-                                            value={value}
-                                            onChange={(e) => setValue(e.target.value)}
-                                            className="border-2 w-10"
-                                        />
-                                        <label htmlFor="preTime">Risk Level</label>
-                                    </span>
-                                </div>
+                            <div className="flex flex-auto flex-column gap-5 w-full">
+                                <span className="p-float-label w-full">
+                                    <InputText
+                                        id="preTime"
+                                        value={value}
+                                        onChange={(e) => setValue(e.target.value)}
+                                        className="border-2 w-10"
+                                        tooltip="Enter Risk Level" tooltipOptions={{ position: 'top' }}
+                                    />
+                                    <label htmlFor="preTime">Risk Level</label>
+                                </span>
                             </div>
+                        </div>
+                        <div className="flex flex-auto mt-3">
+                            <div className="flex flex-auto flex-column gap-5 w-full">
+                                
+                                <span className="p-float-label ">
+                                    <Dropdown
+                                        inputId="dd-podf"
+                                        value={null}
+                                        onChange={(e) => setUnit(e.value)}
+                                        options={units}
+                                        optionLabel="name"
+                                        className="w-10 border-2 "
+                                        placeholder="Please Select"
+                                        tooltip="Enter POD Format" tooltipOptions={{ position: 'top' }}
+                                    />
+                                    <label htmlFor="dd-podf">POD Format</label>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
