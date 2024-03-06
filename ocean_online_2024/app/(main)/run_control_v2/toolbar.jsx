@@ -6,7 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 
-function Toolbar() {
+function Toolbar(props) {
 
     const [date, setDate] = useState(new Date);
     const [checked, setChecked] = useState(false);
@@ -23,11 +23,17 @@ function Toolbar() {
         { name: 'Service Stop', code: 'SS' },
         { name: 'Vehicle Stop', code: 'VS' },
     ];
+
+    function refreshPage(){
+        props.onRefreshPage();
+    }
+
+
     return (
         <>
             <div className="flex flex-wrap  gap-3 p-fluid p-2 ">
                 <div className="flex justify-items-center align-items-center h-2rem">
-                    <Button className='h-2rem text-sm p-2' label="Refresh" icon="pi pi-refresh" />
+                    <Button className='h-2rem text-sm p-2' label="Refresh" icon="pi pi-refresh" onClick={refreshPage}/>
                 </div>
                 <div className="flex justify-items-center align-items-center h-2rem">
                     <label>Work Date</label>
