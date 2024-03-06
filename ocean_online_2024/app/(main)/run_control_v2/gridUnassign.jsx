@@ -56,6 +56,15 @@ function GridUnassign(props) {
     }, 1000);
   }, [])
 
+  useEffect(() => {
+    if (props.flagRefreshPage) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+  }, [props.flagRefreshPage])
+
   function handleOnSelectionChange(e) {
     setSelectedJob(e.value)
   }
