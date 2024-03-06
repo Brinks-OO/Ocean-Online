@@ -23,6 +23,7 @@ export default function Page() {
   const [gridJobOnRun, setGridJobOnRun] = useState([])
   const [gridUnassign, setGridUnassign] = useState([])
   const [mapRunJob, setMapRunJob] = useState([])
+  const [flagRefreshPage, setFlagRefreshPage] = useState(false);
 
   useEffect(() => {
     var dat1 = mockRunControl.getJobOnRun(1);
@@ -67,6 +68,7 @@ export default function Page() {
   }
 
   function handleOnClickUnassignJob(job) {
+    debugger;
     let newData = [];
     const jobGuid = job.Guid
     const masterRunGuid = job.MasterRunResource_Guid
@@ -80,7 +82,7 @@ export default function Page() {
   }
 
   function handleJobDropOnRun(targetRunGuid, jobsSelectData, from) {
-    if (from == 1) {
+    if (from == 1) { // from job
       let newData = [];
       let jobOnRunIndex = -1
       jobsSelectData.forEach(jobSelect => {
@@ -97,7 +99,7 @@ export default function Page() {
       const targetRunIndex = mapRunJob.findIndex(item => item.Guid === targetRunGuid)
       mapRunJob[targetRunIndex].Jobs = [...mapRunJob[targetRunIndex].Jobs, ...newData]
       setGridJobOnRun([...mapRunJob[jobOnRunIndex].Jobs]);
-    } else if (from == 2) {
+    } else if (from == 2) { // from unassign
       jobsSelectData.forEach(jobSelect => {
         const jobUnassignIndex = gridUnassign.findIndex(item => item.Guid === jobSelect.jobGuid)
         const targetRunIndex = mapRunJob.findIndex(item => item.Guid === targetRunGuid)
@@ -109,6 +111,13 @@ export default function Page() {
         setGridJobOnRun([...mapRunJob[selectRunIndex].Jobs]);
       })
     }
+  }
+
+  function onRefreshPage() {
+    setFlagRefreshPage(true);
+    setTimeout(() => {
+      setFlagRefreshPage(false);
+    }, 2000);
   }
 
   return (
@@ -131,7 +140,7 @@ export default function Page() {
           }
         }}
       >
-        <Toolbar />
+        <Toolbar onRefreshPage={onRefreshPage} />
         <Splitter
           style={{ height: '95%' }}
           pt={{
@@ -176,7 +185,7 @@ export default function Page() {
               //   },
               // }}
               >
-                <GridJob gridJobOnRun={gridJobOnRun} handleOnClickUnassignJob={handleOnClickUnassignJob} />
+                <GridJob gridJobOnRun={gridJobOnRun} handleOnClickUnassignJob={handleOnClickUnassignJob} flagRefreshPage={flagRefreshPage} />
               </TabPanel>
               <TabPanel header="Unassigned Job(s)"
               // pt={{
@@ -189,7 +198,7 @@ export default function Page() {
               //   },
               // }}
               >
-                <GridUnassign gridUnassign={gridUnassign} />
+                <GridUnassign gridUnassign={gridUnassign} flagRefreshPage={flagRefreshPage} />
               </TabPanel>
             </TabView>
 

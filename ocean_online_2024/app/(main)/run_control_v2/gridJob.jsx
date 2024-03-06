@@ -76,6 +76,15 @@ function GridJob(props) {
     }, 1000);
   }, [])
 
+  useEffect(() => {
+    if (props.flagRefreshPage) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+  }, [props.flagRefreshPage])
+
 
   function handleOnUnAssignJob() {
     props.handleOnClickUnassignJob(dataSelectContextMenu);
@@ -138,7 +147,11 @@ function GridJob(props) {
 
 
   function openContextMenu(e) {
-    setDataSelectContextMenu({ ...e.data });
+    if (Array.isArray(e.data)) {
+      setDataSelectContextMenu({ ...e.data[0] });
+    } else {
+      setDataSelectContextMenu({ ...e.data });
+    }
     cm.current.show(e.originalEvent)
   }
 
@@ -188,7 +201,7 @@ function GridJob(props) {
     return (
       <div className="flex align-items-center">
         {/* <Tag value={textFlag} severity={colorFlag} ></Tag> */}
-        <Tag value={textFlag} style={{ background: colorFlag,color:colorText }}></Tag>
+        <Tag value={textFlag} style={{ background: colorFlag, color: colorText }}></Tag>
         {/* {rowData.FlagJobClose ? <img alt='close' src='/Images/RunControl/job_closed.png' width={16} /> : <img alt='close' src='/Images/RunControl/job_ontruck.png' width={16} />} */}
       </div>
     );
