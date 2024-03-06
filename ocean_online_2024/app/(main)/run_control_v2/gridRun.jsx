@@ -39,20 +39,14 @@ function GridRun(props) {
     }
   }, [props.gridRun])
 
-  function handleBeforeShowToolTip(da) {
-    const detail = da.target.children[0].alt.split("|")
-    setDetailTooptip(prev => ({
-      role: detail[1],
-      employeeId: detail[2],
-      fullname: detail[3],
-    }))
-  }
+
 
   const employeeBodyTemplate = (rowData) => {
+    const detailRun = rowData?.DetailRun?.split("|");
     return (
       <>
-        <div className="flex align-items-center gap-2 custom-tooltip-btn" data-pr-position="top">
-          <img alt={rowData.DetailRun} src='/Images/RunControl/Crews.png' width={32} />
+        <div className="flex align-items-center gap-2">
+          <img className='custom-tooltip-btn' alt={rowData.DetailRun} src='/Images/RunControl/Crews.png' width={32} />
         </div>
       </>
     );
@@ -114,7 +108,14 @@ function GridRun(props) {
     props.setSelectRun(e.value)
   }
 
-
+  function handleBeforeShowToolTip(da) {
+    const detail = da.target.alt.split("|")
+    setDetailTooptip(prev => ({
+      role: detail[1],
+      employeeId: detail[2],
+      fullname: detail[3],
+    }))
+  }
 
   return (
     <>
@@ -124,7 +125,7 @@ function GridRun(props) {
             <tr >
               <th>Role</th>
               <th>EMP ID</th>
-              <th>Full Name</th>
+              <th>Fullnam</th>
             </tr>
           </thead>
           <tbody>
