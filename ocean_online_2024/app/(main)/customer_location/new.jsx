@@ -60,11 +60,14 @@ export default function CustomerLocationNewPage(props) {
     },
     { label: "New", template: () => <span className="text-white font-bold ">New</span> },
   ];
-  const home = {
-    label: "Home",
-    url: "/home",
-    template: () => <span className="text-white">Home</span>,
-  };
+  // const home = {
+  //   label: "Home",
+  //   url: "/home",
+  //   template: () => <span className="text-white">Home</span>,
+    
+  // };
+  const home = { icon: 'pi pi-home', url: '/home',template: () => <i className="pi pi-home"></i> }
+
   return (
     <>
       <div
@@ -114,14 +117,14 @@ export default function CustomerLocationNewPage(props) {
           <TabView className="" activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
             <TabPanel
               header="Detail"
-              contentStyle={{ height: `${heightContent.height - 200}px` }}
+              contentStyle={{ height: `${heightContent.height - 186}px` }}
             >
               <DetailTab setAllData={setAllData} allData={allData} setDetailData={setDetailData} detailData={detailData} />
             </TabPanel>
             <TabPanel
               header="Site Handle"
               className=""
-              contentStyle={{ height: `${heightContent.height - 207}px` }}
+              contentStyle={{ height: `${heightContent.height - 194}px` }}
             >
               <SiteHandle />
             </TabPanel>
@@ -133,19 +136,19 @@ export default function CustomerLocationNewPage(props) {
             </TabPanel> */}
             <TabPanel
               header="Service Hour"
-              contentStyle={{ height: `${heightContent.height - 207}px` }}
+              contentStyle={{ height: `${heightContent.height - 194}px` }}
             >
                 <ServiceHour setAllData={setAllData} allData={allData} />
             </TabPanel>
             <TabPanel
               header="Remark"
-              contentStyle={{ height: `${heightContent.height - 207}px` }}
+              contentStyle={{ height: `${heightContent.height - 194}px` }}
             >
                 <RemarkPage />
             </TabPanel>
             <TabPanel
               header="Additional Service"
-              contentStyle={{ height: `${heightContent.height - 207}px` }}
+              contentStyle={{ height: `${heightContent.height - 194}px` }}
             >
                 <AdditionalService />
             </TabPanel>

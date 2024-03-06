@@ -12,7 +12,7 @@ import { Toast } from "primereact/toast";
 export default function DataTableNewSave(props) {
   const { dataForTable, filter, mode, allData, onRefresh, filter2, filter3, filter4 } = props;
 //   console.log("allData DataTableNewSave", allData);
-  console.log("filter4 filter4", filter4);
+//   console.log("filter4 filter4", filter4);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loadingDone, setLoadingDone] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -68,7 +68,7 @@ export default function DataTableNewSave(props) {
   const [heightNav, setHeightNav] = useState({ height: 0 });
   const [heightCardContent, setHeighCardContent] = useState({ height: 0 });
   const [heightContent, setHeightContent] = useState({ height: 0 });
-
+  const [heightContent2, setHeightContent2] = useState({ height: 0 });
   const [bindWindowResizeListener, unbindWindowResizeListener] =
     useResizeListener({
       listener: (event) => {
@@ -133,12 +133,15 @@ export default function DataTableNewSave(props) {
     const element2 = document?.querySelector(".p-datatable");
     const element = document?.querySelector(".p-datatable-wrapper");
     const element4 = document?.querySelector(".p-datatable-tbody");
+    // const elementEmpty = document?.querySelector(".p-datatable-tbody > .p-datatable-emptymessage");
     if (loadingDone) {
       const newHeight = element.offsetHeight;
       // console.log('newHeight', newHeight)
       const newHeight2 = element2.offsetHeight;
       const newHeight3 = element3.offsetHeight;
       const newHeight4 = element4.offsetHeight;
+    const elementEmpty = document?.querySelector("#emptyData");
+
     //   console.log('element3', element3)
     //   console.log('newHeight3', newHeight3)
     //   console.log('element4', element4)
@@ -147,11 +150,19 @@ export default function DataTableNewSave(props) {
       // console.log('heightCardContent', heightCardContent.height)
       // element.style.maxHeight = `${newHeight - 480}px`;
       if (mode) {
-        element.style.maxHeight = `${heightCardContent.height - 118}px`;
-        element.style.height = `${heightCardContent.height - 118}px`;
+        element.style.maxHeight = `${heightCardContent.height - 102}px`;
+        element.style.height = `${heightCardContent.height - 102}px`;
+        // if (elementEmpty !== null) {
+        //     elementEmpty.style.height = `${heightCardContent.height - 102}px`;
+        // }
+        setHeightContent2({ height: `${heightCardContent.height - 230}`})
       } else {
-        element.style.maxHeight = `${heightCardContent.height - 357}px`;
-        element.style.height = `${heightCardContent.height - 320}px`;
+        element.style.maxHeight = `${heightCardContent.height - 287}px`;
+        element.style.height = `${heightCardContent.height - 287}px`;
+        // if (elementEmpty !== null) {
+        //     elementEmpty.style.height = `${heightCardContent.height - 287}px`;
+        // }
+        setHeightContent2({ height: `${heightCardContent.height - 412}`})
         // element4.style.height = `${heightCardContent.height - 480}px`;
       }
     }
@@ -227,7 +238,7 @@ export default function DataTableNewSave(props) {
   };
 
   const dateBodyTemplate = (rowData) => {
-    console.log("rowData", rowData);
+    // console.log("rowData", rowData);
     return rowData;
     // return formatDate(rowData);
   };
@@ -430,7 +441,7 @@ function LoadDataTest() {
     //     setLoadingDone(true);
     //   } else {
         getBrinksMiniMain().then((data) => {
-            console.log('data 444', data)
+            // console.log('data 444', data)
             setBrinkDataAll(data);
             if (allData?.tab4?.length > 0) {
                 const newData = [ ...allData.tab4, ...data ];
@@ -572,6 +583,12 @@ function LoadDataTest() {
   //     </>
   //   );
 
+  const headerssss = (
+    <div id="emptyData" className="flex align-items-center justify-content-center" style={{ height: `${heightContent2?.height}px` }}>
+        <span className="text-900 text-center">No results found.</span>
+    </div>
+);
+
   return (
     <>
       {!loading ? (
@@ -597,6 +614,8 @@ function LoadDataTest() {
             scrollable
             paginator
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+            paginatorClassName="py-0"
+            emptyMessage={headerssss}
             //   onFilter={onFilter}
             //   filters={lazyState.filters}
             rowsPerPageOptions={[5, 10, 20, 50]}
@@ -604,6 +623,7 @@ function LoadDataTest() {
             rows={20}
             loading={loading}
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            id="gridMainCuslo"
           >
             {/* <Column
               field=""
