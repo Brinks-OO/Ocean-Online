@@ -153,6 +153,7 @@ const SidebarDemo2 = () => {
         onHide={() => setVisible(false)}
         // modal={true}
         showCloseIcon={false}
+        className="pb-0"
       >
         {/* <h2>My Sidebar</h2> */}
         {/* <p>This is the content of the sidebar</p> */}
@@ -1097,25 +1098,25 @@ const SidebarDemo2 = () => {
             </li>
           </ul>
 
-          <div className="mt-auto ">
+          {/* <div className="mt-auto ">
             <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
             <Link
               href={"/"}
               className="no-underline flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
             >
-              {/* <Avatar
+              <Avatar
                 image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
                 shape="circle"
-              /> */}
+              />
               <i className="pi pi-sign-out pr-3"></i>
               <span className="font-bold">Log Out</span>
             </Link>
-          </div>
+          </div> */}
         </div>
       </Sidebar>
       <Button
         icon="pi pi-bars"
-        className=" z-1 w-2rem h-2rem"
+        className=" z-1 w-2rem h-2rem border-1"
         onClick={() => setVisible(true)}
         size="large"
       />

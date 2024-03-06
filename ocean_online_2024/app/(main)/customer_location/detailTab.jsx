@@ -32,6 +32,24 @@ export default function DetailTab(props) {
   const [postalCode, setPostalCode] = useState("");
   const [locationName, setLocationName] = useState("");
 
+  const [charCount, setCharCount] = useState(0);
+  const maxLength = 10;
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    setValue2(newValue);
+    setCharCount(newValue.length);
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
   //   console.log("dates2", dates2);
   //   console.log("dates2", typeof(dates2));
 
@@ -254,15 +272,26 @@ export default function DetailTab(props) {
             </span>
           </div>
           <div className="col-4 mt-2">
-            <span className="p-float-label">
+            <span className="p-float-label ">
               <InputText
                 id="reference"
+                aria-describedby="reference-help"
                 value={value2}
                 className="w-full border-2"
-                onChange={(e) => setValue2(e.target.value)}
+                // onChange={(e) => setValue2(e.target.value)}
+                onChange={handleChange}
+                maxLength={maxLength}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
               />
               <label htmlFor="reference">Reference</label>
+
             </span>
+            {(isFocused || value2.trim() !== '')  && (
+              <small id="reference-help" className="absolute mt-1">
+                {charCount}/{maxLength}
+              </small>
+            )}
           </div>
           <div className="col-4 mt-2">
             <span className="p-float-label">
@@ -348,11 +377,10 @@ export default function DetailTab(props) {
             <span className="p-float-label">
               <Dropdown
                 id="customer"
-                className={`w-full border-2 ${
-                  selectedCountry === null || selectedCountry === undefined
+                className={`w-full border-2 ${selectedCountry === null || selectedCountry === undefined
                     ? "surface-300"
                     : ""
-                }`}
+                  }`}
                 onChange={(e) => setSelectedCity(e.value)}
                 disabled={
                   selectedCountry === null || selectedCountry === undefined
@@ -364,11 +392,10 @@ export default function DetailTab(props) {
               />
               <label
                 htmlFor="customer"
-                className={`${
-                  selectedCountry === null || selectedCountry === undefined
+                className={`${selectedCountry === null || selectedCountry === undefined
                     ? "text-400"
                     : ""
-                }`}
+                  }`}
               >
                 District/City
               </label>

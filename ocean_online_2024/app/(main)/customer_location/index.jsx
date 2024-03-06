@@ -8,6 +8,8 @@ import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import DataTableLazyLoadDemo from "./dataTable";
 import DataTableNewSave from "./dataTableNew";
+import { BreadCrumb } from 'primereact/breadcrumb';
+        
 
 import { useResizeListener } from "primereact/hooks";
 import { Divider } from "primereact/divider";
@@ -31,6 +33,9 @@ export default function CustomerLocation(props) {
   const [locationNamefil, setLocationNameFil] = useState([]);
   const [mode, setMode] = useState(false);
   const [onRefresh, setRefresh] = useState(false);
+
+  const Bitems = [{ label: 'Administration', template: () => <span>Administration</span> }, { label: 'Standard Table', template: () => <span>Standard Table</span> }, { label: 'CustomerLocation', template: () => <span className="font-bold">Customer Location</span> }];
+  const Bhome = { icon: 'pi pi-home', url: '/home',template: () => <i className="pi pi-home"></i> }
 
   useEffect(() => {
     setDataForTable(allData?.tab4);
@@ -102,12 +107,13 @@ export default function CustomerLocation(props) {
             onClick={() => router.back()}
             size="medium"
           /> */}
-          <span className="font-bold">Customer Location</span>
+          <BreadCrumb model={Bitems} home={Bhome} className="bg-primary text-white p-0 border-none"/>
+          {/* <span className="font-bold">Customer Location</span> */}
         </div>
         <div className="flex flex-row">
 
-        <div>{options.togglerElement}</div>
-        <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times" onClick={() => router.push('/home')}></i></button></div>
+          <div>{options.togglerElement}</div>
+          <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times" onClick={() => router.push('/home')}></i></button></div>
         </div>
       </div>
     );
@@ -163,9 +169,11 @@ export default function CustomerLocation(props) {
                 options={cities}
                 optionLabel="name"
                 placeholder="Select a Table"
-                className="ml-5 w-full md:w-16rem border-2"
+                className="ml-2 w-full md:w-16rem border-2"
                 showClear
                 tooltip="Select a Table" tooltipOptions={{ position: 'top' }}
+                style={{fontSize:"16px", lineHeight:"8px"}}
+                
               />
             </div>
 
@@ -178,7 +186,7 @@ export default function CustomerLocation(props) {
               New
             </Button> */}
             <Button
-              className="justify-content-center"
+              className="justify-content-center p-2"
               label="New"
               icon="pi pi-plus"
               size="small"
@@ -186,18 +194,20 @@ export default function CustomerLocation(props) {
               tooltip="New" tooltipOptions={{ position: 'top' }}
             />
           </div>
-          <Divider />
+          <Divider className="mt-2"/>
           <div>
             <div className=" grid nested-grid">
-              <div className="col-10 pb-0">
+              <div className="col-10 pb-0 pt-0">
                 <div className="grid">
-                  <div className="col-3">
+                  <div className="col-3 h-2rem">
                     <Dropdown
                       optionLabel="name"
                       placeholder="Select a Country"
-                      className="w-full  border-2"
+                      className="w-full  border-2 "
                       showClear
+                      // size="small"
                       tooltip="Select a Country" tooltipOptions={{ position: 'top' }}
+                      style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
                   <div className="col-3">
@@ -207,6 +217,7 @@ export default function CustomerLocation(props) {
                       className="w-full border-2"
                       showClear
                       tooltip="Select a Customer" tooltipOptions={{ position: 'top' }}
+                      style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
                   <div className="col-3">
@@ -219,9 +230,10 @@ export default function CustomerLocation(props) {
                     <InputText
                       value={locationNamefil}
                       onChange={(e) => setLocationNameFil(e.target.value)}
-                      className="w-full border-2"
+                      className="w-full border-2  line-height-1"
                       placeholder="Location Name"
                       tooltip="Location Name" tooltipOptions={{ position: 'top' }}
+                      style={{fontSize:"16px", lineHeight:"8px", height: '36px'}}
                     />
                   </div>
                   <div className="col-3 pb-0">
@@ -234,6 +246,7 @@ export default function CustomerLocation(props) {
                       showClear
                       value={selectServiceType}
                       onChange={(e) => setSelectServiceType(e.value)}
+                      style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
                   <div className="col-3 pb-0">
@@ -246,6 +259,7 @@ export default function CustomerLocation(props) {
                       value={proState}
                       onChange={(e) => setProviceState(e.value)}
                       tooltip="Select a Province/State" tooltipOptions={{ position: 'top' }}
+                      style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
                   <div className="col-3 pb-0">
@@ -259,6 +273,7 @@ export default function CustomerLocation(props) {
                       value={disCity}
                       onChange={(e) => setDistCity(e.value)}
                       tooltip="Select a District/City" tooltipOptions={{ position: 'top' }}
+                      style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
                   <div className="col-3 flex align-content-start pb-0">
@@ -270,6 +285,7 @@ export default function CustomerLocation(props) {
                       onChange={(e) => setChecked(e.checked)}
                       checked={checked}
                       tooltip="Checkbox" tooltipOptions={{ position: 'top' }}
+                      style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                     <label htmlFor="check01" className="ml-2">
                       Include Disable
@@ -279,25 +295,27 @@ export default function CustomerLocation(props) {
               </div>
               <div className="col-2 pb-0">
                 <div className="grid">
-                  <div className="col-6">
+                  <div className="col-6 pt-0">
                     <Button
-                      className="w-full justify-content-center"
+                      className="w-full justify-content-center p-2 "
                       label="Refresh"
                       icon="pi pi-refresh"
                       onClick={(e) => onRefreshClick()}
                       size="small"
-                      style={{ marginTop: "3px" }}
+                      // style={{ marginTop: "3px" }}
                       tooltip="Refresh" tooltipOptions={{ position: 'top' }}
+                      // style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
-                  <div className="col-6">
+                  <div className="col-6 pt-0">
                     <Button
-                      className="w-full justify-content-center"
+                      className="w-full justify-content-center p-2"
                       label="Export"
                       icon="pi pi-file-export"
                       size="small"
-                      style={{ marginTop: "3px" }}
+                      // style={{ marginTop: "3px" }}
                       tooltip="Export" tooltipOptions={{ position: 'top' }}
+                      // style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
                 </div>
