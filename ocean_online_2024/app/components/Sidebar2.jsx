@@ -91,6 +91,7 @@ const SidebarDemo2 = () => {
     {
       label: "Log Out",
       icon: "pi pi-sign-out",
+      url : '/'
     },
   ];
 
