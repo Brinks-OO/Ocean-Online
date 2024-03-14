@@ -49,7 +49,7 @@
 }
 
 .p-sidebar-left {
-    max-width: 100% !important;
+    // max-width: 30% !important;
     position: absolute !important;
     display: block !important;
 }
@@ -57,3 +57,20 @@
 .p-sidebar-header {
     padding: 0 !important;
 }
+
+// #img-bg {
+//     background-image: url("../../../public/Loading_Ocean_100x125.png");
+//     background-repeat: no-repeat;
+//     background-position: center; 
+//     background-size: 100px 100px; 
+//   }
+#img-bg2 {
+    background-image: url("../../../public/Loading_Ocean_100x125_1.png");
+    // background-image: url("../../../public/Loading_Ocean_100x125_1.png");
+    // background-image: url("../../../public/Logo-Ocean_login.png");
+    background-repeat: no-repeat;
+    background-position: center; 
+    filter: grayscale(100%) opacity(30%);
+
+    // background-size: 150px 15¢0px; 
+  }

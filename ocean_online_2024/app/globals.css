@@ -63,6 +63,19 @@ html {
 #popup_menu_left {
   width: max-content;
 }
+#popup_menu_left ul li {
+  a {
+    &.p-menuitem-link {
+      padding: 12px 20px !important;
+      color: #4b5563;
+    }
+  }
+  span {
+    &.p-menuitem-icon {
+      margin-right: 5px !important;
+    }
+  }
+}
 
 .p-dropdown-label {
   padding-right: 0px;
@@ -124,3 +137,4 @@ code {
 .p-sidebar-content {
   padding-bottom: 0 !important;
 }
+

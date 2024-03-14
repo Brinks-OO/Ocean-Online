@@ -150,15 +150,15 @@ export default function DataTableNewSave(props) {
       // console.log('heightCardContent', heightCardContent.height)
       // element.style.maxHeight = `${newHeight - 480}px`;
       if (mode) {
-        element.style.maxHeight = `${heightCardContent.height - 102}px`;
-        element.style.height = `${heightCardContent.height - 102}px`;
+        element.style.maxHeight = `${heightCardContent.height - 104}px`;
+        element.style.height = `${heightCardContent.height - 104}px`;
         // if (elementEmpty !== null) {
         //     elementEmpty.style.height = `${heightCardContent.height - 102}px`;
         // }
         setHeightContent2({ height: `${heightCardContent.height - 230}`})
       } else {
-        element.style.maxHeight = `${heightCardContent.height - 287}px`;
-        element.style.height = `${heightCardContent.height - 287}px`;
+        element.style.maxHeight = `${heightCardContent.height - 295}px`;
+        element.style.height = `${heightCardContent.height - 295}px`;
         // if (elementEmpty !== null) {
         //     elementEmpty.style.height = `${heightCardContent.height - 287}px`;
         // }
@@ -610,7 +610,7 @@ function LoadDataTest() {
             stripedRows
             showGridlines
             size="small"
-            tableStyle={{ minWidth: "75rem", height: "5rem" }}
+            tableStyle={{ minWidth: "75rem", height: "5rem",}}
             scrollable
             paginator
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
@@ -624,6 +624,7 @@ function LoadDataTest() {
             loading={loading}
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             id="gridMainCuslo"
+            style={{ width: "100%"}}
           >
             {/* <Column
               field=""
@@ -636,62 +637,70 @@ function LoadDataTest() {
               header="Location Code"
               filter
               showFilterMenu={false}
-              style={{ width: "8%" }}
+              style={{ width: "10%", minWidth: '150px' }}
             ></Column>
             <Column
               field="locationName"
               header="Location Name"
               filter
               showFilterMenu={false}
-              style={{ width: "25%" }}
+              style={{ width: "25%", minWidth: '300px' }}
             ></Column>
             <Column
               field="provinceState"
               header="Province/State"
               filter
               showFilterMenu={false}
+              style={{ width: "10%", minWidth: '100px' }}
             ></Column>
             <Column
               field="districtCity"
               header="District/City"
               filter
               showFilterMenu={false}
+              style={{ width: "10%", minWidth: '100px' }}
             ></Column>
             <Column
               field="postalCode"
               header="Postal Code"
               filter
               showFilterMenu={false}
+              style={{ width: "10%", minWidth: '120px' }}
             ></Column>
             <Column
               field="serviceType"
               header="Service Type"
               filter
               showFilterMenu={false}
+              style={{ width: "10%", minWidth: '120px' }}
             ></Column>
             <Column
               field="userCreated"
               header="user Created"
               filter
               showFilterMenu={false}
+              style={{ width: "10%", minWidth: '120px' }}
             ></Column>
             <Column
               field="dtCreated"
               header="Datetime Created"
               filter
               showFilterMenu={false}
+              style={{ width: "15%", minWidth: '160px' }}
             ></Column>
             <Column
               field="userModified"
               header="User Modified"
               filter
               showFilterMenu={false}
+              style={{ width: "18%", minWidth: '130px'}}
             ></Column>
             <Column
               field="dtModified"
               header="Datetime Modified"
               filter
               showFilterMenu={false}
+              style={{ width: "25%", minWidth: '170px' }}
             ></Column>
           </DataTable>
         </>
