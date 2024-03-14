@@ -118,7 +118,7 @@ const SidebarDemo2 = () => {
   // );
   const customHeader = (
     <>
-      <div className="flex p-menubar p-component w-full border-bottom-0 border-noround">
+      <div id="sidebar2" className="flex p-menubar p-component w-full border-bottom-0 border-noround">
         <div className="flex mr-auto">
           <Image src="/Logo-Ocean_login.png" alt="" height="40px" />
         </div>

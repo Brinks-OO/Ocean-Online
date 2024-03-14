@@ -1,4 +1,7 @@
 "use client";
+import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
+import "primereact/resources/primereact.css";
 import React, { useEffect, useState } from "react";
 import NavigationBar from "./tabMenu";
 import { BreadCrumb } from "primereact/breadcrumb";
@@ -25,9 +28,9 @@ export default function Page() {
   // ], 'allData');
   const [allData, setAllData] = useLocalStorage({ tab4: [] }, 'allData');
 
-  console.log('allData', allData)
-  console.log('detailData', detailData)
-  console.log('showNewPage', showNewPage)
+  // console.log('allData', allData)
+  // console.log('detailData', detailData)
+  // console.log('showNewPage', showNewPage)
 
 
   // function onClickNew(state) {

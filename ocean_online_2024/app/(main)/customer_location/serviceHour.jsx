@@ -700,7 +700,7 @@ export default function ServiceHour(props) {
         breakpoints={{ "960px": "75vw", "641px": "90vw" }}
         header={editMode ? "Edit Service Hour" : "Add Service Hour"}
         modal
-        className="p-fluid"
+        className="p-fluid p-0"
         footer={productDialogFooter}
         onHide={hideDialog}
         // maximizable

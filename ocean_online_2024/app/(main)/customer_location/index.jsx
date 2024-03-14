@@ -9,7 +9,7 @@ import { Checkbox } from "primereact/checkbox";
 import DataTableLazyLoadDemo from "./dataTable";
 import DataTableNewSave from "./dataTableNew";
 import { BreadCrumb } from 'primereact/breadcrumb';
-        
+import Link from "next/link";     
 
 import { useResizeListener } from "primereact/hooks";
 import { Divider } from "primereact/divider";
@@ -21,7 +21,7 @@ export default function CustomerLocation(props) {
   const ref = useRef(null);
   const router = useRouter();
   const { onClickNew, setAllData, allData } = props;
-  console.log("allData CustomerLocation", allData);
+  // console.log("allData CustomerLocation", allData);
   const [value, setValue] = useState("");
   const [checked, setChecked] = useState(false);
   const cities = [{ name: "Customer Location", code: "CL" }];
@@ -35,7 +35,7 @@ export default function CustomerLocation(props) {
   const [onRefresh, setRefresh] = useState(false);
 
   const Bitems = [{ label: 'Administration', template: () => <span>Administration</span> }, { label: 'Standard Table', template: () => <span>Standard Table</span> }, { label: 'CustomerLocation', template: () => <span className="font-bold">Customer Location</span> }];
-  const Bhome = { icon: 'pi pi-home', url: '/home',template: () => <i className="pi pi-home"></i> }
+  const Bhome = { icon: 'pi pi-home', url: '/home',template: () => <Link href="/home" className="text-white"><i className="pi pi-home"></i> </Link>}
 
   useEffect(() => {
     setDataForTable(allData?.tab4);
@@ -113,6 +113,7 @@ export default function CustomerLocation(props) {
         <div className="flex flex-row">
 
           <div>{options.togglerElement}</div>
+          {/* <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-filter-slash" onClick={() => {options.togglerElement} }></i></button></div> */}
           <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times" onClick={() => router.push('/home')}></i></button></div>
         </div>
       </div>
@@ -154,6 +155,8 @@ export default function CustomerLocation(props) {
           header="Customer Location "
           headerTemplate={headerTemplate}
           toggleable
+          collapseIcon="pi pi-filter-slash"
+          expandIcon="pi pi-filter"
           onExpand={(e) => toggleState(e, "expand")}
           onCollapse={(e) => toggleState(e, "collapse")}
           className=""
@@ -161,7 +164,7 @@ export default function CustomerLocation(props) {
         // className="bg-primary border-200 border-top-none border-noround border-2"
         >
           <div className="flex flex-row align-items-center justify-content-between">
-            <div>
+            {/* <div>
               <span>Table :</span>
               <Dropdown
                 value={selectedCity}
@@ -169,13 +172,30 @@ export default function CustomerLocation(props) {
                 options={cities}
                 optionLabel="name"
                 placeholder="Select a Table"
-                className="ml-2 w-full md:w-16rem border-2"
+                className="ml-2 w-full md:w-16rem border-1"
                 showClear
                 tooltip="Select a Table" tooltipOptions={{ position: 'top' }}
                 style={{fontSize:"16px", lineHeight:"8px"}}
                 
               />
-            </div>
+            </div> */}
+            {/* <div className="col-4 mt-2"> */}
+            <span className="p-float-label">
+              <Dropdown
+                id="customer"
+                //   value={value1}
+                className="w-full border-1"
+                onChange={(e) => setSelectedCity(e.value)}
+                value={selectedCity}
+                options={cities}
+                optionLabel="name"
+                showClear
+                // style={{ height: "38px"}}
+
+              />
+              <label htmlFor="customer">Table</label>
+            </span>
+          {/* </div> */}
 
             {/* <Button
               className="h-2rem p-2 my-1  fonts-bold"
@@ -194,27 +214,27 @@ export default function CustomerLocation(props) {
               tooltip="New" tooltipOptions={{ position: 'top' }}
             />
           </div>
-          <Divider className="mt-2"/>
+          <Divider className="" type="solid" />
           <div>
             <div className=" grid nested-grid">
               <div className="col-10 pb-0 pt-0">
                 <div className="grid">
-                  <div className="col-3 h-2rem">
+                  <div className="col-3 ">
                     <Dropdown
                       optionLabel="name"
                       placeholder="Select a Country"
-                      className="w-full  border-2 "
+                      className="w-full  border-1 p-inputtext-sm"
                       showClear
-                      // size="small"
+                      size="medium"
                       tooltip="Select a Country" tooltipOptions={{ position: 'top' }}
-                      style={{fontSize:"16px", lineHeight:"8px"}}
+                      // style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
                   <div className="col-3">
                     <Dropdown
                       optionLabel="name"
                       placeholder="Select a Customer"
-                      className="w-full border-2"
+                      className="w-full border-1"
                       showClear
                       tooltip="Select a Customer" tooltipOptions={{ position: 'top' }}
                       style={{fontSize:"16px", lineHeight:"8px"}}
@@ -230,7 +250,7 @@ export default function CustomerLocation(props) {
                     <InputText
                       value={locationNamefil}
                       onChange={(e) => setLocationNameFil(e.target.value)}
-                      className="w-full border-2  line-height-1"
+                      className="w-full border-1  line-height-1"
                       placeholder="Location Name"
                       tooltip="Location Name" tooltipOptions={{ position: 'top' }}
                       style={{fontSize:"16px", lineHeight:"8px", height: '36px'}}
@@ -241,7 +261,7 @@ export default function CustomerLocation(props) {
                       options={serviceTypeData}
                       optionLabel="name"
                       placeholder="Select Service Type"
-                      className="w-full border-2"
+                      className="w-full border-1"
                       tooltip="Select Service Type" tooltipOptions={{ position: 'top' }}
                       showClear
                       value={selectServiceType}
@@ -254,7 +274,7 @@ export default function CustomerLocation(props) {
                       options={country}
                       optionLabel="name"
                       placeholder="Select Province/State"
-                      className="w-full border-2"
+                      className="w-full border-1"
                       showClear
                       value={proState}
                       onChange={(e) => setProviceState(e.value)}
@@ -267,7 +287,7 @@ export default function CustomerLocation(props) {
                       options={city}
                       optionLabel="name"
                       placeholder="Select District/City"
-                      className="w-full border-2"
+                      className="w-full border-1"
                       showClear
 
                       value={disCity}
@@ -278,6 +298,7 @@ export default function CustomerLocation(props) {
                   </div>
                   <div className="col-3 flex align-content-start pb-0">
                     <Checkbox
+                    id="check01"
                       inputId="check01"
                       name="pizza"
                       value="disable"
@@ -343,7 +364,7 @@ export default function CustomerLocation(props) {
 
         <div
           // style={{ marginTop: "7px" }}
-          className=" border-200 border-1 border-top-none border-noround border-black-alpha-20 border-2"
+          className=" border-200 border-1 border-top-none border-noround border-black-alpha-20 border-1"
         >
           {/* <div className="px-3 py-3 grid nested-grid">
             <div className="col-10">

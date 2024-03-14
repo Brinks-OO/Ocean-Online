@@ -8,7 +8,7 @@ export default function Loading() {
     <div className="flex justify-content-center">
       {/* <h1>Loading</h1> */}
       <LoadingDemo />
-      <h1>Hi</h1>
+      {/* <h1>Hi</h1> */}
     </div>
     </>
   );

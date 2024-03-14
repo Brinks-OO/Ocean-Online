@@ -48,7 +48,7 @@ const Login = () => {
               <InputText
                 id="username"
                 value={username}
-                className="border-2"
+                className="border-1"
                 onChange={(e) => setUsername(e.target.value)}
               />
               <label htmlFor="username">Username</label>
@@ -58,7 +58,7 @@ const Login = () => {
               <InputText
                 id="password"
                 type="password"
-                className="border-2"
+                className="border-1"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={handleKeyPress}

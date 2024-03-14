@@ -7,11 +7,11 @@ import SiteHandle from "./siteHandle";
 import AdditionalService from "./additionalService";
 import ServiceHour from "./serviceHour"
 import RemarkPage from "./remark"
-
+import Link from "next/link";   
 import { useResizeListener } from "primereact/hooks";
 
 export default function CustomerLocationNewPage(props) {
-  const { onClickNew,onClickSave, setAllData, allData, setDetailData, detailData } = props;
+  const { onClickNew, onClickSave, setAllData, allData, setDetailData, detailData } = props;
   const [activeIndex, setActiveIndex] = useState(0);
   const [eventData, setEventData] = useState({ width: 0, height: 0 });
   const [heightNav, setHeightNav] = useState({ height: 0 });
@@ -52,8 +52,11 @@ export default function CustomerLocationNewPage(props) {
       unbindWindowResizeListener();
     };
   }, [bindWindowResizeListener, unbindWindowResizeListener]);
+  // const Bitems = [ { label: 'CustomerLocation', template: () => <span className="font-bold">Customer Location</span> }];
 
   const items = [
+    { label: 'Administration', template: () => <span>Administration</span> },
+    { label: 'Standard Table', template: () => <span>Standard Table</span> },
     {
       label: "Customer Location",
       template: () => <span className="text-white">Customer Location</span>,
@@ -64,9 +67,9 @@ export default function CustomerLocationNewPage(props) {
   //   label: "Home",
   //   url: "/home",
   //   template: () => <span className="text-white">Home</span>,
-    
+
   // };
-  const home = { icon: 'pi pi-home', url: '/home',template: () => <i className="pi pi-home"></i> }
+  const home = { icon: 'pi pi-home', url: '/home', template: () => <Link href="/home" className="text-white"><i className="pi pi-home"></i> </Link>}
 
   return (
     <>
@@ -83,25 +86,25 @@ export default function CustomerLocationNewPage(props) {
           border-2 border-primary bg-primary text-white"
         />
         <div
-          className="p-0 flex border-200 border-1 gap-2 py-1 px-1 align-items-center flex-row border-2
+          className="p-0 flex border-200 border-1 gap-1 py-1 px-1 align-items-center flex-row border-2
           border-black-alpha-20 border-top-none "
         >
           <Button className="h-2rem p-2 my-1 w-5rem" size="small"
-          onClick={() => onClickSave(false)}
+            onClick={() => onClickSave(false)}
           >
             <i className="pi pi-save pr-2 text-xs" />
             Save
           </Button>
           <Button className="h-2rem p-2 my-1" size="small">
-          <i className="pi pi-save pr-2 text-xs" />
+            <i className="pi pi-save pr-2 text-xs" />
             Save & New
           </Button>
           <Button className="h-2rem p-2 my-1" size="small">
-          <i className="pi pi-save pr-2 text-xs" />
+            <i className="pi pi-save pr-2 text-xs" />
             Save & Copy
           </Button>
           <Button className="h-2rem p-2 my-1" size="small">
-          <i className="pi pi-save pr-2 text-xs" />
+            <i className="pi pi-save pr-2 text-xs" />
             Save & Close
           </Button>
           <Button
@@ -138,21 +141,21 @@ export default function CustomerLocationNewPage(props) {
               header="Service Hour"
               contentStyle={{ height: `${heightContent.height - 194}px` }}
             >
-                <ServiceHour setAllData={setAllData} allData={allData} />
+              <ServiceHour setAllData={setAllData} allData={allData} />
             </TabPanel>
             <TabPanel
               header="Remark"
               contentStyle={{ height: `${heightContent.height - 194}px` }}
             >
-                <RemarkPage />
+              <RemarkPage />
             </TabPanel>
             <TabPanel
               header="Additional Service"
               contentStyle={{ height: `${heightContent.height - 194}px` }}
             >
-                <AdditionalService />
+              <AdditionalService />
             </TabPanel>
-           
+
           </TabView>
         </div>
       </div>

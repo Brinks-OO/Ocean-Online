@@ -17,7 +17,7 @@
     color: white;
 }
 #calendar-detail .p-inputtext {
-    border-width: 2px;
+    // border-width: 2px;
 }
 
 td {
@@ -31,7 +31,7 @@ td {
 
 #mainPageCuslo .p-panel-header{
     // border-radius: 6px 6px 0px 0px !important;
-    padding: 5px 10px;
+    padding: 9px 10px;
  }
  #mainPageCuslo  .p-panel .p-panel-header .p-panel-header-icon {
     color: white;
@@ -104,8 +104,9 @@ td {
 }
 
 #contentDetail .p-breadcrumb {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    // padding-top: 14px;
+    // padding-bottom: 14px;
+    // padding: 14px 10px;
 }
 
 #gridMainCuslo>div.p-datatable-wrapper>table>thead>tr>th>div>div>input {
@@ -123,4 +124,16 @@ td {
     // height: 2rem;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+#check01 .p-checkbox-box {
+    border: 1px solid #d1d5db !important;
+}
+
+#dialog-add-brink .p-dialog-header {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+#dialog-add-brink_content {
+    padding-bottom: 0;
 }
