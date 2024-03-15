@@ -9,6 +9,7 @@ import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
+import { CarService } from './../../services/CarService'
 
 function GridUnassign(props) {
   const menu = useRef(null);
@@ -50,10 +51,41 @@ function GridUnassign(props) {
     { label: 'Job Properties' }
   ];
 
+  const optionMenu = useRef(null);
+
+  const itemRenderer = (item) => (
+    <a className="flex align-items-center p-menuitem-link">
+      <span className={item.icon} />
+      <span className="mx-2">{item.label}</span>
+      {item.checked && <span className="ml-auto p-1"><i className="pi pi-check" ></i></span>}
+    </a>
+  );
+
+  const [optionJob, setOptionJob] = useState([
+    {
+      label: 'Show Interbranch job with missing items',
+      checked: false,
+      template: itemRenderer,
+      command: () => setOptionJob(prev => {
+        prev[0].checked = !prev[0].checked
+        return prev
+      })
+    },
+    {
+      label: 'Show Cancel Jobs',
+      checked: false,
+      template: itemRenderer,
+      command: () => setOptionJob(prev => {
+        prev[1].checked = !prev[1].checked
+        return prev
+      })
+    },
+  ]);
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 100);
   }, [])
 
   useEffect(() => {
@@ -61,7 +93,7 @@ function GridUnassign(props) {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 100);
     }
   }, [props.flagRefreshPage])
 
@@ -176,19 +208,27 @@ function GridUnassign(props) {
 
 
   const header = (data) => {
-    // debugger;
     const dat = data.props.value[0];
     // const runData = mockRunControl.getRunByGuid(dat?.MasterRunResource_Guid || "")[0];
     return (
       <div className="flex flex-wrap align-items-center justify-content-between gap-2">
         <span className="text-sm font-light">
           <TieredMenu model={items} popup ref={menu} breakpoint="767px" />
-          <Button size="small" style={{ height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
+          <Button size="small" style={{ border: 'none', background: 'transparent', height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
         </span>
         <span className="text-sm font-light">
           Unassigned Job(s) | Total Job(s): {data?.props?.value?.length} | Total STC:{0} | Total Selected(s): {selectedJob?.length} | Total STC Selected : {0}
         </span>
-        <span className="text-sm font-light ">
+        <span className="font-light mr-2">
+          <div className="flex align-items-center">
+            {/* <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
+            <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label> */}
+            <i className="pi pi-sliders-h text-xl  text-white" onClick={(e) => optionMenu.current.toggle(e)}></i>
+
+          </div>
+        </span>
+        <TieredMenu model={optionJob} popup ref={optionMenu} breakpoint="860px" style={{ width: '25rem' }} />
+        {/* <span className="text-sm font-light ">
           <div className="flex align-items-center">
             <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
             <label htmlFor="ingredient1" className="ml-2">Show Interbranch job with missing items</label>
@@ -200,10 +240,46 @@ function GridUnassign(props) {
             <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label>
           </div>
 
-        </span>
+        </span> */}
       </div>
     )
   };
+
+  // const cars = Array.from({ length: 100000 }).map((_, i) => CarService.generateCar(i + 1));
+  // const [virtualCars, setVirtualCars] = useState(Array.from({ length: 100000 }));
+  // const [lazyLoading, setLazyLoading] = useState(false);
+  // let loadLazyTimeout = null;
+
+  // const loadCarsLazy = (event) => {
+  //   !lazyLoading && setLazyLoading(true);
+
+  //   if (loadLazyTimeout) {
+  //     clearTimeout(loadLazyTimeout);
+  //   }
+
+  //   //simulate remote connection with a timeout
+  //   loadLazyTimeout = setTimeout(() => {
+  //     let _virtualCars = [...virtualCars];
+  //     let { first, last } = event;
+
+  //     //load data of required page
+  //     const loadedCars = cars.slice(first, last);
+
+  //     //populate page of virtual cars
+  //     Array.prototype.splice.apply(_virtualCars, [...[first, last - first], ...loadedCars]);
+
+  //     setVirtualCars(_virtualCars);
+  //     setLazyLoading(false);
+  //   }, Math.random() * 1000 + 250);
+  // };
+
+  // const loadingTemplate = (options) => {
+  //   return (
+  //     <div className="flex align-items-center" style={{ height: '17px', flexGrow: '1', overflow: 'hidden' }}>
+  //       <Skeleton width={options.cellEven ? (options.field === 'year' ? '30%' : '40%') : '60%'} height="1rem" />
+  //     </div>
+  //   );
+  // };
 
   return (
     <>
@@ -217,6 +293,11 @@ function GridUnassign(props) {
             <DataTable value={props.gridUnassign} className="p-datatable-striped" header={header} scrollable
               scrollHeight="80vh"
               pt={{
+                // wrapper: {
+                //   style: {
+                //     scrollbarWidth: 'thin'
+                //   }
+                // },
                 header: {
                   style: {
                     padding: 4,
@@ -271,7 +352,13 @@ function GridUnassign(props) {
               stripedRows
               filterDisplay="row"
               header={header}
+              // virtualScrollerOptions={{ lazy: true, onLazyLoad: loadCarsLazy, itemSize: 20, delay: 200, showLoader: true, loading: lazyLoading, loadingTemplate }}
               pt={{
+                // wrapper: {
+                //   style: {
+                //     scrollbarWidth: 'thin'
+                //   }
+                // },
                 header: {
                   style: {
                     padding: 4,
