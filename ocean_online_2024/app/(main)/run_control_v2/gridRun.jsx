@@ -28,14 +28,42 @@ function GridRun(props) {
     setRunDropDown(dropDown)
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 100);
   }, []);
+
+  useEffect(() => {
+    if (props.overNight) {
+      setTimeout(() => {
+        const rows = document.querySelectorAll('.over-night');
+        rows.forEach(row => {
+          row.closest('tr').style.background = "red"
+        });
+      }, 500);
+    }
+  }, [props.overNight])
+
 
   useEffect(() => {
     if (props?.gridRun?.length != 0) {
       setGridData(props.gridRun);
-      setExpandedRows(props.gridRun);
+      const allGroupIndexes = props.gridRun.reduce((indexes, item, index) => {
+        if (index === 0 || item.MasterRouteGroupName !== props.gridRun[index - 1].MasterRouteGroupName) {
+          indexes.push(item);
+        }
+        return indexes;
+      }, []);
+      setExpandedRows([...allGroupIndexes]);
       setOriginalGridData(props.gridRun);
+      setTimeout(() => {
+        const rows1 = document.querySelectorAll('.shuttle-run');
+        rows1.forEach(row => {
+          row.closest('tr').style.background = "#6eb542"
+        });
+        const rows2 = document.querySelectorAll('.over-night');
+        rows2.forEach(row => {
+          row.closest('tr').style.background = "red"
+        });
+      }, 1000);
     }
   }, [props.gridRun])
 
@@ -66,13 +94,15 @@ function GridRun(props) {
     );
   };
 
-  const headerTemplate = (data) => {
+  const headerTemplate = (data, el) => {
+    const customerClass = 'vertical-align-middle ml-2 font-bold line-height-3 ' + (data.FlagOverNight ? "over-night" : "") + " " + (data.FlagShuttleRun ? "shuttle-run" : "");
     return (
-      <>
-        <span className="vertical-align-middle ml-2 font-bold line-height-3">{data.MasterRouteGroupName}</span>
-      </>
+      <React.Fragment>
+        <span className={customerClass}>{data.MasterRouteGroupName}</span>
+      </React.Fragment>
     );
   };
+
 
   const carDetailBodyTemplate = (data) => {
     return (
@@ -87,7 +117,15 @@ function GridRun(props) {
 
   function allowDrop(ev) {
     ev.preventDefault();
+    ev.currentTarget.style.background = "#eae27a"
   }
+
+
+  function onDragLeave(ev) {
+    ev.currentTarget.style.background = ""
+  }
+
+
 
   function handleDrop(ev) {
     ev.preventDefault();
@@ -95,6 +133,7 @@ function GridRun(props) {
     var from = JSON.parse(ev.dataTransfer.getData("from")); // 1 from assign, 2 from unassign
     const runTargetGuid = ev.currentTarget.children[0].innerHTML;
     props.handleJobDropOnRun(runTargetGuid, jobsSelectData, from);
+    ev.currentTarget.style.background = ""
     // mockRunControl.setJobOnRun(runTargetGuid, jobsSelectData, from);
   }
 
@@ -151,21 +190,8 @@ function GridRun(props) {
             className="w-full"
             pt={{
               root: {
-                className: 'h-3rem ',
-                style: { lineHeight: "24px" }
+                style: { height: '2.5rem', lineHeight: "12px" }
               },
-              filterContainer: {
-                className: 'h-3rem ',
-                style: { lineHeight: "24px" }
-              },
-              filterInput: {
-                className: 'h-3rem ',
-                style: { lineHeight: "24px" }
-              },
-              headerCheckboxContainer: {
-                className: 'h-3rem ',
-                style: { lineHeight: "24px" }
-              }
             }}
           />
 
@@ -173,7 +199,7 @@ function GridRun(props) {
         <div className="flex align-items-center justify-content-center ">
           {
             loading ?
-              <DataTable value={items} className="p-datatable-striped">
+              <DataTable  id='gridRun' value={items} className="p-datatable-striped">
                 <Column field="Guid" header="ID" style={{ display: 'none' }} />
                 <Column field="PathPicModeOfTransport" body={<Skeleton />}></Column>
                 <Column field="MasterRouteGroupDetailName" body={<Skeleton />}></Column>
@@ -181,20 +207,21 @@ function GridRun(props) {
               </DataTable>
               :
               <DataTable
+                id='gridRun'
                 size='small'
                 value={gridData}
                 rowGroupMode="subheader"
                 groupRowsBy="MasterRouteGroupName"
                 scrollable
-                scrollHeight="768px"
-                style={{ width: '100%' }}
+                scrollHeight="80vh"
+                style={{
+                  width: '100%',
+                }}
                 expandableRowGroups
                 expandedRows={expandedRows}
                 onRowToggle={(e) => setExpandedRows(e.data)}
                 rowGroupHeaderTemplate={headerTemplate}
                 showHeaders={false}
-                // onDrop={drop}
-                onDragOver={allowDrop}
                 selectionMode="single"
                 selection={props.selectRun}
                 dataKey="Guid"
@@ -202,8 +229,16 @@ function GridRun(props) {
                 onSelectionChange={handleOnSelectRun}
                 showGridlines
                 pt={{
+                  // wrapper: {
+                  //   style: {
+                  //     scrollbarWidth: 'thin'
+                  //   }
+                  // },
                   bodyRow: {
-                    onDrop: handleDrop
+                    onDrop: handleDrop,
+                    onDragOver: allowDrop,
+                    onDragLeave: onDragLeave,
+                    onMouseOut: onDragLeave
                   }
                 }}
               >

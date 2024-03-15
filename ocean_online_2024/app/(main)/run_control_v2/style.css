@@ -1,10 +1,14 @@
+html {
+    overflow: hidden;
+}
+
 .p-panel-header {
     /* border-radius: var(--border-0); */
     background-color: var(--primary-color);
     color: var(--primary-color-text);
     border-color: var(--primary-color);
     border-radius: 0px 0px 0px 0px !important;
-    height: 32px;
+    height: 51px;
 }
 
 .p-panel-content {
@@ -64,12 +68,18 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
 #grdAssign>div.p-datatable-wrapper>table>thead>tr>th>div>div>input {
     height: 2rem;
 }
+
 #grdUnassign>div.p-datatable-wrapper>table>thead>tr>th>div>div>input {
     height: 2rem;
 }
 
-.p-datatable-wrapper {
-    height: 84vh;
+#gridRun .p-datatable-wrapper {
+    height: 80vh;
+}
+
+#grdAssign>.p-datatable-wrapper,
+#grdUnassign>.p-datatable-wrapper {
+    height: 77vh;
 }
 
 .p-rowgroup-header>td {
@@ -85,7 +95,16 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
     left: -100%;
 }
 
-#tooltip td, #tooltip th{
+#tooltip td,
+#tooltip th {
     border: 1px solid #dddddd;
     padding: 4px;
+}
+
+.p-breadcrumb .p-icon {
+    color: white;
+}
+
+div.p-multiselect-header>div.p-multiselect-filter-container>input {
+    height: 2.5rem;
 }

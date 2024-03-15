@@ -13,6 +13,7 @@ import { Skeleton } from 'primereact/skeleton';
 function GridJob(props) {
   const itemsGrid = Array.from({ length: 10 }, (v, i) => i);
   const menu = useRef(null);
+  const optionMenu = useRef(null);
   const items = [
     { label: 'Dispatch Run', },
     { label: 'Close Run', },
@@ -26,6 +27,11 @@ function GridJob(props) {
         { label: 'Assign to Another Run', },
         { label: 'Change Schedule Time', },
         { label: 'Change Work Date', },
+        { separator: true },
+        {
+          label: 'Unassign Selects Job',
+          command: () => handleUnAssignSelectsJob()
+        },
       ]
     },
     {
@@ -70,9 +76,33 @@ function GridJob(props) {
     { label: 'Job Properties', command: () => console.log("Job Properties") },
   ];
 
+  const itemRenderer = (item) => (
+    <a className="flex align-items-center p-menuitem-link">
+      <span className={item.icon} />
+      <span className="mx-2">{item.label}</span>
+      {item.checked && <span className="ml-auto p-1"><i className="pi pi-check" ></i></span>}
+    </a>
+  );
+
+  const [optionJob, setOptionJob] = useState([
+    {
+      label: 'Show Cancel Jobs',
+      checked: false,
+      template: itemRenderer,
+      command: () => setOptionJob(prev => {
+        prev[0].checked = !prev[0].checked
+        return prev
+      })
+    },
+  ]);
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
+      if (document.getElementById("grdAssign") != null) {
+        const color = props.overNight ? 'red' : "var(--primary-color)";
+        grdAssign.children[0].style.background = color
+      }
     }, 1000);
   }, [])
 
@@ -85,6 +115,13 @@ function GridJob(props) {
     }
   }, [props.flagRefreshPage])
 
+  function handleUnAssignSelectsJob() {
+    if (selectedJob.length > 0) {
+      selectedJob.forEach((job) => {
+        props.handleOnClickUnassignJob(job);
+      })
+    }
+  }
 
   function handleOnUnAssignJob() {
     props.handleOnClickUnassignJob(dataSelectContextMenu);
@@ -98,6 +135,14 @@ function GridJob(props) {
   useEffect(() => {
     setSelectedJob(null);
   }, [props.gridJobOnRun])
+
+  useEffect(() => {
+    if (document.getElementById("grdAssign") != null) {
+      const color = props.overNight ? 'red' : "var(--primary-color)";
+      grdAssign.children[0].style.background = color
+    }
+  }, [props.overNight])
+
 
 
 
@@ -172,7 +217,7 @@ function GridJob(props) {
     switch (rowData.FlagSyncToMobile) {
       case 0:
         colorFlag = "var(--red-500)";
-        textFlag = "not sync"
+        textFlag = "Not sync"
         break;
       case 1:
       case 3:
@@ -184,16 +229,15 @@ function GridJob(props) {
       case 88:
       case 99:
         colorFlag = "var(--green-500)";
-        textFlag = "sync completed"
+        textFlag = "Sync Completed"
         break;
       case 2:
         colorFlag = "var(--blue-500)"
-        textFlag = "job done"
+        textFlag = "Job Done"
         break;
       case 7:
         colorFlag = "var(--yellow-400)"
-        textFlag = "waiting"
-        colorText = "#000"
+        textFlag = "Waiting"
         break;
       default:
         break;
@@ -215,11 +259,12 @@ function GridJob(props) {
       <div className="flex flex-wrap align-items-center justify-content-between gap-2">
         <span className="text-sm font-light">
           <TieredMenu model={items} popup ref={menu} breakpoint="767px" />
-          <Button size="small" style={{ height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
+          <Button size="small" style={{ border: 'none', background: 'transparent', height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
 
         </span>
         <span className="text-sm font-light">
-          Assigned Job(s) :Run Resource No :{runData?.VehicleNumber} | Route:{runData?.MasterRouteGroupDetailName} | Total Job(s): {data?.props?.value?.length} | Run Status :{dat?.JobStatus} | 02/29/2024
+          Assigned Job(s) :Run Resource No :{runData?.VehicleNumber} | Route:{runData?.MasterRouteGroupDetailName} | Total Job(s): {data?.props?.value?.length} | Run Status :{dat?.JobStatus} | {runData?.strWorDate}
+          &nbsp;
           <i className="pi pi-info-circle text-xs" ></i>
         </span>
         <span className="text-sm font-light " style={{ opacity: 0 }}>
@@ -228,12 +273,15 @@ function GridJob(props) {
             <label htmlFor="ingredient1" className="ml-2">Show Interbranch job with </label>
           </div>
         </span>
-        <span className="text-sm font-light ">
+        <span className="font-light mr-2">
           <div className="flex align-items-center">
-            <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
-            <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label>
+            {/* <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
+            <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label> */}
+            <i className="pi pi-sliders-h text-xl  text-white" onClick={(e) => optionMenu.current.toggle(e)}></i>
+
           </div>
         </span>
+        <TieredMenu model={optionJob} popup ref={optionMenu} breakpoint="860px" style={{ width: '15rem' }} />
       </div>
     )
   };
@@ -247,9 +295,14 @@ function GridJob(props) {
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
-            <DataTable value={itemsGrid} className="p-datatable-striped" header={header} scrollable
+            <DataTable id='grdAssign' value={itemsGrid} className="p-datatable-striped" header={header} scrollable
               scrollHeight="80vh"
               pt={{
+                // wrapper: {
+                //   style: {
+                //     scrollbarWidth: 'thin'
+                //   }
+                // },
                 header: {
                   style: {
                     padding: 4,
@@ -307,6 +360,11 @@ function GridJob(props) {
               filterDisplay="row"
               header={header}
               pt={{
+                // wrapper: {
+                //   style: {
+                //     scrollbarWidth: 'thin'
+                //   }
+                // },
                 header: {
                   style: {
                     padding: 4,
