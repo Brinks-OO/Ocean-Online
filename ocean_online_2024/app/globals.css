@@ -140,8 +140,8 @@ code {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 /* Track */
@@ -152,9 +152,11 @@ code {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888; 
+  /* background: #97bbf5;  */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
+  /* background: #76a7f7;  */
 }

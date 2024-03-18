@@ -6,14 +6,16 @@ import { Splitter, SplitterPanel } from "primereact/splitter";
 import Toolbar from "./toolbar";
 import { TabPanel, TabView } from 'primereact/tabview';
 import { Panel } from 'primereact/panel';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { mockRunControl } from './mock';
 import SidebarDemo2 from '@/app/components/Sidebar2';
 import { Button } from 'primereact/button';
 import { useRouter } from "next/navigation";
 import { BreadCrumb } from 'primereact/breadcrumb';
+import { LayoutContext } from '../../../../layout/context/layoutcontext';
 
 export default function Page() {
+  const { onMenuToggle } = useContext(LayoutContext);
   const router = useRouter();
   const defaultSelect = {
     // "Guid": "0000f0a5-5450-08b4-b87e-3f5f7d5385f7",
@@ -74,7 +76,13 @@ export default function Page() {
     return (
       <div className={className}>
         <div className="flex align-items-center gap-2">
-          <SidebarDemo2 />
+          {/* <SidebarDemo2 /> */}
+          <Button
+            type="button" className="p-link layout-menu-button layout-topbar-button h-2rem"
+            onClick={() => onMenuToggle()}
+          >
+            <i className="pi pi-bars text-white" style={{ fontSize: "16px" }} />
+          </Button>
           <BreadCrumb
             model={items}
             home={home}
