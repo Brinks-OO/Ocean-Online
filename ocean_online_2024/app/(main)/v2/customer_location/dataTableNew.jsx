@@ -150,15 +150,15 @@ export default function DataTableNewSave(props) {
       // console.log('heightCardContent', heightCardContent.height)
       // element.style.maxHeight = `${newHeight - 480}px`;
       if (mode) {
-        element.style.maxHeight = `${heightCardContent.height - 109}px`;
-        element.style.height = `${heightCardContent.height - 109}px`;
+        element.style.maxHeight = `${heightCardContent.height - 107}px`;
+        element.style.height = `${heightCardContent.height - 107}px`;
         // if (elementEmpty !== null) {
         //     elementEmpty.style.height = `${heightCardContent.height - 102}px`;
         // }
         setHeightContent2({ height: `${heightCardContent.height - 230}`})
       } else {
-        element.style.maxHeight = `${heightCardContent.height - 294}px`;
-        element.style.height = `${heightCardContent.height - 294}px`;
+        element.style.maxHeight = `${heightCardContent.height - 295}px`;
+        element.style.height = `${heightCardContent.height - 295}px`;
         // if (elementEmpty !== null) {
         //     elementEmpty.style.height = `${heightCardContent.height - 287}px`;
         // }

@@ -33,14 +33,19 @@ const AppMenu = () => {
             label: "Home",
             items: [
                 {
+                    label: "Home v1",
+                    //   icon: "pi pi-fw pi-home",
+                    to: "/home",
+                },
+                {
                     label: "Home",
                     //   icon: "pi pi-fw pi-home",
-                    to: "/newHome/newHome2",
+                    to: "/v2/home",
                 },
                 {
                     label: "Customer Location",
                     //   icon: "pi pi-fw pi-home",
-                    to: "/newHome/customer_location",
+                    to: "/v2/customer_location",
                 },
             ],
         },
@@ -189,6 +194,7 @@ const AppMenu = () => {
                         {
                             label: "Assign Route Operator",
                         },
+                        
                     ]
                 },
             ],
@@ -202,124 +208,178 @@ const AppMenu = () => {
                 {
                     label: "Employee Leave",
                 },
-            ],
-        },
-        {
-            label: "Pages",
-            icon: "pi pi-fw pi-briefcase",
-            to: "/pages",
-            items: [
                 {
-                    label: "Landing",
-                    icon: "pi pi-fw pi-globe",
-                    to: "/landing",
-                },
-                {
-                    label: "Auth",
-                    icon: "pi pi-fw pi-user",
+                    label: "Fleet Management",
                     items: [
                         {
-                            label: "Login",
-                            icon: "pi pi-fw pi-sign-in",
-                            to: "/auth/login",
+                            label: "Fleet Dashboard",
                         },
                         {
-                            label: "Error",
-                            icon: "pi pi-fw pi-times-circle",
-                            to: "/auth/error",
+                            label: "Fleet Maintenance",
                         },
-                        {
-                            label: "Access Denied",
-                            icon: "pi pi-fw pi-lock",
-                            to: "/auth/access",
-                        },
-                    ],
-                },
-                {
-                    label: "Crud",
-                    icon: "pi pi-fw pi-pencil",
-                    to: "/pages/crud",
-                },
-                {
-                    label: "Timeline",
-                    icon: "pi pi-fw pi-calendar",
-                    to: "/pages/timeline",
-                },
-                {
-                    label: "Not Found",
-                    icon: "pi pi-fw pi-exclamation-circle",
-                    to: "/pages/notfound",
-                },
-                {
-                    label: "Empty",
-                    icon: "pi pi-fw pi-circle-off",
-                    to: "/pages/empty",
+                    ]
                 },
             ],
         },
         {
-            label: "Hierarchy",
+            label: "Administration",
+            // icon: "pi pi-fw pi-briefcase",
+            // to: "/pages",
             items: [
                 {
-                    label: "Submenu 1",
-                    icon: "pi pi-fw pi-bookmark",
+                    label: "User Management",
+                },
+                {
+                    label: "Lock Fields",
+                },
+                {
+                    label: "Contract Management",
+                },
+                {
+                    label: "Security Template Management",
+                },
+                {
+                    label: "Dolphin Policy Setup",
+                },
+                {
+                    label: "Standard Table",
+                },
+                {
+                    label: "Signature List",
+                },
+                {
+                    label: "Country Configuration",
+                },
+                {
+                    label: "System Configuration",
+                },
+                {
+                    label: "Service Request Configuration",
+                },
+                {
+                    label: "Monitoring",
+                    // icon: "pi pi-fw pi-user",
                     items: [
                         {
-                            label: "Submenu 1.1",
-                            icon: "pi pi-fw pi-bookmark",
-                            items: [
-                                { label: "Submenu 1.1.1", icon: "pi pi-fw pi-bookmark" },
-                                { label: "Submenu 1.1.2", icon: "pi pi-fw pi-bookmark" },
-                                { label: "Submenu 1.1.3", icon: "pi pi-fw pi-bookmark" },
-                            ],
+                            label: "POD Monitoring",
                         },
                         {
-                            label: "Submenu 1.2",
-                            icon: "pi pi-fw pi-bookmark",
-                            items: [{ label: "Submenu 1.2.1", icon: "pi pi-fw pi-bookmark" }],
+                            label: "SMART Billing Monitoring",
                         },
+                        
                     ],
                 },
                 {
-                    label: "Submenu 2",
-                    icon: "pi pi-fw pi-bookmark",
-                    items: [
-                        {
-                            label: "Submenu 2.1",
-                            icon: "pi pi-fw pi-bookmark",
-                            items: [
-                                { label: "Submenu 2.1.1", icon: "pi pi-fw pi-bookmark" },
-                                { label: "Submenu 2.1.2", icon: "pi pi-fw pi-bookmark" },
-                            ],
-                        },
-                        {
-                            label: "Submenu 2.2",
-                            icon: "pi pi-fw pi-bookmark",
-                            items: [{ label: "Submenu 2.2.1", icon: "pi pi-fw pi-bookmark" }],
-                        },
-                    ],
+                    label: "NEMO Configuration",
+                },
+                {
+                    label: "Access Concurrent Management",
+                },
+               
+            ],
+        },
+        {
+            label: "Report",
+            items: [
+                {
+                    label: "Report",
+                    // icon: "pi pi-fw pi-bookmark",
+                    // items: [
+                    //     {
+                    //         label: "Submenu 1.1",
+                    //         icon: "pi pi-fw pi-bookmark",
+                    //         items: [
+                    //             { label: "Submenu 1.1.1", icon: "pi pi-fw pi-bookmark" },
+                    //             { label: "Submenu 1.1.2", icon: "pi pi-fw pi-bookmark" },
+                    //             { label: "Submenu 1.1.3", icon: "pi pi-fw pi-bookmark" },
+                    //         ],
+                    //     },
+                    //     {
+                    //         label: "Submenu 1.2",
+                    //         icon: "pi pi-fw pi-bookmark",
+                    //         items: [{ label: "Submenu 1.2.1", icon: "pi pi-fw pi-bookmark" }],
+                    //     },
+                    // ],
+                },
+                // {
+                //     label: "Submenu 2",
+                //     icon: "pi pi-fw pi-bookmark",
+                //     items: [
+                //         {
+                //             label: "Submenu 2.1",
+                //             icon: "pi pi-fw pi-bookmark",
+                //             items: [
+                //                 { label: "Submenu 2.1.1", icon: "pi pi-fw pi-bookmark" },
+                //                 { label: "Submenu 2.1.2", icon: "pi pi-fw pi-bookmark" },
+                //             ],
+                //         },
+                //         {
+                //             label: "Submenu 2.2",
+                //             icon: "pi pi-fw pi-bookmark",
+                //             items: [{ label: "Submenu 2.2.1", icon: "pi pi-fw pi-bookmark" }],
+                //         },
+                //     ],
+                // },
+            ],
+        },
+        {
+            label: "Service Request Explorer",
+            items: [
+                {
+                    label: "Service Request Explorer",
+                },
+                {
+                    label: "Import Request Explorer",
                 },
             ],
         },
         {
-            label: "Get Started",
+            label: "Search",
             items: [
                 {
-                    label: "Documentation",
-                    icon: "pi pi-fw pi-question",
-                    to: "/documentation",
+                    label: "Job Search",
                 },
                 {
-                    label: "Figma",
-                    url: "https://www.dropbox.com/scl/fi/bhfwymnk8wu0g5530ceas/sakai-2023.fig?rlkey=u0c8n6xgn44db9t4zkd1brr3l&dl=0",
-                    icon: "pi pi-fw pi-pencil",
-                    target: "_blank",
+                    label: "User Search",
+                },
+                
+            ],
+        },
+        {
+            label: "Import",
+            items: [
+                {
+                    label: "Data Load Resource",
                 },
                 {
-                    label: "View Source",
-                    icon: "pi pi-fw pi-search",
-                    url: "https://github.com/primefaces/sakai-react",
-                    target: "_blank",
+                    label: "Search Log",
+                },
+                {
+                    label: "Machine Mass Update",
+                },
+                {
+                    label: "Customer",
+                },
+                {
+                    label: "Customer Location",
+                },
+                {
+                    label: "Employee",
+                },
+                {
+                    label: "Master Route",
+                },
+                {
+                    label: "Run Resource",
+                },
+                {
+                    label: "Route Group",
+                },
+                {
+                    label: "Equipment",
+                },
+                {
+                    label: "Place",
                 },
             ],
         },

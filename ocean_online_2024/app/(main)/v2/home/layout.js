@@ -23,10 +23,10 @@ display: flex;
 export default function AppLayout({ children }) {
   return (
     <Layout>
-      <BackgroundDiv>
+      {/* <BackgroundDiv> */}
 
         {children}
-        </BackgroundDiv>
+        {/* </BackgroundDiv> */}
     </Layout>
   );
 }

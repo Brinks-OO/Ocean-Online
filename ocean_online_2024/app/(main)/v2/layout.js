@@ -8,6 +8,7 @@ import { PrimeReactProvider } from 'primereact/api';
 
 import '../../../styles/layout/layout.scss';
 import '../../../styles/demo/Demos.scss';
+
 import NextTopLoader from 'nextjs-toploader';
 
 

@@ -114,12 +114,13 @@ const Layout = ({ children }: ChildContainerProps) => {
         unbindProfileMenuOutsideClickListener();
     });
 
-    const isNotHomePage = pathname === "/newHome/newHome2";
+    const isNotHomePage = pathname === "/v2/home";
+    // !isNotHomePage && 
 
     const containerClass = classNames('layout-wrapper', {
         'layout-overlay': layoutConfig?.menuMode === 'overlay',
         'layout-static': layoutConfig?.menuMode === 'static',
-        'layout-static-inactive': !isNotHomePage && layoutState?.staticMenuDesktopInactive && layoutConfig?.menuMode === 'static',
+        'layout-static-inactive': layoutState?.staticMenuDesktopInactive && layoutConfig?.menuMode === 'static',
         'layout-overlay-active': layoutState?.overlayMenuActive,
         'layout-mobile-active': layoutState?.staticMenuMobileActive,
         'p-input-filled': layoutConfig?.inputStyle === 'filled',
@@ -128,12 +129,11 @@ const Layout = ({ children }: ChildContainerProps) => {
 
     console.log('containerClass', containerClass)
 
-     // โค้ดเพิ่มเติม: สร้าง useEffect เพื่อซ่อน Sidebar เมื่อเข้าหน้าครั้งแรก
      useEffect(() => {
-        if (pathname !== "/newHome/newHome2") { // เช็คว่า asPath ไม่มีค่า (หน้าครั้งแรก)
+        if (pathname !== "/v2/home") {
             setLayoutState((prevLayoutState: LayoutState) => ({
                 ...prevLayoutState,
-                staticMenuDesktopInactive: true // สั่งให้เมนูที่ฝั่งซ้ายซ่อน
+                staticMenuDesktopInactive: true
             }));
         }
     }, []);
