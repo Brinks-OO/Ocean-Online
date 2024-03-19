@@ -108,7 +108,7 @@ export default function CustomerLocation(props) {
       console.log('Current path:', pathname);
       console.log('Current path:', typeof(pathname));
 
-      if (pathname !== "/newHome/newHome2") {
+      if (pathname !== "/v2/home") {
       // if (pathname !== "/newHome/customer_location") {
         setTimeout(() => {
           console.log('pathname', pathname)

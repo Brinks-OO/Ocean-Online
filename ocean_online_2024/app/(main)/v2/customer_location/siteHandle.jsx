@@ -49,11 +49,11 @@ export default function SiteHandle() {
 
   useEffect(() => {
     const element2 = document.querySelector(".p-tabview-panel");
-    const body = document.getElementById("bodyMain");
+    // const body = document?.getElementById("bodyMain");
     if (element2) {
       const height2 = element2.offsetHeight;
       setHeighCardContent({ height: height2 });
-      body.style.overflowY = "hidden"
+      // body?.style?.overflowY = "hidden"
       
     }
   }, [heightNav.height, eventData.height]);

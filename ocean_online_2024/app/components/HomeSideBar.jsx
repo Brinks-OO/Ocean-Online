@@ -171,6 +171,19 @@ const SidebarDemo3 = () => {
             </li>
             <li>
               <Link
+                href={"/v2/home"}
+                className={` ${
+                  pathname === "/v2/home" ? "bg-primary" : ""
+                } no-underline p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full`}
+              >
+                {/* <i className="pi pi-home mr-2"></i> */}
+                <i className="pi pi-home mr-2"></i>
+                <span className="font-medium">Home v2</span>
+                <Ripple />
+              </Link>
+            </li>
+            <li>
+              <Link
                 href={"/customer_location"}
                 className={` ${
                   pathname === "/customer_location" ? "bg-primary" : ""

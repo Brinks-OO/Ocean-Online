@@ -740,6 +740,7 @@ export default function ServiceHour(props) {
           </span>
         </div>
         <Divider />
+        <div className="custom-divider p-0 mt-2 mb-3" style={{ color: ""}}></div>
         <div className="flex gap-2 mt-5">
           <span className="p-float-label w-full ">
             <Dropdown
@@ -771,6 +772,7 @@ export default function ServiceHour(props) {
           </span>
         </div>
         <Divider />
+        <div className="custom-divider p-0 mt-2 mb-3" style={{ color: ""}}></div>
 
         
         <div className="flex gap-2 mt-4">
@@ -830,6 +832,7 @@ export default function ServiceHour(props) {
           </label>
         </div>
         <Divider />
+        <div className="custom-divider p-0 mt-2 mb-3" style={{ color: ""}}></div>
         {/* <div className="mt-5 border-1 border-black-alpha-20">
             <DataTable 
             value={products1}
