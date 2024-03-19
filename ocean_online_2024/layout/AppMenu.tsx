@@ -50,7 +50,7 @@ const AppMenu = () => {
                 {
                     label: "Run Control",
                     //   icon: "pi pi-fw pi-home",
-                    to: "/newHome/run_control_v2",
+                    to: "/v2/run_control_v2",
                 },
             ],
         },
