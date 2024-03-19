@@ -9,9 +9,34 @@ import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
+import { useResizeListener } from 'primereact/hooks';
 
 function GridJob(props) {
-  const itemsGrid = Array.from({ length: 10 }, (v, i) => i);
+
+  // const [eventData, setEventData] = useState({ width: 0, height: 0 });
+
+  // const [bindWindowResizeListener, unbindWindowResizeListener] = useResizeListener({
+  //   listener: (event) => {
+  //     const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
+  //     const gridContainer = document.querySelector("#gridContainner")
+  //     gridAssign ? gridAssign.style.height = `${window.innerHeight - 211}px` : ""
+  //     gridContainer ? gridAssign.style.width = `${window.innerWidth - 300}px` : ""
+  //     setEventData({
+  //       width: event.currentTarget.innerWidth,
+  //       height: event.currentTarget.innerHeight
+  //     });
+  //   }
+  // });
+
+
+  // useEffect(() => {
+  //   bindWindowResizeListener();
+  //   return () => {
+  //     unbindWindowResizeListener();
+  //   };
+  // }, [bindWindowResizeListener, unbindWindowResizeListener]);
+
+
   const menu = useRef(null);
   const optionMenu = useRef(null);
   const items = [
@@ -97,6 +122,7 @@ function GridJob(props) {
   ]);
 
   useEffect(() => {
+    // setEventData({ width: window.innerWidth, height: window.innerHeight });
     setTimeout(() => {
       setLoading(false);
       if (document.getElementById("grdAssign") != null) {
@@ -114,6 +140,14 @@ function GridJob(props) {
       }, 1000);
     }
   }, [props.flagRefreshPage])
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
+  }, [props.selectRun])
+
 
   function handleUnAssignSelectsJob() {
     if (selectedJob.length > 0) {
@@ -134,7 +168,22 @@ function GridJob(props) {
 
   useEffect(() => {
     setSelectedJob(null);
+    setTimeout(() => {
+      resizePage();
+    }, 300);
   }, [props.gridJobOnRun])
+
+  function resizePage() {
+    const contentCriteria = document.querySelector(".p-toggleable-content")
+    const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
+    if (contentCriteria == null) {
+      gridAssign ? gridAssign.style.height = `${window.innerHeight - 131}px` : ""
+      gridAssign ? gridAssign.style.maxHeight = `${window.innerHeight - 131}px` : ""
+    } else {
+      gridAssign ? gridAssign.style.height = `${window.innerHeight - 211}px` : ""
+      gridAssign ? gridAssign.style.maxHeight = `${window.innerHeight - 211}px` : ""
+    }
+  }
 
   useEffect(() => {
     if (document.getElementById("grdAssign") != null) {
@@ -286,17 +335,24 @@ function GridJob(props) {
     )
   };
 
+  const headerssss = (
+    <div id="emptyData" className="flex align-items-center justify-content-center" style={{ height: "64vh", width: '75%' }}>
+      <span className="text-900 text-center">No results found.</span>
+    </div>
+  );
+
   return (
     <>
-      <div style={{
-        width: '1660px',
+      <div id='gridContainner' style={{
+        // width: '1660px',
+        width: `${window.innerWidth - 300}px`,
         overflow: 'hidden'
       }}>
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
-            <DataTable id='grdAssign' value={itemsGrid} className="p-datatable-striped" header={header} scrollable
-              scrollHeight="80vh"
+            <DataTable id='grdAssign' value={props.gridJobOnRun} className="p-datatable-striped" header={header} scrollable emptyMessage={headerssss}
+              scrollHeight={window.innerHeight - 211}
               pt={{
                 // wrapper: {
                 //   style: {
@@ -344,7 +400,7 @@ function GridJob(props) {
               onSelectionChange={handleOnSelectionChange}
               dataKey="Guid"
               scrollable
-              scrollHeight="80vh"
+              scrollHeight={window.innerHeight - 211}
               id='grdAssign'
               draggable={true}
               onDragStart={onDragStart}
@@ -359,6 +415,7 @@ function GridJob(props) {
               stripedRows
               filterDisplay="row"
               header={header}
+              emptyMessage={headerssss}
               pt={{
                 // wrapper: {
                 //   style: {

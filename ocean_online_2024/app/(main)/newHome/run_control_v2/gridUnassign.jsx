@@ -9,7 +9,7 @@ import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
-import { CarService } from './../../services/CarService'
+import { CarService } from '../../../services/CarService'
 import { useResizeListener } from 'primereact/hooks';
 
 function GridUnassign(props) {

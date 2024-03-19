@@ -47,6 +47,11 @@ const AppMenu = () => {
                     //   icon: "pi pi-fw pi-home",
                     to: "/v2/customer_location",
                 },
+                {
+                    label: "Run Control",
+                    //   icon: "pi pi-fw pi-home",
+                    to: "/newHome/run_control_v2",
+                },
             ],
         },
         {

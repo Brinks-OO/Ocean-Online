@@ -9,19 +9,18 @@ import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
-import { CarService } from './../../services/CarService'
 import { useResizeListener } from 'primereact/hooks';
 
-function GridUnassign(props) {
+function GridJob(props) {
 
   // const [eventData, setEventData] = useState({ width: 0, height: 0 });
 
   // const [bindWindowResizeListener, unbindWindowResizeListener] = useResizeListener({
   //   listener: (event) => {
-  // const grdUnassign = document.querySelector("#grdUnassign>.p-datatable-wrapper")
-  // const gridUnAssignContainer = document.querySelector("#gridUnAssignContainer")
-  // grdUnassign ? grdUnassign.style.height = `${window.innerHeight - 211}px` : ""
-  // gridUnAssignContainer ? gridUnAssignContainer.style.width = `${window.innerWidth - 300}px` : ""
+  //     const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
+  //     const gridContainer = document.querySelector("#gridContainner")
+  //     gridAssign ? gridAssign.style.height = `${window.innerHeight - 211}px` : ""
+  //     gridContainer ? gridAssign.style.width = `${window.innerWidth - 300}px` : ""
   //     setEventData({
   //       width: event.currentTarget.innerWidth,
   //       height: event.currentTarget.innerHeight
@@ -39,45 +38,68 @@ function GridUnassign(props) {
 
 
   const menu = useRef(null);
-  const [loading, setLoading] = useState(true);
+  const optionMenu = useRef(null);
   const items = [
-    { label: 'Create Adhoc Jobs' },
+    { label: 'Dispatch Run', },
+    { label: 'Close Run', },
+    { label: 'Manual Close Run', },
     { separator: true },
     {
       label: 'Action Job',
       items: [
         { label: 'Cancel Jobs', },
         { separator: true },
-        { label: 'Assign To Run', },
-        { separator: true },
+        { label: 'Assign to Another Run', },
+        { label: 'Change Schedule Time', },
         { label: 'Change Work Date', },
-        { label: 'Automatic assign jobs to Run', },
+        { separator: true },
+        {
+          label: 'Unassign Selects Job',
+          command: () => handleUnAssignSelectsJob()
+        },
+      ]
+    },
+    {
+      label: 'Sorting',
+      items: [
+        { label: 'By Customization', },
+        { label: 'By Schedule Time', }
+      ]
+    },
+    {
+      label: 'Options ',
+      items: [
+        { label: 'Hide/Show Filter', },
+        { label: 'Column Setting', }
       ]
     },
     { separator: true },
+    { label: 'Run Properties' },
     {
-      label: 'Options',
+      label: 'Run Option',
       items: [
-        { label: 'Hide/Show Filter', },
-        { label: 'Column Setting', },
+        { label: 'Collapse/Expand All', }
       ]
     },
   ];
+  const [loading, setLoading] = useState(true);
   const [checked, setChecked] = useState(false);
-  const [checked2, setChecked2] = useState(false);
-  const [selectedJob, setSelectedJob] = useState([]);
+  const [selectedJob, setSelectedJob] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [dataSelectContextMenu, setDataSelectContextMenu] = useState({});
   const cm = useRef(null);
 
   const menuModel = [
-    { label: 'Edit Job Details' },
+    { label: 'Unassign Job', command: () => handleOnUnAssignJob() },
+    { label: 'Unable To Service', command: () => console.log("Unable To Service") },
     { separator: true },
-    { label: 'Assign To Run' },
+    { label: 'Update Job In Progress', command: () => console.log("Update Job In Progress") },
+    { label: 'Update Now', command: () => console.log("Update Now") },
+    { label: 'Edit Data', command: () => console.log("Edit Data") },
+    { label: 'Edit Job Detail', command: () => console.log("Edit Job Detail") },
     { separator: true },
-    { label: 'Job Properties' }
+    { label: 'Job Properties', command: () => console.log("Job Properties") },
   ];
-
-  const optionMenu = useRef(null);
 
   const itemRenderer = (item) => (
     <a className="flex align-items-center p-menuitem-link">
@@ -89,7 +111,7 @@ function GridUnassign(props) {
 
   const [optionJob, setOptionJob] = useState([
     {
-      label: 'Show Interbranch job with missing items',
+      label: 'Show Cancel Jobs',
       checked: false,
       template: itemRenderer,
       command: () => setOptionJob(prev => {
@@ -97,38 +119,48 @@ function GridUnassign(props) {
         return prev
       })
     },
-    {
-      label: 'Show Cancel Jobs',
-      checked: false,
-      template: itemRenderer,
-      command: () => setOptionJob(prev => {
-        prev[1].checked = !prev[1].checked
-        return prev
-      })
-    },
   ]);
 
   useEffect(() => {
+    // setEventData({ width: window.innerWidth, height: window.innerHeight });
     setTimeout(() => {
       setLoading(false);
-    }, 100);
+      if (document.getElementById("grdAssign") != null) {
+        const color = props.overNight ? 'red' : "var(--primary-color)";
+        grdAssign.children[0].style.background = color
+      }
+    }, 1000);
   }, [])
-
-  useEffect(() => {
-    setTimeout(() => {
-      resizePage();
-    }, 300);
-  }, [loading])
-
 
   useEffect(() => {
     if (props.flagRefreshPage) {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-      }, 100);
+      }, 1000);
     }
   }, [props.flagRefreshPage])
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
+  }, [props.selectRun])
+
+
+  function handleUnAssignSelectsJob() {
+    if (selectedJob.length > 0) {
+      selectedJob.forEach((job) => {
+        props.handleOnClickUnassignJob(job);
+      })
+    }
+  }
+
+  function handleOnUnAssignJob() {
+    props.handleOnClickUnassignJob(dataSelectContextMenu);
+  }
+
 
   function handleOnSelectionChange(e) {
     setSelectedJob(e.value)
@@ -139,19 +171,27 @@ function GridUnassign(props) {
     setTimeout(() => {
       resizePage();
     }, 300);
-  }, [props.gridUnassign])
+  }, [props.gridJobOnRun])
 
   function resizePage() {
     const contentCriteria = document.querySelector(".p-toggleable-content")
-    const gridUnAssign = document.querySelector("#grdUnassign>.p-datatable-wrapper");
+    const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
     if (contentCriteria == null) {
-      gridUnAssign ? gridUnAssign.style.height = `${window.innerHeight - 131}px` : ""
-      gridUnAssign ? gridUnAssign.style.maxHeight = `${window.innerHeight - 131}px` : ""
+      gridAssign ? gridAssign.style.height = `${window.innerHeight - 131}px` : ""
+      gridAssign ? gridAssign.style.maxHeight = `${window.innerHeight - 131}px` : ""
     } else {
-      gridUnAssign ? gridUnAssign.style.height = `${window.innerHeight - 211}px` : ""
-      gridUnAssign ? gridUnAssign.style.maxHeight = `${window.innerHeight - 211}px` : ""
+      gridAssign ? gridAssign.style.height = `${window.innerHeight - 211}px` : ""
+      gridAssign ? gridAssign.style.maxHeight = `${window.innerHeight - 211}px` : ""
     }
   }
+
+  useEffect(() => {
+    if (document.getElementById("grdAssign") != null) {
+      const color = props.overNight ? 'red' : "var(--primary-color)";
+      grdAssign.children[0].style.background = color
+    }
+  }, [props.overNight])
+
 
 
 
@@ -165,7 +205,7 @@ function GridUnassign(props) {
         }
       })
       ev.dataTransfer.setData('data', JSON.stringify(dataSelectJob));
-      ev.dataTransfer.setData('from', 2); // 1 from assign, 2 from unassign
+      ev.dataTransfer.setData('from', 1); // 1 from assign, 2 from unassign
       ev.dataTransfer.effectAllowed = 'movecopy';
 
       const customElement = document.createElement('div');
@@ -201,6 +241,11 @@ function GridUnassign(props) {
 
 
   function openContextMenu(e) {
+    if (Array.isArray(e.data)) {
+      setDataSelectContextMenu({ ...e.data[0] });
+    } else {
+      setDataSelectContextMenu({ ...e.data });
+    }
     cm.current.show(e.originalEvent)
   }
 
@@ -217,10 +262,12 @@ function GridUnassign(props) {
   const jobStatusFlag = (rowData) => {
     let colorFlag = 'transparent';
     let textFlag = '';
+    let colorText = '#ffffff';
+    const showDis = rowData.SequenceStop === 4
     switch (rowData.FlagSyncToMobile) {
       case 0:
         colorFlag = "var(--red-500)";
-        textFlag = "not sync"
+        textFlag = "Not sync"
         break;
       case 1:
       case 3:
@@ -232,24 +279,26 @@ function GridUnassign(props) {
       case 88:
       case 99:
         colorFlag = "var(--green-500)";
-        textFlag = "sync completed"
+        textFlag = "Sync Completed"
         break;
       case 2:
         colorFlag = "var(--blue-500)"
-        textFlag = "job done"
+        textFlag = "Job Done"
         break;
       case 7:
         colorFlag = "var(--yellow-400)"
-        textFlag = "waiting"
+        textFlag = "Waiting"
         break;
       default:
         break;
     }
     return (
-      <div className="flex align-items-center">
+      <div className="flex align-items-center gap-1">
         {/* <Tag value={textFlag} severity={colorFlag} ></Tag> */}
-        <Tag value={textFlag} style={{ background: colorFlag }}></Tag>
+        <Tag value={textFlag} style={{ background: colorFlag, color: colorText }}></Tag>
+
         {/* {rowData.FlagJobClose ? <img alt='close' src='/Images/RunControl/job_closed.png' width={16} /> : <img alt='close' src='/Images/RunControl/job_ontruck.png' width={16} />} */}
+        {showDis ? <Tag value='Discarpency' style={{ background: "var(--blue-500)", color: colorText }}></Tag> : <></>}
       </div>
     );
   };
@@ -257,15 +306,24 @@ function GridUnassign(props) {
 
   const header = (data) => {
     const dat = data.props.value[0];
-    // const runData = mockRunControl.getRunByGuid(dat?.MasterRunResource_Guid || "")[0];
+    const runData = mockRunControl.getRunByGuid(dat?.MasterRunResource_Guid || "")[0];
     return (
       <div className="flex flex-wrap align-items-center justify-content-between gap-2">
         <span className="text-sm font-light">
           <TieredMenu model={items} popup ref={menu} breakpoint="767px" />
           <Button size="small" style={{ border: 'none', background: 'transparent', height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
+
         </span>
         <span className="text-sm font-light">
-          Unassigned Job(s) | Total Job(s): {data?.props?.value?.length} | Total STC:{0} | Total Selected(s): {selectedJob?.length} | Total STC Selected : {0}
+          Assigned Job(s) :Run Resource No :{runData?.VehicleNumber} | Route:{runData?.MasterRouteGroupDetailName} | Total Job(s): {data?.props?.value?.length} | Run Status :{dat?.JobStatus} | {runData?.strWorDate}
+          &nbsp;
+          <i className="pi pi-info-circle text-xs" ></i>
+        </span>
+        <span className="text-sm font-light " style={{ opacity: 0 }}>
+          <div className="flex align-items-center">
+            <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
+            <label htmlFor="ingredient1" className="ml-2">Show Interbranch job with </label>
+          </div>
         </span>
         <span className="font-light mr-2">
           <div className="flex align-items-center">
@@ -275,63 +333,20 @@ function GridUnassign(props) {
 
           </div>
         </span>
-        <TieredMenu model={optionJob} popup ref={optionMenu} breakpoint="860px" style={{ width: '25rem' }} />
-        {/* <span className="text-sm font-light ">
-          <div className="flex align-items-center">
-            <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
-            <label htmlFor="ingredient1" className="ml-2">Show Interbranch job with missing items</label>
-          </div>
-        </span>
-        <span className="text-sm font-light ">
-          <div className="flex align-items-center">
-            <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked2(e.checked)} checked={checked2} />
-            <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label>
-          </div>
-
-        </span> */}
+        <TieredMenu model={optionJob} popup ref={optionMenu} breakpoint="860px" style={{ width: '15rem' }} />
       </div>
     )
   };
 
-  // const cars = Array.from({ length: 100000 }).map((_, i) => CarService.generateCar(i + 1));
-  // const [virtualCars, setVirtualCars] = useState(Array.from({ length: 100000 }));
-  // const [lazyLoading, setLazyLoading] = useState(false);
-  // let loadLazyTimeout = null;
-
-  // const loadCarsLazy = (event) => {
-  //   !lazyLoading && setLazyLoading(true);
-
-  //   if (loadLazyTimeout) {
-  //     clearTimeout(loadLazyTimeout);
-  //   }
-
-  //   //simulate remote connection with a timeout
-  //   loadLazyTimeout = setTimeout(() => {
-  //     let _virtualCars = [...virtualCars];
-  //     let { first, last } = event;
-
-  //     //load data of required page
-  //     const loadedCars = cars.slice(first, last);
-
-  //     //populate page of virtual cars
-  //     Array.prototype.splice.apply(_virtualCars, [...[first, last - first], ...loadedCars]);
-
-  //     setVirtualCars(_virtualCars);
-  //     setLazyLoading(false);
-  //   }, Math.random() * 1000 + 250);
-  // };
-
-  // const loadingTemplate = (options) => {
-  //   return (
-  //     <div className="flex align-items-center" style={{ height: '17px', flexGrow: '1', overflow: 'hidden' }}>
-  //       <Skeleton width={options.cellEven ? (options.field === 'year' ? '30%' : '40%') : '60%'} height="1rem" />
-  //     </div>
-  //   );
-  // };
+  const headerssss = (
+    <div id="emptyData" className="flex align-items-center justify-content-center" style={{ height: "64vh", width: '75%' }}>
+      <span className="text-900 text-center">No results found.</span>
+    </div>
+  );
 
   return (
     <>
-      <div id='gridUnAssignContainer' style={{
+      <div id='gridContainner' style={{
         // width: '1660px',
         width: `${window.innerWidth - 300}px`,
         overflow: 'hidden'
@@ -339,7 +354,7 @@ function GridUnassign(props) {
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
-            <DataTable value={props.gridUnassign} className="p-datatable-striped" header={header} scrollable
+            <DataTable id='grdAssign' value={props.gridJobOnRun} className="p-datatable-striped" header={header} scrollable emptyMessage={headerssss}
               scrollHeight={window.innerHeight - 211}
               pt={{
                 // wrapper: {
@@ -356,38 +371,40 @@ function GridUnassign(props) {
                   }
                 }
               }}>
+              {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
-              <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />} ></Column>
-              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} body={<Skeleton />} ></Column>
-              <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }} body={<Skeleton />} ></Column>
-              <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }} body={<Skeleton />} ></Column>
-              <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
-              <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />} ></Column>
+              <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
+              {/* <Column draggable={true} style={{ minWidth: '50px' }} body={<Skeleton />}></Column> */}
+              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} body={<Skeleton />}></Column>
+              <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }} body={<Skeleton />}></Column>
+              <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }} body={<Skeleton />}></Column>
+              <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
+              <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }} body={<Skeleton />}></Column>
             </DataTable>
             :
             <DataTable
               size='small'
-              value={props.gridUnassign}
+              value={props.gridJobOnRun}
               selectionMode={'checkbox'}
               selection={selectedJob}
               onSelectionChange={handleOnSelectionChange}
               dataKey="Guid"
               scrollable
               scrollHeight={window.innerHeight - 211}
-              id='grdUnassign'
+              id='grdAssign'
               draggable={true}
               onDragStart={onDragStart}
               onDragEnd={handleOnDragEnd}
@@ -401,7 +418,7 @@ function GridUnassign(props) {
               stripedRows
               filterDisplay="row"
               header={header}
-              // virtualScrollerOptions={{ lazy: true, onLazyLoad: loadCarsLazy, itemSize: 20, delay: 200, showLoader: true, loading: lazyLoading, loadingTemplate }}
+              emptyMessage={headerssss}
               pt={{
                 // wrapper: {
                 //   style: {
@@ -419,10 +436,10 @@ function GridUnassign(props) {
               }}
             >
               {/* <Column draggable={true} style={{ minWidth: '50px' }} body={bodyIconContextMenu} ></Column> */}
-              <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} ></Column>
+              <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
               <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
               {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
-              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
+              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false}  style={{ minWidth: '50px' }}></Column>
               <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
               <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
               <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
@@ -442,10 +459,9 @@ function GridUnassign(props) {
               <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
             </DataTable>
         }
-
       </div>
     </>
   )
 }
 
-export default GridUnassign
+export default GridJob

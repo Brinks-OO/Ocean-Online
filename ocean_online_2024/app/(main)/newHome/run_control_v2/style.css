@@ -112,3 +112,20 @@ div.p-multiselect-header>div.p-multiselect-filter-container>input {
 #grdBrinkSite > div > table > thead > tr:nth-child(2) > th:nth-child(2) > div > div > input {
     height: 2rem;
 }
+
+#splitterContainner .p-tabview-nav-link {
+    color: #6b7280;
+   
+}
+#splitterContainner .p-tabview-selected {
+    .p-tabview-nav-link {
+        color: var(--primary-color);
+    }
+}
+
+#grdAssign .p-column-filter-clear-button{
+    display: none;
+}
+#grdUnassign .p-column-filter-clear-button{
+    display: none;
+}
