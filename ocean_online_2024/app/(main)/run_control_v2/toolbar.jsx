@@ -188,9 +188,10 @@ function Toolbar(props) {
                 </div>
                 <div className="flex pt-3">
                     <DataTable
+                        id='grdBrinkSite'
                         value={products}
                         scrollable
-                        scrollHeight="50vh"
+                        scrollHeight="40vh"
                         size='small'
                         showGridlines
                         stripedRows
@@ -198,9 +199,10 @@ function Toolbar(props) {
                         selection={checkboxBrink}
                         onSelectionChange={(e) => setCheckboxBrink(e.value)}
                         dataKey="id"
+                        filterDisplay="row"
                     >
                         <Column field="select" selectionMode="single" style={{ width: '40px' }}></Column>
-                        <Column field="name" header="Name" style={{ width: '480px' }}></Column>
+                        <Column field="name" filter header="Name" style={{ width: '480px' }}></Column>
                     </DataTable>
                 </div>
             </>
@@ -217,7 +219,7 @@ function Toolbar(props) {
     return (
         <>
             <Dialog
-                headerStyle={{ background: 'var(--primary-color)', padding: "3px 3px 3px 6px", color: 'white' }}
+                headerStyle={{ background: 'var(--primary-color)', padding: "5px 3px 5px 6px", color: 'white' }}
                 header={headerContent}
                 pt={{
                     closeButtonIcon: {

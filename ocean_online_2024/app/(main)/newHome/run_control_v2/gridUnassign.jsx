@@ -10,8 +10,34 @@ import { Checkbox } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
 import { CarService } from '../../../services/CarService'
+import { useResizeListener } from 'primereact/hooks';
 
 function GridUnassign(props) {
+
+  // const [eventData, setEventData] = useState({ width: 0, height: 0 });
+
+  // const [bindWindowResizeListener, unbindWindowResizeListener] = useResizeListener({
+  //   listener: (event) => {
+  // const grdUnassign = document.querySelector("#grdUnassign>.p-datatable-wrapper")
+  // const gridUnAssignContainer = document.querySelector("#gridUnAssignContainer")
+  // grdUnassign ? grdUnassign.style.height = `${window.innerHeight - 211}px` : ""
+  // gridUnAssignContainer ? gridUnAssignContainer.style.width = `${window.innerWidth - 300}px` : ""
+  //     setEventData({
+  //       width: event.currentTarget.innerWidth,
+  //       height: event.currentTarget.innerHeight
+  //     });
+  //   }
+  // });
+
+
+  // useEffect(() => {
+  //   bindWindowResizeListener();
+  //   return () => {
+  //     unbindWindowResizeListener();
+  //   };
+  // }, [bindWindowResizeListener, unbindWindowResizeListener]);
+
+
   const menu = useRef(null);
   const [loading, setLoading] = useState(true);
   const items = [
@@ -89,6 +115,13 @@ function GridUnassign(props) {
   }, [])
 
   useEffect(() => {
+    setTimeout(() => {
+      resizePage();
+    }, 300);
+  }, [loading])
+
+
+  useEffect(() => {
     if (props.flagRefreshPage) {
       setLoading(true);
       setTimeout(() => {
@@ -103,7 +136,22 @@ function GridUnassign(props) {
 
   useEffect(() => {
     setSelectedJob(null);
+    setTimeout(() => {
+      resizePage();
+    }, 300);
   }, [props.gridUnassign])
+
+  function resizePage() {
+    const contentCriteria = document.querySelector(".p-toggleable-content")
+    const gridUnAssign = document.querySelector("#grdUnassign>.p-datatable-wrapper");
+    if (contentCriteria == null) {
+      gridUnAssign ? gridUnAssign.style.height = `${window.innerHeight - 131}px` : ""
+      gridUnAssign ? gridUnAssign.style.maxHeight = `${window.innerHeight - 131}px` : ""
+    } else {
+      gridUnAssign ? gridUnAssign.style.height = `${window.innerHeight - 211}px` : ""
+      gridUnAssign ? gridUnAssign.style.maxHeight = `${window.innerHeight - 211}px` : ""
+    }
+  }
 
 
 
@@ -283,15 +331,16 @@ function GridUnassign(props) {
 
   return (
     <>
-      <div style={{
-        width: '1660px',
+      <div id='gridUnAssignContainer' style={{
+        // width: '1660px',
+        width: `${window.innerWidth - 300}px`,
         overflow: 'hidden'
       }}>
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />
         {
           loading ?
             <DataTable value={props.gridUnassign} className="p-datatable-striped" header={header} scrollable
-              scrollHeight="80vh"
+              scrollHeight={window.innerHeight - 211}
               pt={{
                 // wrapper: {
                 //   style: {
@@ -337,7 +386,7 @@ function GridUnassign(props) {
               onSelectionChange={handleOnSelectionChange}
               dataKey="Guid"
               scrollable
-              scrollHeight="80vh"
+              scrollHeight={window.innerHeight - 211}
               id='grdUnassign'
               draggable={true}
               onDragStart={onDragStart}

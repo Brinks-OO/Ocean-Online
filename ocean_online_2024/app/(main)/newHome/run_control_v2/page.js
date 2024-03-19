@@ -12,10 +12,76 @@ import SidebarDemo2 from '@/app/components/Sidebar2';
 import { Button } from 'primereact/button';
 import { useRouter } from "next/navigation";
 import { BreadCrumb } from 'primereact/breadcrumb';
+import { useResizeListener } from 'primereact/hooks';
 import { LayoutContext } from '../../../../layout/context/layoutcontext';
 
 export default function Page() {
   const { onMenuToggle } = useContext(LayoutContext);
+  const [eventData, setEventData] = useState({ width: 0, height: 0 });
+
+  const [bindWindowResizeListener, unbindWindowResizeListener] = useResizeListener({
+    listener: (event) => {
+      setTimeout(() => {
+        resizePage();
+      }, 300);
+      setEventData({
+        width: event.currentTarget.innerWidth,
+        height: event.currentTarget.innerHeight
+      });
+    }
+  });
+
+  function resizePage() {
+    const contentCriteria = panelRef.current.getContent()
+    if (contentCriteria == null) {
+      const el = document.querySelector("#splitterContainner")
+      el ? el.style.height = `${window.innerHeight - 55}px` : ""
+
+      const gridRun = document.querySelector("#gridRun>.p-datatable-wrapper")
+      gridRun ? gridRun.style.height = `${window.innerHeight - 96}px` : ""
+      gridRun ? gridRun.style.maxHeight = `${window.innerHeight - 96}px` : ""
+
+      const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
+      const gridContainer = document.querySelector("#gridContainner")
+      gridAssign ? gridAssign.style.height = `${window.innerHeight - 131}px` : ""
+      gridAssign ? gridAssign.style.maxHeight = `${window.innerHeight - 131}px` : ""
+      gridContainer ? gridContainer.style.width = `${window.innerWidth - 300}px` : ""
+
+      const grdUnassign = document.querySelector("#grdUnassign>.p-datatable-wrapper")
+      const gridUnAssignContainer = document.querySelector("#gridUnAssignContainer")
+      grdUnassign ? grdUnassign.style.height = `${window.innerHeight - 131}px` : ""
+      grdUnassign ? grdUnassign.style.maxHeight = `${window.innerHeight - 131}px` : ""
+      gridUnAssignContainer ? gridUnAssignContainer.style.width = `${window.innerWidth - 300}px` : ""
+    } else {
+      const el = document.querySelector("#splitterContainner")
+      el ? el.style.height = `${window.innerHeight - 131}px` : ""
+
+      const gridRun = document.querySelector("#gridRun>.p-datatable-wrapper")
+      gridRun ? gridRun.style.height = `${window.innerHeight - 175}px` : ""
+      gridRun ? gridRun.style.maxHeight = `${window.innerHeight - 175}px` : ""
+
+      const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
+      const gridContainer = document.querySelector("#gridContainner")
+      gridAssign ? gridAssign.style.height = `${window.innerHeight - 211}px` : ""
+      gridAssign ? gridAssign.style.maxHeight = `${window.innerHeight - 211}px` : ""
+      gridContainer ? gridContainer.style.width = `${window.innerWidth - 300}px` : ""
+
+      const grdUnassign = document.querySelector("#grdUnassign>.p-datatable-wrapper")
+      const gridUnAssignContainer = document.querySelector("#gridUnAssignContainer")
+      grdUnassign ? grdUnassign.style.height = `${window.innerHeight - 211}px` : ""
+      grdUnassign ? grdUnassign.style.maxHeight = `${window.innerHeight - 211}px` : ""
+      gridUnAssignContainer ? gridUnAssignContainer.style.width = `${window.innerWidth - 300}px` : ""
+    }
+  }
+
+  useEffect(() => {
+    bindWindowResizeListener();
+    return () => {
+      unbindWindowResizeListener();
+    };
+  }, [bindWindowResizeListener, unbindWindowResizeListener]);
+
+
   const router = useRouter();
   const defaultSelect = {
     // "Guid": "0000f0a5-5450-08b4-b87e-3f5f7d5385f7",
@@ -23,7 +89,7 @@ export default function Page() {
   }
   const panelRef = useRef(null)
   const iconPanel = useRef(null)
-  const [splitterHeight, setSplitterHeight] = useState('85%');
+  const [splitterHeight, setSplitterHeight] = useState(window.innerHeight - 131);
   const [hideRun, setHideRun] = useState(false);
   const [gridRun, setGridRun] = useState([]);
   const [selectRun, setSelectRun] = useState({ ...defaultSelect })
@@ -54,9 +120,26 @@ export default function Page() {
   }, [overNight])
 
   useEffect(() => {
-    console.log(selectRun)
+    console.log(selectRun);
     const jobOnRun = mapRunJob.filter(item => item?.Guid === selectRun?.Guid);
-    jobOnRun.length != 0 ? setGridJobOnRun([...jobOnRun[0].Jobs]) : setGridJobOnRun([])
+    let newJobs = []
+    if (jobOnRun.length != 0) {
+      newJobs = jobOnRun.map((job) => {
+        const newJobs = job.Jobs.map((itemJob, index) => {
+          return {
+            ...itemJob,
+            SeqIndex: index + 1,
+          }
+        })
+        return {
+          ...job,
+          Jobs: [...newJobs]
+        }
+      })
+    }
+
+    // jobOnRun.length != 0 ? setGridJobOnRun([...jobOnRun[0].Jobs]) : setGridJobOnRun([])
+    newJobs.length != 0 ? setGridJobOnRun([...newJobs[0].Jobs]) : setGridJobOnRun([])
   }, [selectRun])
 
 
@@ -105,12 +188,14 @@ export default function Page() {
             className="p-panel-header-icon p-link  text-white"
             onClick={() => {
               panelRef.current.toggle()
-              const content = panelRef.current.getContent()
-              if (content != null) {
-                expandContent();
-              } else {
-                collapseContent();
-              }
+              setTimeout(() => {
+                const content = panelRef.current.getContent()
+                if (content != null) {
+                  expandContent();
+                } else {
+                  collapseContent();
+                }
+              }, 500);
             }}
           >
             <i ref={iconPanel} className="pi pi-filter-slash" ></i>
@@ -125,26 +210,32 @@ export default function Page() {
     const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
     const gridUnAssign = document.querySelector("#grdUnassign>.p-datatable-wrapper");
     iconPanel.current.className = 'pi pi-filter'
-    setSplitterHeight('94%')
-    gridAssign ? gridAssign.style.maxHeight = "85vh" : ""
-    gridAssign ? gridAssign.style.height = "85vh" : ""
-    gridUnAssign ? gridUnAssign.style.maxHeight = "85vh" : ""
-    gridUnAssign ? gridUnAssign.style.height = "85vh" : ""
-    document.querySelector("#gridRun>.p-datatable-wrapper").style.maxHeight = "89vh"
-    document.querySelector("#gridRun>.p-datatable-wrapper").style.height = "89vh"
+    // setSplitterHeight('94%')
+    const windowHeight = window.innerHeight;
+    const el = document.querySelector("#splitterContainner")
+    el ? el.style.height = `${windowHeight - 131}px` : ""
+    gridAssign ? gridAssign.style.maxHeight = `${windowHeight - 211}px` : ""
+    gridAssign ? gridAssign.style.height = `${windowHeight - 211}px` : ""
+    gridUnAssign ? gridUnAssign.style.maxHeight = `${windowHeight - 211}px` : ""
+    gridUnAssign ? gridUnAssign.style.height = `${windowHeight - 211}px` : ""
+    document.querySelector("#gridRun>.p-datatable-wrapper").style.maxHeight = `${windowHeight - 175}px`
+    document.querySelector("#gridRun>.p-datatable-wrapper").style.height = `${windowHeight - 175}px`
   }
 
   function collapseContent() {
     const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
     const gridUnAssign = document.querySelector("#grdUnassign>.p-datatable-wrapper");
     iconPanel.current.className = 'pi pi-filter-slash'
-    setSplitterHeight('85%')
-    gridAssign ? gridAssign.style.maxHeight = "77vh" : ""
-    gridAssign ? gridAssign.style.height = "77vh" : ""
-    gridUnAssign ? gridUnAssign.style.maxHeight = "77vh" : ""
-    gridUnAssign ? gridUnAssign.style.height = "77vh" : ""
-    document.querySelector("#gridRun>.p-datatable-wrapper").style.maxHeight = "80vh"
-    document.querySelector("#gridRun>.p-datatable-wrapper").style.height = "80vh"
+    // setSplitterHeight('85%')
+    const windowHeight = window.innerHeight;
+    const el = document.querySelector("#splitterContainner")
+    el ? el.style.height = `${windowHeight - 55}px` : ""
+    gridAssign ? gridAssign.style.maxHeight = `${windowHeight - 131}px` : ""
+    gridAssign ? gridAssign.style.height = `${windowHeight - 131}px` : ""
+    gridUnAssign ? gridUnAssign.style.maxHeight = `${windowHeight - 131}px` : ""
+    gridUnAssign ? gridUnAssign.style.height = `${windowHeight - 131}px` : ""
+    document.querySelector("#gridRun>.p-datatable-wrapper").style.maxHeight = `${windowHeight - 96}px`
+    document.querySelector("#gridRun>.p-datatable-wrapper").style.height = `${windowHeight - 96}px`
   }
 
   function handleSplitPage() {
@@ -165,7 +256,6 @@ export default function Page() {
   }
 
   function handleJobDropOnRun(targetRunGuid, jobsSelectData, from) {
-    debugger;
     if (from == 1) { // from job
       let newData = [];
       let jobOnRunIndex = -1
@@ -236,6 +326,7 @@ export default function Page() {
         <Toolbar onRefreshPage={onRefreshPage} checked={overNight} setChecked={setOverNight} />
       </Panel >
       <Splitter
+        id='splitterContainner'
         style={{ height: splitterHeight }}
         pt={{
           gutterHandler: {
@@ -246,7 +337,7 @@ export default function Page() {
         }}
       >
         <SplitterPanel className='flex' size={13} >
-          {hideRun ? <></> : <GridRun gridRun={gridRun} setSelectRun={setSelectRun} selectRun={selectRun} handleJobDropOnRun={handleJobDropOnRun} overNight={overNight} />}
+          {hideRun ? <></> : <GridRun gridRun={gridRun} setSelectRun={setSelectRun} selectRun={selectRun} handleJobDropOnRun={handleJobDropOnRun} overNight={overNight} flagRefreshPage={flagRefreshPage} />}
         </SplitterPanel>
         <SplitterPanel className='flex w-full' size={87} >
           <TabView

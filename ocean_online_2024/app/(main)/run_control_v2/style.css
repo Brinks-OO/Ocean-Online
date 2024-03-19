@@ -73,14 +73,14 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
     height: 2rem;
 }
 
-#gridRun .p-datatable-wrapper {
+/* #gridRun .p-datatable-wrapper {
     height: 80vh;
 }
 
 #grdAssign>.p-datatable-wrapper,
 #grdUnassign>.p-datatable-wrapper {
     height: 77vh;
-}
+} */
 
 .p-rowgroup-header>td {
     padding: 0px 0px 4px 0px;
@@ -107,4 +107,8 @@ div.p-multiselect-panel.p-component.p-ripple-disabled.p-connected-overlay-enter-
 
 div.p-multiselect-header>div.p-multiselect-filter-container>input {
     height: 2.5rem;
+}
+
+#grdBrinkSite > div > table > thead > tr:nth-child(2) > th:nth-child(2) > div > div > input {
+    height: 2rem;
 }

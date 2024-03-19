@@ -151,12 +151,12 @@ code {
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #bdbdbd; 
   /* background: #97bbf5;  */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #949494; 
   /* background: #76a7f7;  */
 }
