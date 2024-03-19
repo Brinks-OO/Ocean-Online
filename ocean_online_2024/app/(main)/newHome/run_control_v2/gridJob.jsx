@@ -263,6 +263,7 @@ function GridJob(props) {
     let colorFlag = 'transparent';
     let textFlag = '';
     let colorText = '#ffffff';
+    const showDis = rowData.SequenceStop === 4
     switch (rowData.FlagSyncToMobile) {
       case 0:
         colorFlag = "var(--red-500)";
@@ -292,10 +293,12 @@ function GridJob(props) {
         break;
     }
     return (
-      <div className="flex align-items-center">
+      <div className="flex align-items-center gap-1">
         {/* <Tag value={textFlag} severity={colorFlag} ></Tag> */}
         <Tag value={textFlag} style={{ background: colorFlag, color: colorText }}></Tag>
+
         {/* {rowData.FlagJobClose ? <img alt='close' src='/Images/RunControl/job_closed.png' width={16} /> : <img alt='close' src='/Images/RunControl/job_ontruck.png' width={16} />} */}
+        {showDis ? <Tag value='Discarpency' style={{ background: "var(--blue-500)", color: colorText }}></Tag> : <></>}
       </div>
     );
   };
@@ -436,7 +439,7 @@ function GridJob(props) {
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
               <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
               {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
-              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
+              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false}  style={{ minWidth: '50px' }}></Column>
               <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
               <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
               <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>

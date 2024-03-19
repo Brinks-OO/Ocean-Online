@@ -122,3 +122,10 @@ div.p-multiselect-header>div.p-multiselect-filter-container>input {
         color: var(--primary-color);
     }
 }
+
+#grdAssign .p-column-filter-clear-button{
+    display: none;
+}
+#grdUnassign .p-column-filter-clear-button{
+    display: none;
+}
