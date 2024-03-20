@@ -61,21 +61,21 @@ const Layout = ({ children }: ChildContainerProps) => {
     });
 
     const hideMenu = () => {
-        // setLayoutState((prevLayoutState: LayoutState) => ({
-        //     ...prevLayoutState,
-        //     overlayMenuActive: false,
-        //     staticMenuMobileActive: false,
-        //     menuHoverActive: false
-        // }));
+        setLayoutState((prevLayoutState: LayoutState) => ({
+            ...prevLayoutState,
+            overlayMenuActive: false,
+            staticMenuMobileActive: false,
+            menuHoverActive: false
+        }));
         unbindMenuOutsideClickListener();
         unblockBodyScroll();
     };
 
     const hideProfileMenu = () => {
-        // setLayoutState((prevLayoutState: LayoutState) => ({
-        //     ...prevLayoutState,
-        //     profileSidebarVisible: false
-        // }));
+        setLayoutState((prevLayoutState: LayoutState) => ({
+            ...prevLayoutState,
+            profileSidebarVisible: false
+        }));
         unbindProfileMenuOutsideClickListener();
     };
 
