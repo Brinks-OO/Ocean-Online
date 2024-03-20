@@ -37,6 +37,28 @@ function Toolbar(props) {
             { id: 17, name: '0002 - NCR' },
             { id: 18, name: '0003 - CASHTEC' },
             { id: 19, name: '0007 - Brinks Security' },
+        ],
+        us: [
+            { id: 20, name: '0001 - UNITED STATES 1' },
+            { id: 21, name: '0002 - UNITED STATES 2' },
+            { id: 22, name: '0003 - UNITED STATES 3' },
+            { id: 23, name: '0007 - UNITED STATES 4' },
+        ],
+        sp: [
+            { id: 24, name: '0001 - SPAIN 1' },
+            { id: 25, name: '0002 - SPAIN 2' },
+        ],
+        st: [
+            { id: 26, name: '0001 - STARFISH 1' },
+            { id: 27, name: '0002 - STARFISH 2' },
+        ],
+        sw: [
+            { id: 28, name: '0001 - SWITZERLAND 1' },
+            { id: 29, name: '0002 - SWITZERLAND 2' },
+        ],
+        pr: [
+            { id: 30, name: '0001 - Paris 1' },
+            { id: 31, name: '0002 - Paris 2' },
         ]
     }
     const menu = useRef(null);
@@ -73,6 +95,30 @@ function Toolbar(props) {
             { name: 'Brinks United States 2' },
             { name: 'Brinks United States 3' },
             { name: 'Brinks United States 4' },
+        ],
+        sp: [
+            { name: 'Brinks SPAIN 1' },
+            { name: 'Brinks SPAIN 2' },
+            { name: 'Brinks SPAIN 3' },
+            { name: 'Brinks SPAIN 4' },
+        ],
+        st: [
+            { name: 'Brinks STARFISH 1' },
+            { name: 'Brinks STARFISH 2' },
+            { name: 'Brinks STARFISH 3' },
+            { name: 'Brinks STARFISH 4' },
+        ],
+        sw: [
+            { name: 'Brinks SWITZERLAND 1' },
+            { name: 'Brinks SWITZERLAND 2' },
+            { name: 'Brinks SWITZERLAND 3' },
+            { name: 'Brinks SWITZERLAND 4' },
+        ],
+        pr: [
+            { name: 'Brinks Paris 1' },
+            { name: 'Brinks Paris 2' },
+            { name: 'Brinks Paris 3' },
+            { name: 'Brinks Paris 4' },
         ],
     }
     const [days, setDays] = useState(7);
@@ -191,7 +237,7 @@ function Toolbar(props) {
                         id='grdBrinkSite'
                         value={products}
                         scrollable
-                        scrollHeight="40vh"
+                        scrollHeight="500px"
                         size='small'
                         showGridlines
                         stripedRows
@@ -200,6 +246,9 @@ function Toolbar(props) {
                         onSelectionChange={(e) => setCheckboxBrink(e.value)}
                         dataKey="id"
                         filterDisplay="row"
+                        style={{
+                            height:"500px"
+                        }}
                     >
                         <Column field="select" selectionMode="single" style={{ width: '40px' }}></Column>
                         <Column field="name" filter header="Name" style={{ width: '480px' }}></Column>
@@ -219,7 +268,7 @@ function Toolbar(props) {
     return (
         <>
             <Dialog
-                headerStyle={{ background: 'var(--primary-color)', padding: "5px 3px 5px 6px", color: 'white' }}
+                headerStyle={{ background: 'var(--primary-color)', padding: "5px 3px 5px 24px", color: 'white' }}
                 header={headerContent}
                 pt={{
                     closeButtonIcon: {

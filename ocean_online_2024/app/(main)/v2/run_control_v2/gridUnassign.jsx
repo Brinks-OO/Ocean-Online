@@ -333,7 +333,7 @@ function GridUnassign(props) {
     <>
       <div id='gridUnAssignContainer' style={{
         // width: '1660px',
-        width: `${window.innerWidth - 300}px`,
+        width: `${window.innerWidth - 310}px`,
         overflow: 'hidden'
       }}>
         <ContextMenu model={menuModel} ref={cm} style={{ width: '230px' }} onHide={() => setSelectedProduct(null)} />

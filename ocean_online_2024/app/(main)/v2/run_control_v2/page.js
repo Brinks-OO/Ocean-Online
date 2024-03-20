@@ -45,13 +45,13 @@ export default function Page() {
       const gridContainer = document.querySelector("#gridContainner")
       gridAssign ? gridAssign.style.height = `${window.innerHeight - 131}px` : ""
       gridAssign ? gridAssign.style.maxHeight = `${window.innerHeight - 131}px` : ""
-      gridContainer ? gridContainer.style.width = `${window.innerWidth - 300}px` : ""
+      gridContainer ? gridContainer.style.width = `${window.innerWidth - 310}px` : ""
 
       const grdUnassign = document.querySelector("#grdUnassign>.p-datatable-wrapper")
       const gridUnAssignContainer = document.querySelector("#gridUnAssignContainer")
       grdUnassign ? grdUnassign.style.height = `${window.innerHeight - 131}px` : ""
       grdUnassign ? grdUnassign.style.maxHeight = `${window.innerHeight - 131}px` : ""
-      gridUnAssignContainer ? gridUnAssignContainer.style.width = `${window.innerWidth - 300}px` : ""
+      gridUnAssignContainer ? gridUnAssignContainer.style.width = `${window.innerWidth - 310}px` : ""
     } else {
       const el = document.querySelector("#splitterContainner")
       el ? el.style.height = `${window.innerHeight - 131}px` : ""
@@ -64,13 +64,13 @@ export default function Page() {
       const gridContainer = document.querySelector("#gridContainner")
       gridAssign ? gridAssign.style.height = `${window.innerHeight - 211}px` : ""
       gridAssign ? gridAssign.style.maxHeight = `${window.innerHeight - 211}px` : ""
-      gridContainer ? gridContainer.style.width = `${window.innerWidth - 300}px` : ""
+      gridContainer ? gridContainer.style.width = `${window.innerWidth - 310}px` : ""
 
       const grdUnassign = document.querySelector("#grdUnassign>.p-datatable-wrapper")
       const gridUnAssignContainer = document.querySelector("#gridUnAssignContainer")
       grdUnassign ? grdUnassign.style.height = `${window.innerHeight - 211}px` : ""
       grdUnassign ? grdUnassign.style.maxHeight = `${window.innerHeight - 211}px` : ""
-      gridUnAssignContainer ? gridUnAssignContainer.style.width = `${window.innerWidth - 300}px` : ""
+      gridUnAssignContainer ? gridUnAssignContainer.style.width = `${window.innerWidth - 310}px` : ""
     }
   }
 
@@ -152,7 +152,7 @@ export default function Page() {
     { label: "New", template: () => <span className="text-white font-bold ">Run Control</span> },
   ];
 
-  const home = { icon: 'pi pi-home', url: '/home', template: () => <i className="pi pi-home cursor-pointer" onClick={() => router.push('/home')}></i> }
+  const home = { icon: 'pi pi-home', url: '/home', template: () => <i className="pi pi-home cursor-pointer" onClick={() => router.push('/v2/home')}></i> }
 
   const headerTemplate = (options) => {
     const className = `${options.className} justify-content-space-between`;
@@ -200,7 +200,7 @@ export default function Page() {
           >
             <i ref={iconPanel} className="pi pi-filter-slash" ></i>
           </button>
-          <button className="p-panel-header-icon p-link  text-white" onClick={() => router.push('/home')}><i className="pi pi-times" ></i></button>
+          <button className="p-panel-header-icon p-link  text-white" onClick={() => router.push('/v2/home')}><i className="pi pi-times" ></i></button>
         </div>
       </div>
     );
