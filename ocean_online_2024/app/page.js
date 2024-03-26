@@ -29,7 +29,7 @@ import Home from "./Home";
 import Login from "./(main)/login/Login";
 // import page from '../app/(main)/home/page'
 
-function page() {
+function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLoginSuccess = () => {
@@ -45,4 +45,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
