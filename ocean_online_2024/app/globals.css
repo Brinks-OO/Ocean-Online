@@ -160,3 +160,7 @@ code {
   background: #949494; 
   /* background: #76a7f7;  */
 }
+
+.p-button:focus {
+  box-shadow : 0 0 0 0.1rem #bfdbfe
+}

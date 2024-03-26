@@ -58,7 +58,6 @@ export default function ContextMenuDemo() {
     </>
   );
   const splitBtn = (d) => {
-    console.log(d);
     // {menu.current.toggle(d)};
     // console.log('menu.current', menu)
     actionBodyTemplate(d)

@@ -41,7 +41,6 @@ export default function ContextMenuDataTableDemo() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const viewProduct = (product) => {
-    console.log(product);
     toast.current.show({
       severity: "info",
       summary: "Product Selected",

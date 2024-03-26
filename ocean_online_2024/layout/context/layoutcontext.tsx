@@ -27,7 +27,6 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
   
 
     const onMenuToggle = () => {
-        console.log('onMenuToggle')
         const mainLayout = document.getElementById("mainLayout");
         if (isOverlay()) {
             setLayoutState((prevLayoutState) => ({ ...prevLayoutState, overlayMenuActive: !prevLayoutState.overlayMenuActive }));

@@ -11,8 +11,6 @@ import { Toast } from "primereact/toast";
 
 export default function DataTableNewSave(props) {
   const { dataForTable, filter, mode, allData, onRefresh, filter2, filter3, filter4 } = props;
-//   console.log("allData DataTableNewSave", allData);
-//   console.log("filter4 filter4", filter4);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loadingDone, setLoadingDone] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -136,18 +134,12 @@ export default function DataTableNewSave(props) {
     // const elementEmpty = document?.querySelector(".p-datatable-tbody > .p-datatable-emptymessage");
     if (loadingDone) {
       const newHeight = element.offsetHeight;
-      // console.log('newHeight', newHeight)
       const newHeight2 = element2.offsetHeight;
       const newHeight3 = element3.offsetHeight;
       const newHeight4 = element4.offsetHeight;
     const elementEmpty = document?.querySelector("#emptyData");
 
-    //   console.log('element3', element3)
-    //   console.log('newHeight3', newHeight3)
-    //   console.log('element4', element4)
-    //   console.log('newHeight4', newHeight4)
       setHeightContent({ height: newHeight });
-      // console.log('heightCardContent', heightCardContent.height)
       // element.style.maxHeight = `${newHeight - 480}px`;
       if (mode) {
         element.style.maxHeight = `${heightCardContent.height - 104}px`;
@@ -238,7 +230,6 @@ export default function DataTableNewSave(props) {
   };
 
   const dateBodyTemplate = (rowData) => {
-    // console.log("rowData", rowData);
     return rowData;
     // return formatDate(rowData);
   };
@@ -280,7 +271,6 @@ export default function DataTableNewSave(props) {
   // New
 
   const actionBodyTemplate = (rowData) => {
-    // console.log("rowData", rowData);
     let itemsMenu = [
       {
         label: "File",
@@ -309,7 +299,6 @@ export default function DataTableNewSave(props) {
     );
   };
 
-//   console.log("filter", filter);
 
   const LobData = [
     {
@@ -414,7 +403,6 @@ function LoadDataTest() {
       clearTimeout(networkTimeout);
     }
 
-    // console.log("dataForTable", dataForTable);
     // if (dataForTable?.length > 0) {
     //     setBrinkDataAll(allData.tab4);
     // } else {
@@ -429,9 +417,6 @@ function LoadDataTest() {
     // });
 
     networkTimeout = setTimeout(() => {
-    //   console.log("dataForTable", dataForTable);
-    //   console.log("brinkDataAll", brinkDataAll);
-    //   console.log("allData?.tab4 333", allData?.tab4);
 
     //   if (allData?.tab4?.length > 0) {
     //     const newData = brinkDataAll.unshift(allData?.tab4)
@@ -441,7 +426,6 @@ function LoadDataTest() {
     //     setLoadingDone(true);
     //   } else {
         getBrinksMiniMain().then((data) => {
-            // console.log('data 444', data)
             setBrinkDataAll(data);
             if (allData?.tab4?.length > 0) {
                 const newData = [ ...allData.tab4, ...data ];

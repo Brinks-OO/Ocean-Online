@@ -127,13 +127,16 @@ const Layout = ({ children }: ChildContainerProps) => {
         'p-ripple-disabled': !layoutConfig?.ripple
     });
 
-    console.log('containerClass', containerClass)
-
      useEffect(() => {
         if (pathname !== "/v2/home") {
             setLayoutState((prevLayoutState: LayoutState) => ({
                 ...prevLayoutState,
                 staticMenuDesktopInactive: true
+            }));
+        } else {
+            setLayoutState((prevLayoutState: LayoutState) => ({
+                ...prevLayoutState,
+                staticMenuDesktopInactive: false
             }));
         }
     }, []);

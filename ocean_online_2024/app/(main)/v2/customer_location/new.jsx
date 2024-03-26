@@ -69,7 +69,7 @@ export default function CustomerLocationNewPage(props) {
   //   template: () => <span className="text-white">Home</span>,
 
   // };
-  const home = { icon: 'pi pi-home', url: '/home', template: () => <Link href="/home" className="text-white"><i className="pi pi-home"></i> </Link>}
+  const home = { icon: 'pi pi-home', url: '/v2/home', template: () => <Link href="/v2/home" className="text-white"><i className="pi pi-home"></i> </Link>}
 
   return (
     <>

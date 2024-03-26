@@ -676,7 +676,7 @@ function LoadDataTest() {
             ></Column>
             <Column
               field="userCreated"
-              header="user Created"
+              header="User Created"
               filter
               showFilterMenu={false}
               style={{ width: "10%", minWidth: '120px' }}

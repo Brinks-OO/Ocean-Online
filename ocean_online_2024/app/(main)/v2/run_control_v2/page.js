@@ -120,7 +120,6 @@ export default function Page() {
   }, [overNight])
 
   useEffect(() => {
-    console.log(selectRun);
     const jobOnRun = mapRunJob.filter(item => item?.Guid === selectRun?.Guid);
     let newJobs = []
     if (jobOnRun.length != 0) {
@@ -161,7 +160,7 @@ export default function Page() {
         <div className="flex align-items-center gap-2">
           {/* <SidebarDemo2 /> */}
           <Button
-            type="button" className="p-link layout-menu-button layout-topbar-button h-2rem"
+            type="button" className="p-link layout-menu-button layout-topbar-button h-2rem border-white"
             onClick={() => onMenuToggle()}
           >
             <i className="pi pi-bars text-white" style={{ fontSize: "16px" }} />
@@ -209,7 +208,7 @@ export default function Page() {
   function expandContent() {
     const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
     const gridUnAssign = document.querySelector("#grdUnassign>.p-datatable-wrapper");
-    iconPanel.current.className = 'pi pi-filter'
+    iconPanel.current.className = 'pi pi-filter-slash'
     // setSplitterHeight('94%')
     const windowHeight = window.innerHeight;
     const el = document.querySelector("#splitterContainner")
@@ -225,7 +224,7 @@ export default function Page() {
   function collapseContent() {
     const gridAssign = document.querySelector("#grdAssign>.p-datatable-wrapper")
     const gridUnAssign = document.querySelector("#grdUnassign>.p-datatable-wrapper");
-    iconPanel.current.className = 'pi pi-filter-slash'
+    iconPanel.current.className = 'pi pi-filter'
     // setSplitterHeight('85%')
     const windowHeight = window.innerHeight;
     const el = document.querySelector("#splitterContainner")

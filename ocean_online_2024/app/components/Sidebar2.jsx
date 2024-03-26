@@ -15,7 +15,6 @@ import { usePathname } from "next/navigation";
 const SidebarDemo2 = () => {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
-  console.log("pathname", pathname);
   const btnRef1 = useRef(null);
   const btnRef2 = useRef(null);
   const btnRef3 = useRef(null);
@@ -42,11 +41,9 @@ const SidebarDemo2 = () => {
   const [subMenuOpen2, setSubMenuOpen2] = useState(false); // เพิ่ม state เพื่อเก็บสถานะของเมนูย่อย
 
   const toggleSubMenu = () => {
-    console.log("ss");
     setSubMenuOpen(!subMenuOpen); // สลับสถานะเมื่อคลิกที่เมนูย่อย
   };
   const toggleSubMenu2 = () => {
-    console.log("ss");
     setSubMenuOpen2(!subMenuOpen2); // สลับสถานะเมื่อคลิกที่เมนูย่อย
   };
 

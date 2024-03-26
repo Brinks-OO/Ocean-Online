@@ -28,10 +28,6 @@ export default function Page() {
   // ], 'allData');
   const [allData, setAllData] = useLocalStorage({ tab4: [] }, 'allData');
 
-  // console.log('allData', allData)
-  // console.log('detailData', detailData)
-  // console.log('showNewPage', showNewPage)
-
 
   // function onClickNew(state) {
   //   if (!state) {

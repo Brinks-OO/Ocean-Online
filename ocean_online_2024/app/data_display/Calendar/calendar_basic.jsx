@@ -3,7 +3,6 @@ import { Calendar } from "primereact/calendar";
 
 export default function CalendarIconDemo() {
   const [date, setDate] = useState(null);
-  console.log('date', date)
   const [dates2, setDates2] = useState(null);
   const [dates3, setDates3] = useState(null);
 

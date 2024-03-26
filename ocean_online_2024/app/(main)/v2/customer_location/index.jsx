@@ -42,9 +42,11 @@ export default function CustomerLocation(props) {
   const [locationNamefil, setLocationNameFil] = useState([]);
   const [mode, setMode] = useState(false);
   const [onRefresh, setRefresh] = useState(false);
+  const [country1, setCountry1] = useState();
+  const [country2, setCountry2] = useState();
 
   const Bitems = [{ label: 'Administration', template: () => <span>Administration</span> }, { label: 'Standard Table', template: () => <span>Standard Table</span> }, { label: 'CustomerLocation', template: () => <span className="font-bold">Customer Location</span> }];
-  const Bhome = { icon: 'pi pi-home', url: '/home',template: () => <Link href="/home" className="text-white"><i className="pi pi-home"></i> </Link>}
+  const Bhome = { icon: 'pi pi-home', url: '/v2/home',template: () => <Link href="/v2/home" className="text-white"><i className="pi pi-home"></i> </Link>}
 
   useEffect(() => {
     setDataForTable(allData?.tab4);
@@ -54,19 +56,19 @@ export default function CustomerLocation(props) {
     setSelectServiceType()
     setProviceState()
     setDistCity()
+    setCountry1()
+    setCountry2()
   }, [onRefresh]);
 
   const toggleState = (e, mode) => {
-    console.log("e", e);
-    console.log("mode", mode);
+    // console.log("e", e);
+    // console.log("mode", mode);
     if (mode === "collapse") {
       setMode(true);
     } else {
       setMode(false);
     }
   };
-  console.log("dataForTable", dataForTable);
-  console.log("locationNamefil", locationNamefil);
 
   const [eventData, setEventData] = useState({ width: 0, height: 0 });
   const [heightNav, setHeightNav] = useState({ height: 0 });
@@ -88,7 +90,7 @@ export default function CustomerLocation(props) {
     const element = document.getElementById("navigation_bar_cus_lo");
     if (element) {
       const height = element.offsetHeight;
-      console.log("height navigation_bar_cus_lo", height);
+      // console.log("height navigation_bar_cus_lo", height);
       setHeightNav({ height: height });
     }
   }, [eventData.height]);
@@ -97,46 +99,12 @@ export default function CustomerLocation(props) {
     const element2 = document.getElementById("mainPageCuslo");
     if (element2) {
       const height2 = element2.offsetHeight;
-      console.log("height mainPageCuslo", height2);
+      // console.log("height mainPageCuslo", height2);
 
       setHeightContent({ height: height2 });
     }
   }, [heightNav.height, eventData.height]);
 
-  useEffect(() => {
-    // ตรวจสอบว่า router ถูกติดตั้งหรือยัง
-      console.log('Current path:', pathname);
-      console.log('Current path:', typeof(pathname));
-
-      if (pathname !== "/v2/home") {
-      // if (pathname !== "/newHome/customer_location") {
-        setTimeout(() => {
-          console.log('pathname', pathname)
-          // onMenuToggle(true);
-          const mainLayout = document.getElementById("mainLayout");
-          if (mainLayout) {
-
-              // mainLayout.classList.remove("layout-static", "layout-mobile-active", "p-ripple-disabled");
-              // mainLayout.classList.add("layout-static","layout-static-inactive", "layout-mobile-active" ,"p-ripple-disabled"); // เพิ่มคลาสใหม่ตามต้องการ
-            // setLayoutState((prevLayoutState) => ({ ...prevLayoutState, staticMenuDesktopInactive: !prevLayoutState.staticMenuDesktopInactive }));
-
-          }
-          // if (isDesktop()) {
-            // setLayoutState((prevLayoutState) => ({ ...prevLayoutState, staticMenuDesktopInactive: !prevLayoutState.staticMenuDesktopInactive }));
-            // } else {
-              // setLayoutState((prevLayoutState) => ({ ...prevLayoutState, staticMenuMobileActive: !prevLayoutState.staticMenuMobileActive }));
-        // }
-        }, 500)
-
-        // ใช้ JavaScript
-      
-
-      // หรือใช้ jQuery
-      // $("#mainLayout").removeClass("layout-wrapper layout-static layout-mobile-active p-ripple-disabled").addClass("new-class1 new-class2");
-
-        
-    } 
-  }, [pathname]);
 
   // useEffect(() => {
   //   // เรียกใช้ onMenuToggle เพื่อปิดเมนูเมื่อคอมโพเนนต์เรนเดอร์
@@ -164,7 +132,7 @@ export default function CustomerLocation(props) {
           <Button 
           // icon="pi pi-bars" size="large"  
           ref={menubuttonRef} 
-          type="button" className="p-link layout-menu-button layout-topbar-button h-2rem" 
+          type="button" className="p-link layout-menu-button layout-topbar-button h-2rem border-white" 
           // onClick={()=>onMenuToggle()}
           onClick={()=>handleMenuToggle()}
           >
@@ -184,7 +152,7 @@ export default function CustomerLocation(props) {
 
           <div>{options.togglerElement}</div>
           {/* <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-filter-slash" onClick={() => {options.togglerElement} }></i></button></div> */}
-          <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times" onClick={() => router.push('/home')}></i></button></div>
+          <div><button className="p-panel-header-icon p-link mr-2 text-white"><i className="pi pi-times" onClick={() => router.push('/v2/home')}></i></button></div>
         </div>
       </div>
     );
@@ -197,6 +165,27 @@ export default function CustomerLocation(props) {
     {
       id: "2",
       name: "Delivery",
+    },
+  ];
+
+  const CountryData = [
+    {
+      id: "1",
+      name: "Thailand",
+    },
+    {
+      id: "2",
+      name: "USA",
+    },
+  ];
+  const CutomerData = [
+    {
+      id: "1",
+      name: "Customer01",
+    },
+    {
+      id: "2",
+      name: "Customer02",
     },
   ];
 
@@ -292,25 +281,32 @@ export default function CustomerLocation(props) {
 
           <div>
             <div className=" grid nested-grid">
-              <div className="col-10 pb-0 pt-0">
+              <div className="col-12 pb-0 pt-0">
                 <div className="grid">
                   <div className="col-3 ">
                     <Dropdown
+                      options={CountryData}
+
                       optionLabel="name"
                       placeholder="Select a Country"
                       className="w-full  border-1 p-inputtext-sm"
                       showClear
+                      value={country1}
                       size="medium"
+                      onChange={(e) => setCountry1(e.value)}
                       tooltip="Select a Country" tooltipOptions={{ position: 'top' }}
                       style={{fontSize:"16px", lineHeight:"8px"}}
                     />
                   </div>
                   <div className="col-3">
                     <Dropdown
+                      options={CutomerData}
                       optionLabel="name"
                       placeholder="Select a Customer"
                       className="w-full border-1"
                       showClear
+                      value={country2}
+                      onChange={(e) => setCountry2(e.value)}
                       tooltip="Select a Customer" tooltipOptions={{ position: 'top' }}
                       style={{fontSize:"16px", lineHeight:"8px"}}
                     />
@@ -387,9 +383,33 @@ export default function CustomerLocation(props) {
                       Include Disable
                     </label>
                   </div>
+                  <div className="col-3 text-right flex align-content-end gap-2 pb-0">
+                    <Button
+                        className="w-6rem justify-content-center p-2 "
+                        label="Refresh"
+                        icon="pi pi-refresh"
+                        onClick={(e) => onRefreshClick()}
+                        size="small"
+                        // style={{ marginTop: "3px" }}
+                        tooltip="Refresh" tooltipOptions={{ position: 'top' }}
+                        // style={{fontSize:"16px", lineHeight:"8px"}}
+                      />
+                    <Button
+                        className="w-6rem justify-content-center p-2"
+                        label="Export"
+                        icon="pi pi-file-export"
+                        size="small"
+                        // style={{ marginTop: "3px" }}
+                        tooltip="Export" tooltipOptions={{ position: 'top' }}
+                        // style={{fontSize:"16px", lineHeight:"8px"}}
+                      />
+                  </div>
                 </div>
               </div>
-              <div className="col-2 pb-0">
+
+              
+
+              {/* <div className="col-2 pb-0">
                 <div className="grid">
                   <div className="col-6 pt-0">
                     <Button
@@ -415,7 +435,7 @@ export default function CustomerLocation(props) {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* </div> */}

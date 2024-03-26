@@ -12,7 +12,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    // console.log("enter");
     if (username === "admin" && password === "password") {
       router.push("/home");
     } else {

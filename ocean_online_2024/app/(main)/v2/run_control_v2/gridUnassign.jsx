@@ -264,7 +264,7 @@ function GridUnassign(props) {
           <TieredMenu model={items} popup ref={menu} breakpoint="767px" />
           <Button size="small" style={{ border: 'none', background: 'transparent', height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
         </span>
-        <span className="text-sm font-light">
+        <span className="text-sm font-bold">
           Unassigned Job(s) | Total Job(s): {data?.props?.value?.length} | Total STC:{0} | Total Selected(s): {selectedJob?.length} | Total STC Selected : {0}
         </span>
         <span className="font-light mr-2">

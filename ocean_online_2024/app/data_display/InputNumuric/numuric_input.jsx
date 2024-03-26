@@ -7,7 +7,6 @@ export default function NumeralsDemo() {
     const [value2, setValue2] = useState(58151);
     const [value3, setValue3] = useState(2351.35);
 
-    console.log('value3', value3)
     const [value4, setValue4] = useState(50);
 
     const [value11, setValue11] = useState(1500);
@@ -15,7 +14,6 @@ export default function NumeralsDemo() {
     const [value13, setValue13] = useState(4250);
     const [value14, setValue14] = useState(5002);
     const [value16, setValue16] = useState(10000);
-    console.log('value13', value13)
     const [value15, setValue15] = useState();
 
     return (

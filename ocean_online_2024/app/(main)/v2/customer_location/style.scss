@@ -165,5 +165,12 @@ td {
 }
 
 .p-column-filter-clear-button {
-display: none;
+    display: none;
 }
+
+.vertical-divider {
+    height: 95px; 
+    width: 1px;
+    background-color: #e5e7eb;
+    margin: auto;
+  }

@@ -48,15 +48,23 @@ export default function AdditionalService() {
         setSelectedCategories(_selectedCategories);
     };
     const [value, setValue] = useState("");
+    const [value2, setValue2] = useState("");
+    const [value3, setValue3] = useState("");
+    const [value4, setValue4] = useState("");
+    const [value5, setValue5] = useState("");
+    const [value6, setValue6] = useState("");
+    const [value7, setValue7] = useState("");
     const units = [
         { name: "M", code: "NY" },
-        { name: "Rome", code: "RM" },
-        { name: "London", code: "LDN" },
-        { name: "Istanbul", code: "IST" },
-        { name: "Paris", code: "PRS" },
+        { name: "CM", code: "CM" },
+    ];
+    const units22 = [
+        { name: "Proof of Delivery CA-FR", code: "pdca" },
     ];
     const [unit, setUnit] = useState(units[0]);
+    const [unit2, setUnit2] = useState();
     const [checked, setChecked] = useState(false);
+    const [checked2, setChecked2] = useState(false);
 
     return (
         <>
@@ -92,8 +100,8 @@ export default function AdditionalService() {
                                 <span className="p-float-label w-full">
                                     <InputText
                                         id="preTime"
-                                        value={value}
-                                        onChange={(e) => setValue(e.target.value)}
+                                        value={value2}
+                                        onChange={(e) => setValue2(e.target.value)}
                                         className="border-1 w-full"
                                     />
                                     <label htmlFor="preTime">Premise Time</label>
@@ -111,8 +119,8 @@ export default function AdditionalService() {
                                 <span className="p-float-label w-full">
                                     <InputText
                                         id="preTime"
-                                        value={value}
-                                        onChange={(e) => setValue(e.target.value)}
+                                        value={value3}
+                                        onChange={(e) => setValue3(e.target.value)}
                                         className="border-1 w-full"
                                     />
                                     <label htmlFor="preTime">Waiting (min.)</label>
@@ -122,8 +130,8 @@ export default function AdditionalService() {
                                 <span className="p-float-label w-full">
                                     <InputText
                                         id="preTime"
-                                        value={value}
-                                        onChange={(e) => setValue(e.target.value)}
+                                        value={value4}
+                                        onChange={(e) => setValue4(e.target.value)}
                                         className="border-1 w-full"
                                     />
                                     <label htmlFor="preTime">Email</label>
@@ -143,8 +151,8 @@ export default function AdditionalService() {
                                 <span className="p-float-label w-full">
                                     <InputText
                                         id="preTime"
-                                        value={value}
-                                        onChange={(e) => setValue(e.target.value)}
+                                        value={value5}
+                                        onChange={(e) => setValue5(e.target.value)}
                                         className="border-1 w-full"
                                     />
                                     <label htmlFor="preTime">POD Reference</label>
@@ -213,8 +221,8 @@ export default function AdditionalService() {
                                     <span className="p-float-label w-full">
                                         <InputText
                                             id="preTime"
-                                            value={value}
-                                            onChange={(e) => setValue(e.target.value)}
+                                            value={value6}
+                                            onChange={(e) => setValue6(e.target.value)}
                                             className="border-1 w-10"
                                         />
                                         <label htmlFor="preTime">Send Email Notification</label>
@@ -223,8 +231,8 @@ export default function AdditionalService() {
                                 <div className="flex mb-3">
                                     <Checkbox
                                         inputId="email"
-                                        onChange={(e) => setChecked(e.checked)}
-                                        checked={checked}
+                                        onChange={(e) => setChecked2(e.checked)}
+                                        checked={checked2}
                                     ></Checkbox>
                                     <label htmlFor="email" className="ml-2">
                                         Email Missed Stop Notification
@@ -237,8 +245,8 @@ export default function AdditionalService() {
                                 <span className="p-float-label w-full">
                                     <InputText
                                         id="preTime"
-                                        value={value}
-                                        onChange={(e) => setValue(e.target.value)}
+                                        value={value7}
+                                        onChange={(e) => setValue7(e.target.value)}
                                         className="border-1 w-10"
                                         tooltip="Enter Risk Level" tooltipOptions={{ position: 'top' }}
                                     />
@@ -252,9 +260,9 @@ export default function AdditionalService() {
                                 <span className="p-float-label ">
                                     <Dropdown
                                         inputId="dd-podf"
-                                        value={null}
-                                        onChange={(e) => setUnit(e.value)}
-                                        options={units}
+                                        value={unit2}
+                                        onChange={(e) => setUnit2(e.value)}
+                                        options={units22}
                                         optionLabel="name"
                                         className="w-10 border-1 "
                                         placeholder="Please Select"

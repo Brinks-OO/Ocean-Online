@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
         <html lang="en" suppressHydrationWarning>
             <head>
                 <link 
-                // id="theme-css" 
+                id="theme-css" 
                 // href={`/themes/lara-light-indigo/theme.css`} 
                 href={`/themes/lara-light-blue/theme.css`}
                 rel="stylesheet"></link>

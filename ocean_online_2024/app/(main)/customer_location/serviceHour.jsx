@@ -25,7 +25,6 @@ export default function ServiceHour(props) {
   const [heightCardContent, setHeighCardContent] = useState({ height: 0 });
   const [heightContent, setHeightContent] = useState({ height: 0 });
 
-  console.log("heightCardContent", heightCardContent);
 
   const [bindWindowResizeListener, unbindWindowResizeListener] =
     useResizeListener({
@@ -97,9 +96,6 @@ export default function ServiceHour(props) {
   const [time, setTime] = useState(null);
   const [time2, setTime2] = useState(null);
 
-  console.log("product", product);
-  console.log("allData", allData);
-
   // useEffect(() => {
   //   setBrinks(NewDataBrink[0]);
   //   setCountry(NewData[0]);
@@ -108,9 +104,6 @@ export default function ServiceHour(props) {
   //   setCountry(NewData[0]);
   // }, []);
 
-  //   console.log('selectedProducts1', selectedProducts1)
-  // console.log('product', product)
-  console.log("lob", lob);
 
 //   useEffect(() => {
 //     setAllData([{
@@ -370,15 +363,12 @@ export default function ServiceHour(props) {
   };
 
   const saveProduct = () => {
-    console.log("product saveProduct", product);
     setSubmitted(true);
 
     if (product) {
       let _products = [...products];
       let _product = { ...product };
 
-      console.log("_products", _products);
-      console.log("_product", _product);
 
       if (product.id) {
         const index = findIndexById(product.id);
@@ -439,7 +429,6 @@ export default function ServiceHour(props) {
 
   // useEffect(() => {
   //   let updatedProducts1 = products1.filter(item => !products2?.find(product => product.name === item.name));
-  //   // console.log('updatedProducts1', updatedProducts1)
   //   setProducts1(updatedProducts1);
   // }, [products])
 
@@ -475,10 +464,7 @@ export default function ServiceHour(props) {
     );
   };
   const onInputChange = (e, name) => {
-    // console.log("e", e);
-    // console.log("name", name);
     const val = (e.target && e.target.value) || "";
-    // console.log("val", val);
     let _product = { ...product };
 
     _product[`${name}`] = val;
@@ -486,8 +472,6 @@ export default function ServiceHour(props) {
     setProduct(_product);
   };
   const onDateChange = (e, name) => {
-    console.log("e", e);
-    // console.log("name", name);
     // const val = (e.target && ) || "";
     const val = new Date(e.target.value);
     const formattedTime = val.toLocaleString("en-US", {
@@ -498,8 +482,6 @@ export default function ServiceHour(props) {
       });
 
     setEdtime(new Date(e.target.value));
-    // console.log("timeString", timeString);
-    // console.log("val", val);
     let _product = { ...product };
 
     _product[`${name}`] = formattedTime;
@@ -519,7 +501,6 @@ export default function ServiceHour(props) {
       minute: "2-digit",
       timeZone: "Asia/Bangkok",
     });
-    // console.log('formattedTime', formattedTime)
     setSttime(new Date(e.target.value));
     let _product = { ...product };
 
@@ -529,7 +510,6 @@ export default function ServiceHour(props) {
   };
 
   const onDD1Change = (e, name) => {
-    // console.log('onDD1Change', e)
     const val = (e.value && e.target.value) || "";
     let _product = { ...product };
     setLob(e.value);
@@ -538,7 +518,6 @@ export default function ServiceHour(props) {
   };
 
   const onDD2Change = (e, name) => {
-    // console.log('e', e)
     const val = (e.value && e.target.value) || "";
     let _product = { ...product };
     setServiceHour(e.value);
@@ -561,10 +540,7 @@ export default function ServiceHour(props) {
   };
 
   //   const onDDChange = (e, name) => {
-  //     console.log("e", e);
-  //     console.log("name", name);
   //     const val = (e.target && e.target.value) || "";
-  //     console.log("val", val);
   //     let _product = { ...product };
 
   //     _product[`${name}`] = val.name;
@@ -573,8 +549,6 @@ export default function ServiceHour(props) {
   //   };
 
   const onCheckboxChange = (e, name) => {
-    console.log("e onCheckboxChange", e);
-    // console.log("name", name);
     const val = e.checked ||false;
     // console.log("val", val);
     let _product = { ...product };
@@ -597,7 +571,6 @@ export default function ServiceHour(props) {
   };
 
   const editProduct = (product) => {
-    console.log("edirt product", product);
 
     const startTime = product.endTime
       ? new Date(`2024-02-22T${product.startTime.replace(".", ":")}:00`)
@@ -620,8 +593,6 @@ export default function ServiceHour(props) {
     setProductDialogEdit(true);
     setEditMode(true);
   };
-
-  console.log("lob lob vv", lob);
 
   return (
     <div className="" id="siteHandle">

@@ -5,7 +5,6 @@ import { ListBox } from 'primereact/listbox';
 export default function ListBoxGroupDemo() {
     const [selectedCity, setSelectedCity] = useState(null);
 
-    console.log('selectedCity', selectedCity)
     const groupedCities = [
         {
             label: 'Germany',

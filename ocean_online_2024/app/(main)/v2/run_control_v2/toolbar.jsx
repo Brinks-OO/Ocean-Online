@@ -247,7 +247,7 @@ function Toolbar(props) {
                         dataKey="id"
                         filterDisplay="row"
                         style={{
-                            height:"500px"
+                            height: "500px"
                         }}
                     >
                         <Column field="select" selectionMode="single" style={{ width: '40px' }}></Column>
@@ -364,7 +364,7 @@ function Toolbar(props) {
                                 <label htmlFor="displayJob">Display</label>
                             </div>
                         </span> */}
-                        <i className="pi pi-desktop text-2xl font-bold  text-blue-500 p-link" onClick={(e) => menu.current.toggle(e)}></i>
+                        <i className="pi pi-desktop text-2xl font-bold  text-blue-500 p-link display-tooltip" onClick={(e) => menu.current.toggle(e)} data-pr-tooltip="Display" data-pr-position="left"></i>
                     </div>
                     <div className="flex justify-items-end  align-items-center h-2rem ml-2 tooltip-info-status-job"
                         data-pr-position="left" data-pr-my="right top">
@@ -372,6 +372,7 @@ function Toolbar(props) {
                     </div>
                 </div>
             </div >
+            <Tooltip target=".display-tooltip" />
             <TieredMenu model={selectedJob} popup ref={menu} breakpoint="767px" />
             <Tooltip
                 target=".tooltip-info-status-job"

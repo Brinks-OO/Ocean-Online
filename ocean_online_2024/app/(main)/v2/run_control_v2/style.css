@@ -129,3 +129,9 @@ div.p-multiselect-header>div.p-multiselect-filter-container>input {
 #grdUnassign .p-column-filter-clear-button{
     display: none;
 }
+.p-panel .p-panel-header .p-panel-header-icon:enabled:hover{
+    background: #2563eb !important;
+}
+.p-datatable .p-datatable-tbody > tr > td .p-row-toggler:enabled:hover{
+    background: #2563eb !important;
+}

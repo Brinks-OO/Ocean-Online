@@ -10,6 +10,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
 import { useResizeListener } from 'primereact/hooks';
+import { Tooltip } from 'primereact/tooltip';
 
 function GridJob(props) {
 
@@ -314,7 +315,7 @@ function GridJob(props) {
           <Button size="small" style={{ border: 'none', background: 'transparent', height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
 
         </span>
-        <span className="text-sm font-light">
+        <span className="text-sm font-bold">
           Assigned Job(s) :Run Resource No :{runData?.VehicleNumber} | Route:{runData?.MasterRouteGroupDetailName} | Total Job(s): {data?.props?.value?.length} | Run Status :{dat?.JobStatus} | {runData?.strWorDate}
           &nbsp;
           <i className="pi pi-info-circle text-xs" ></i>
@@ -329,10 +330,12 @@ function GridJob(props) {
           <div className="flex align-items-center">
             {/* <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
             <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label> */}
-            <i className="pi pi-sliders-h text-xl  text-white" onClick={(e) => optionMenu.current.toggle(e)}></i>
+            <i className="pi pi-sliders-h text-xl  text-white filter-options" onClick={(e) => optionMenu.current.toggle(e)} data-pr-tooltip="Filter Options" data-pr-position="left" ></i>
+    
 
           </div>
         </span>
+        <Tooltip target=".filter-options" tooltipOptions={{ position: 'left' }} />
         <TieredMenu model={optionJob} popup ref={optionMenu} breakpoint="860px" style={{ width: '15rem' }} />
       </div>
     )

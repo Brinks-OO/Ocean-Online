@@ -15,8 +15,6 @@ export default function DetailTab(props) {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
 
-  // console.log('selectedCountry', selectedCountry)
-  //   console.log("selectedCity", selectedCity);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const [value1, setValue1] = useState("");
@@ -50,11 +48,8 @@ export default function DetailTab(props) {
     setIsFocused(false);
   };
 
-  //   console.log("dates2", dates2);
-  //   console.log("dates2", typeof(dates2));
 
   useEffect(() => {
-    console.log("locatCodeRef", locatCodeRef);
     setDetailData(
       {
         locationCode: locatCodeRef,
@@ -118,7 +113,6 @@ export default function DetailTab(props) {
   const loadLazyTimeout = useRef();
 
   const onLazyLoad = (event) => {
-    console.log("event", event);
     setLoading(true);
 
     if (loadLazyTimeout.current) {

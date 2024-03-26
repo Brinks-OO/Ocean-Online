@@ -8,7 +8,6 @@ import { Skeleton } from "primereact/skeleton";
 
 export default function DataTableLazyLoadDemo(props) {
   const { mode } = props;
-  console.log('mode', mode)
   const [loadingDone, setLoadingDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -99,10 +98,8 @@ export default function DataTableLazyLoadDemo(props) {
     const element = document?.querySelector(".p-datatable-wrapper");
     if (loadingDone) {
       const newHeight = element.offsetHeight;
-      // console.log('newHeight', newHeight)
       const newHeight2 = element2.offsetHeight;
       setHeightContent({ height: newHeight });
-      // console.log('heightCardContent', heightCardContent.height)
       // element.style.maxHeight = `${newHeight - 480}px`;
       if (mode ){
         element.style.maxHeight = `${heightCardContent.height - 130}px`;
@@ -184,7 +181,6 @@ export default function DataTableLazyLoadDemo(props) {
   };
 
   const dateBodyTemplate = (rowData) => {
-    // console.log("rowData", rowData);
     return rowData;
     // return formatDate(rowData);
   };

@@ -11,7 +11,6 @@ export default function CheckboxDynamicDemo() {
     ];
     const [selectedCategories, setSelectedCategories] = useState([categories[1]]);
 
-    console.log('selectedCategories', selectedCategories)
     const onCategoryChange = (e) => {
         let _selectedCategories = [...selectedCategories];
 

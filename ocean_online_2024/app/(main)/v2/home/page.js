@@ -17,6 +17,7 @@ import { useResizeListener } from "primereact/hooks";
 import Link from "next/link";
 import { LayoutContext } from "../../../../layout/context/layoutcontext";
 import "./style.scss";
+import { useRouter } from "next/navigation";
 
 // import { Metadata } from "next";
 
@@ -25,6 +26,7 @@ import "./style.scss";
 // }
 
 export default function Page() {
+  const router = useRouter();
   const {
     layoutConfig,
     layoutState,
@@ -65,11 +67,13 @@ export default function Page() {
     icon: "pi pi-home",
     url: "/home",
     template: () => (
-      <Link href="/home" className="text-white">
+      <Link href="/v2/home" className="text-white">
         <i className="pi pi-home"></i>{" "}
       </Link>
     ),
   };
+
+  const home = { icon: 'pi pi-home', url: '/home', template: () => <i className="pi pi-home cursor-pointer" onClick={() => router.push('/v2/home')}></i> }
 
   const headerTemplate = (options) => {
     const className = `${options.className} `;
@@ -80,7 +84,7 @@ export default function Page() {
           <Button
             ref={menubuttonRef}
             type="button"
-            className="p-link layout-menu-button layout-topbar-button h-2rem"
+            className="p-link layout-menu-button layout-topbar-button h-2rem border-white"
             onClick={() => onMenuToggle()}
           >
             <i className="pi pi-bars text-white" style={{ fontSize: "16px" }} />
@@ -93,9 +97,11 @@ export default function Page() {
             size="medium"
           /> */}
           {/* <BreadCrumb 
-          home={Bitems} 
+          // home={Bitems} 
+          home={home} 
           className="bg-primary text-white p-0 border-none"/> */}
-          <div className="font-bold">Home</div>
+          <i className="pi pi-home text-white" style={{ cursor: "pointer" }} onClick={() => router.push('/v2/home')} />Home
+          {/* <Button onClick={() => router.push('/v2/home')}><i className="pi pi-home"  /></Button> */}
         </div>
         <div className="flex flex-row">
           <div>{options.togglerElement}</div>
@@ -131,7 +137,7 @@ export default function Page() {
           //   onCollapse={(e) => toggleState(e, "collapse")}
           className=""
           id="panel-cuslo"
-          // className="bg-primary border-200 border-top-none border-noround border-2"
+        // className="bg-primary border-200 border-top-none border-noround border-2"
         >
           <div
             id=""

@@ -21,8 +21,6 @@ export default function SiteHandle() {
   const [heightCardContent, setHeighCardContent] = useState({ height: 0 });
   const [heightContent, setHeightContent] = useState({ height: 0 });
 
-  console.log("heightCardContent", heightCardContent);
-
   const [bindWindowResizeListener, unbindWindowResizeListener] =
     useResizeListener({
       listener: (event) => {
@@ -83,9 +81,6 @@ export default function SiteHandle() {
     setCountry(NewData[0]);
   }, []);
 
-//   console.log('selectedProducts1', selectedProducts1)
-  // console.log('product', product)
-  // console.log('products', products)
 
   const getBrinkSite = {
     getBrinkData() {
@@ -362,7 +357,6 @@ export default function SiteHandle() {
 
   useEffect(() => {
     let updatedProducts1 = products1.filter(item => !products2?.find(product => product.name === item.name));
-    // console.log('updatedProducts1', updatedProducts1)
     setProducts1(updatedProducts1);
   }, [products])
   

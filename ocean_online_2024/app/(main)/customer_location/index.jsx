@@ -21,7 +21,6 @@ export default function CustomerLocation(props) {
   const ref = useRef(null);
   const router = useRouter();
   const { onClickNew, setAllData, allData } = props;
-  // console.log("allData CustomerLocation", allData);
   const [value, setValue] = useState("");
   const [checked, setChecked] = useState(false);
   const cities = [{ name: "Customer Location", code: "CL" }];
@@ -48,16 +47,12 @@ export default function CustomerLocation(props) {
   }, [onRefresh]);
 
   const toggleState = (e, mode) => {
-    console.log("e", e);
-    console.log("mode", mode);
     if (mode === "collapse") {
       setMode(true);
     } else {
       setMode(false);
     }
   };
-  console.log("dataForTable", dataForTable);
-  console.log("locationNamefil", locationNamefil);
 
   const [eventData, setEventData] = useState({ width: 0, height: 0 });
   const [heightNav, setHeightNav] = useState({ height: 0 });
@@ -79,7 +74,6 @@ export default function CustomerLocation(props) {
     const element = document.getElementById("navigation_bar_cus_lo");
     if (element) {
       const height = element.offsetHeight;
-      console.log("height navigation_bar_cus_lo", height);
       setHeightNav({ height: height });
     }
   }, [eventData.height]);
@@ -88,7 +82,6 @@ export default function CustomerLocation(props) {
     const element2 = document.getElementById("mainPageCuslo");
     if (element2) {
       const height2 = element2.offsetHeight;
-      console.log("height mainPageCuslo", height2);
 
       setHeightContent({ height: height2 });
     }

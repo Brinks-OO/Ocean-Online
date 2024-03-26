@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link
-          // id="theme-link"
+          id="theme-link"
           href={`/themes/lara-light-blue/theme.css`}
           rel="stylesheet"
         ></link>
