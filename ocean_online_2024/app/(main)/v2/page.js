@@ -6,9 +6,9 @@
 
 import React, { useEffect } from "react";
 import { Metadata } from "next";
-export const metadata = {
-  title: "Ocean Online",
-};
+// export const metadata = {
+//   title: "Ocean Online",
+// };
 
 export default function Page() {
   
