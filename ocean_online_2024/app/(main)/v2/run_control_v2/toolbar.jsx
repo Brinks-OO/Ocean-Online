@@ -227,7 +227,7 @@ function Toolbar(props) {
                                     className=" w-full"
                                     style={{ fontSize: "14px", lineHeight: "8px" }}
                                 />
-                                <label htmlFor="brinkCompany"> &nbsp;Brink's Company</label>
+                                <label htmlFor="brinkCompany"> &nbsp;Brinks Company</label>
                             </div>
                         </span>
                     </div>
@@ -260,7 +260,7 @@ function Toolbar(props) {
 
     const headerContent = (
         <div className="inline-flex align-items-center justify-content-center gap-2">
-            <span className="text-sm text-white">Select Brink's Site</span>
+            <span className="text-sm text-white">Select Brinks Site</span>
         </div>
     );
 
@@ -299,7 +299,7 @@ function Toolbar(props) {
                         <div className="p-inputgroup h-2rem">
                             <InputText id='brinkSite' placeholder="Please Select..." value='Tum test' />
                             <Button icon="pi pi-search" className="p-button-primary" style={{ borderRadius: "0px 5px 5px 0px" }} onClick={() => setOpenBrinkSite(true)} />
-                            <label htmlFor="brinkSite">Brink's Site</label>
+                            <label htmlFor="brinkSite">Brinks Site</label>
                         </div>
                     </span>
                 </div >

@@ -74,7 +74,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <p className="pt-3 text-500">Copyright © 2024, Brink's Incorporated. All Rights Reserved.</p>
+      <p className="pt-3 text-500">Copyright © 2024, Brinks Incorporated. All Rights Reserved.</p>
     </div>
   );
 };
