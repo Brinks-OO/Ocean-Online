@@ -441,7 +441,7 @@ const AppMenu = () => {
                                 onClick={(event) => menuLeft.current.toggle(event)}
                             >
                                 <a className="p-menuitem-link " style={{ color: "#4b5563" }}>
-                                    <Avatar icon="pi pi-user" size="small" shape="circle" />
+                                    <Avatar icon="pi pi-user" size="normal" shape="circle" />
                                     <span className="pi pi-angle-down ml-2"></span>
                                 </a>
                             </div>

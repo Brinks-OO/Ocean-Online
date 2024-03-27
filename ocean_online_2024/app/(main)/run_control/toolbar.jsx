@@ -47,7 +47,7 @@ function Toolbar() {
                     <InputNumber inputId="minmax-buttons" value={value3} onValueChange={(e) => setValue3(e.value)} mode="decimal" showButtons min={0} max={100} className='md:w-8rem'/>
                 </div>
                 <div className="flex justify-items-center align-items-center h-2rem">
-                    <label>Brink's Site</label>
+                    <label>Brinks Site</label>
                 </div>
                 <div className="flex h-2rem">
                     <div className="p-inputgroup">

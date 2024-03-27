@@ -522,7 +522,7 @@ export default function SiteHandle() {
               optionLabel="name"
               className="w-full"
             />
-            <label htmlFor="dd-brink">Select Brink's Company</label>
+            <label htmlFor="dd-brink">Select Brinks Company</label>
           </span>
         </div>
         <div className="mt-5 mb-5 border-1 border-black-alpha-20">
