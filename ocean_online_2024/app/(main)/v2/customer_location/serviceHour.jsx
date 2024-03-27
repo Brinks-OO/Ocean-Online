@@ -57,7 +57,7 @@ export default function ServiceHour(props) {
     if (element2) {
       const height2 = element2.offsetHeight;
       setHeighCardContent({ height: height2 });
-      body.style.overflowY = "hidden";
+      // body.style.overflowY = "hidden";
     }
   }, [heightNav.height, eventData.height]);
 

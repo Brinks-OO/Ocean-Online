@@ -487,7 +487,7 @@ function GridJob(props) {
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
               <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
               {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
-              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }} filterElement={customFilter}></Column>
+              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '60px' }} filterElement={customFilter}></Column>
               <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
               <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
               <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>

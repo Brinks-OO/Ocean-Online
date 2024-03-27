@@ -27,14 +27,20 @@ export default function DataTableNewSave(props) {
     sortField: null,
     sortOrder: null,
     filters: {
-      serviceType: { value: "", matchMode: FilterMatchMode.CONTAINS  },
-      districtCity: { value: "", matchMode: FilterMatchMode.CONTAINS  },
-      provinceState: { value: "", matchMode: FilterMatchMode.CONTAINS  },
-      locationName: { value: "", matchMode: FilterMatchMode.CONTAINS  },
-      districtCity: { value: "", matchMode: "contains" },
-      dtCreated: { value: "", matchMode: "contains" },
-      dtModified: { value: "", matchMode: "contains" },
       locationCode: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      locationName: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      provinceState: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      districtCity: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      postalCode: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      serviceType: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      userCreated: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      dtCreated: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      userModified: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      dtModified: { value: "", matchMode: FilterMatchMode.CONTAINS },
+
+      // districtCity: { value: "", matchMode: "contains" },
+      // dtCreated: { value: "", matchMode: "contains" },
+      // dtModified: { value: "", matchMode: "contains" },
       // "country.name": { value: "", matchMode: "contains" },
       // company: { value: "", matchMode: "contains" },
       // "representative.name": { value: "", matchMode: "contains" },
@@ -50,17 +56,17 @@ export default function DataTableNewSave(props) {
     {
       label: "Edit",
       icon: "pi pi-fw pi-file-edit",
-    //   command: () => viewProduct(selectedProduct),
+      //   command: () => viewProduct(selectedProduct),
     },
     {
       label: "Disable",
       icon: "pi pi-times",
-    //   command: () => viewProduct(selectedProduct),
+      //   command: () => viewProduct(selectedProduct),
     },
     {
       label: "Change Customer",
       icon: "pi pi-fw pi-reply",
-    //   command: () => viewProduct(selectedProduct),
+      //   command: () => viewProduct(selectedProduct),
     },
     // { label: 'Delete', icon: 'pi pi-fw pi-times', command: () => deleteProduct(selectedProduct) }
   ];
@@ -148,12 +154,12 @@ export default function DataTableNewSave(props) {
       const newHeight2 = element2.offsetHeight;
       const newHeight3 = element3.offsetHeight;
       const newHeight4 = element4.offsetHeight;
-    const elementEmpty = document?.querySelector("#emptyData");
+      const elementEmpty = document?.querySelector("#emptyData");
 
-    //   console.log('element3', element3)
-    //   console.log('newHeight3', newHeight3)
-    //   console.log('element4', element4)
-    //   console.log('newHeight4', newHeight4)
+      //   console.log('element3', element3)
+      //   console.log('newHeight3', newHeight3)
+      //   console.log('element4', element4)
+      //   console.log('newHeight4', newHeight4)
       setHeightContent({ height: newHeight });
       // console.log('heightCardContent', heightCardContent.height)
       // element.style.maxHeight = `${newHeight - 480}px`;
@@ -163,14 +169,14 @@ export default function DataTableNewSave(props) {
         // if (elementEmpty !== null) {
         //     elementEmpty.style.height = `${heightCardContent.height - 102}px`;
         // }
-        setHeightContent2({ height: `${heightCardContent.height - 230}`})
+        setHeightContent2({ height: `${heightCardContent.height - 230}` })
       } else {
         element.style.maxHeight = `${heightCardContent.height - 295}px`;
         element.style.height = `${heightCardContent.height - 295}px`;
         // if (elementEmpty !== null) {
         //     elementEmpty.style.height = `${heightCardContent.height - 287}px`;
         // }
-        setHeightContent2({ height: `${heightCardContent.height - 412}`})
+        setHeightContent2({ height: `${heightCardContent.height - 412}` })
         // element4.style.height = `${heightCardContent.height - 480}px`;
       }
     }
@@ -189,7 +195,7 @@ export default function DataTableNewSave(props) {
   //   setlazyState(event);
   // };
 
-   const onFilter = (event) => {
+  const onFilter = (event) => {
     event["first"] = 0;
     // setlazyState(event);
   };
@@ -314,7 +320,7 @@ export default function DataTableNewSave(props) {
       <>
         <span
           className="pi pi-bars"
-        //   onClick={(e) => menu.current.toggle(e)}
+          //   onClick={(e) => menu.current.toggle(e)}
           aria-controls="popup_menu_left"
           aria-haspopup
         />
@@ -322,7 +328,7 @@ export default function DataTableNewSave(props) {
     );
   };
 
-//   console.log("filter", filter);
+  //   console.log("filter", filter);
 
   const LobData = [
     {
@@ -380,118 +386,46 @@ export default function DataTableNewSave(props) {
   //     setBrinkDataAll(dataForTable);
   //   }, [dataForTable]);
 
-//   useEffect(() => {
-//     if (filter !== undefined) {
-//       const filteredData = brinkDataAll?.filter(
-//         (item) => item.serviceType === filter.name
-//       );
-//       setBrinkDataAll(filteredData);
-//     } else {
-//         LoadDataTest()
-//     }
-//   }, [filter, filter2]);
+  //   useEffect(() => {
+  //     if (filter !== undefined) {
+  //       const filteredData = brinkDataAll?.filter(
+  //         (item) => item.serviceType === filter.name
+  //       );
+  //       setBrinkDataAll(filteredData);
+  //     } else {
+  //         LoadDataTest()
+  //     }
+  //   }, [filter, filter2]);
 
 
 
-useEffect(() => {
+  useEffect(() => {
     // ตรวจสอบว่า filter, filter2, filter3, หรือ filter4 มีค่าและไม่เป็น undefined
     if ((filter && filter.name) || (filter2 && filter2.name) || (filter3 && filter3.name)) {
-        // กรองข้อมูลโดยใช้ filter, filter2, filter3, และ filter4 หากมีค่า
-        const filteredData = brinkDataAll?.filter((item) => {
-            // ตรวจสอบ filter, filter2, filter3, และ filter4 และกรองข้อมูลในแต่ละฟิลด์
-            const filterCondition = 
-                (!filter || !filter.name || item.serviceType === filter.name) &&
-                (!filter2 || !filter2.name || item.provinceState === filter2.name) &&
-                (!filter3 || !filter3.name || item.districtCity === filter3.name)
-            return filterCondition;
-        });
-        setBrinkDataAll(filteredData);
+      // กรองข้อมูลโดยใช้ filter, filter2, filter3, และ filter4 หากมีค่า
+      const filteredData = brinkDataAll?.filter((item) => {
+        // ตรวจสอบ filter, filter2, filter3, และ filter4 และกรองข้อมูลในแต่ละฟิลด์
+        const filterCondition =
+          (!filter || !filter.name || item.serviceType === filter.name) &&
+          (!filter2 || !filter2.name || item.provinceState === filter2.name) &&
+          (!filter3 || !filter3.name || item.districtCity === filter3.name)
+        return filterCondition;
+      });
+      setBrinkDataAll(filteredData);
     } else {
-        // ถ้า filter, filter2, filter3, หรือ filter4 ไม่มีค่าหรือเป็น undefined ให้โหลดข้อมูลเริ่มต้น
-        LoadDataTest();
+      // ถ้า filter, filter2, filter3, หรือ filter4 ไม่มีค่าหรือเป็น undefined ให้โหลดข้อมูลเริ่มต้น
+      LoadDataTest();
     }
-}, [filter, filter2, filter3]);
+  }, [filter, filter2, filter3]);
 
 
 
-//   useEffect(() => {
-    useEffect(()=> {
-        LoadDataTest()
-    }, [onRefresh])
+  //   useEffect(() => {
+  useEffect(() => {
+    LoadDataTest()
+  }, [onRefresh])
 
-    function LoadLazyDataTest() {
-      setLoading(true);
-      setLoadingDone(false);
-  
-      if (networkTimeout) {
-        clearTimeout(networkTimeout);
-      }
-  
-      // console.log("dataForTable", dataForTable);
-      // if (dataForTable?.length > 0) {
-      //     setBrinkDataAll(allData.tab4);
-      // } else {
-  
-      // CustomerService.getCustomers({
-      //   lazyEvent: JSON.stringify(lazyState),
-      // }).then((data) => {
-      //   setTotalRecords(data.totalRecords);
-      //   setCustomers(data.customers);
-      //   setLoading(false);
-      //   setLoadingDone(true);
-      // });
-  
-      networkTimeout = setTimeout(() => {
-      //   console.log("dataForTable", dataForTable);
-      //   console.log("brinkDataAll", brinkDataAll);
-      //   console.log("allData?.tab4 333", allData?.tab4);
-  
-      //   if (allData?.tab4?.length > 0) {
-      //     const newData = brinkDataAll.unshift(allData?.tab4)
-      //     setBrinkDataAll(newData);
-      //     // setBrinkDataAll(allData?.tab4);
-      //     setLoading(false);
-      //     setLoadingDone(true);
-      //   } else {
-          getBrinksMiniMain().then((data) => {
-              
-              setBrinkDataAll(data);
-              if (allData?.tab4?.length > 0) {
-                  const newData = [ ...allData.tab4, ...data ];
-                  setBrinkDataAll(newData);
-                  // const newData = data?.unshift(allData?.tab4)
-                  // setBrinkDataAll(newData);
-              }
-  
-          //   setBrinkDataAll(prevData => {
-          //     const newData = [...data];
-          //     newData?.unshift(...prevData?.tab4);
-          //     return { ...prevData, tab4: newData };
-          // });
-  
-            setLoading(false);
-            setLoadingDone(true);
-          });
-      //   }
-      }, Math.random() * 1000 + 250);
-
-      networkTimeout = setTimeout(() => {
-        CustomerService.getCustomers({
-          lazyEvent: JSON.stringify(lazyState),
-        }).then((data) => {
-          setTotalRecords(data.totalRecords);
-          setCustomers(data.customers);
-          setLoading(false);
-          setLoadingDone(true);
-        });
-      }, Math.random() * 1000 + 250);
-      // }
-      // getBrinksMini().then((data) => setProducts1(data));
-      // ProductService.getProductsMini().then((data) => setProducts(data));
-  //   }, []);
-  }
-
-function LoadDataTest() {
+  function LoadLazyDataTest() {
     setLoading(true);
     setLoadingDone(false);
 
@@ -514,25 +448,26 @@ function LoadDataTest() {
     // });
 
     networkTimeout = setTimeout(() => {
-    //   console.log("dataForTable", dataForTable);
-    //   console.log("brinkDataAll", brinkDataAll);
-    //   console.log("allData?.tab4 333", allData?.tab4);
+      //   console.log("dataForTable", dataForTable);
+      //   console.log("brinkDataAll", brinkDataAll);
+      //   console.log("allData?.tab4 333", allData?.tab4);
 
-    //   if (allData?.tab4?.length > 0) {
-    //     const newData = brinkDataAll.unshift(allData?.tab4)
-    //     setBrinkDataAll(newData);
-    //     // setBrinkDataAll(allData?.tab4);
-    //     setLoading(false);
-    //     setLoadingDone(true);
-    //   } else {
-        getBrinksMiniMain().then((data) => {
-            setBrinkDataAll(data);
-            if (allData?.tab4?.length > 0) {
-                const newData = [ ...allData.tab4, ...data ];
-                setBrinkDataAll(newData);
-                // const newData = data?.unshift(allData?.tab4)
-                // setBrinkDataAll(newData);
-            }
+      //   if (allData?.tab4?.length > 0) {
+      //     const newData = brinkDataAll.unshift(allData?.tab4)
+      //     setBrinkDataAll(newData);
+      //     // setBrinkDataAll(allData?.tab4);
+      //     setLoading(false);
+      //     setLoadingDone(true);
+      //   } else {
+      getBrinksMiniMain().then((data) => {
+
+        setBrinkDataAll(data);
+        if (allData?.tab4?.length > 0) {
+          const newData = [...allData.tab4, ...data];
+          setBrinkDataAll(newData);
+          // const newData = data?.unshift(allData?.tab4)
+          // setBrinkDataAll(newData);
+        }
 
         //   setBrinkDataAll(prevData => {
         //     const newData = [...data];
@@ -540,16 +475,87 @@ function LoadDataTest() {
         //     return { ...prevData, tab4: newData };
         // });
 
-          setLoading(false);
-          setLoadingDone(true);
-        });
-    //   }
+        setLoading(false);
+        setLoadingDone(true);
+      });
+      //   }
+    }, Math.random() * 1000 + 250);
+
+    networkTimeout = setTimeout(() => {
+      CustomerService.getCustomers({
+        lazyEvent: JSON.stringify(lazyState),
+      }).then((data) => {
+        setTotalRecords(data.totalRecords);
+        setCustomers(data.customers);
+        setLoading(false);
+        setLoadingDone(true);
+      });
     }, Math.random() * 1000 + 250);
     // }
     // getBrinksMini().then((data) => setProducts1(data));
     // ProductService.getProductsMini().then((data) => setProducts(data));
-//   }, []);
-}
+    //   }, []);
+  }
+
+  function LoadDataTest() {
+    setLoading(true);
+    setLoadingDone(false);
+
+    if (networkTimeout) {
+      clearTimeout(networkTimeout);
+    }
+
+    // console.log("dataForTable", dataForTable);
+    // if (dataForTable?.length > 0) {
+    //     setBrinkDataAll(allData.tab4);
+    // } else {
+
+    // CustomerService.getCustomers({
+    //   lazyEvent: JSON.stringify(lazyState),
+    // }).then((data) => {
+    //   setTotalRecords(data.totalRecords);
+    //   setCustomers(data.customers);
+    //   setLoading(false);
+    //   setLoadingDone(true);
+    // });
+
+    networkTimeout = setTimeout(() => {
+      //   console.log("dataForTable", dataForTable);
+      //   console.log("brinkDataAll", brinkDataAll);
+      //   console.log("allData?.tab4 333", allData?.tab4);
+
+      //   if (allData?.tab4?.length > 0) {
+      //     const newData = brinkDataAll.unshift(allData?.tab4)
+      //     setBrinkDataAll(newData);
+      //     // setBrinkDataAll(allData?.tab4);
+      //     setLoading(false);
+      //     setLoadingDone(true);
+      //   } else {
+      getBrinksMiniMain().then((data) => {
+        setBrinkDataAll(data);
+        if (allData?.tab4?.length > 0) {
+          const newData = [...allData.tab4, ...data];
+          setBrinkDataAll(newData);
+          // const newData = data?.unshift(allData?.tab4)
+          // setBrinkDataAll(newData);
+        }
+
+        //   setBrinkDataAll(prevData => {
+        //     const newData = [...data];
+        //     newData?.unshift(...prevData?.tab4);
+        //     return { ...prevData, tab4: newData };
+        // });
+
+        setLoading(false);
+        setLoadingDone(true);
+      });
+      //   }
+    }, Math.random() * 1000 + 250);
+    // }
+    // getBrinksMini().then((data) => setProducts1(data));
+    // ProductService.getProductsMini().then((data) => setProducts(data));
+    //   }, []);
+  }
 
   //   return (
   //     <>
@@ -669,40 +675,40 @@ function LoadDataTest() {
 
   const headerssss = (
     <div id="emptyData" className="flex align-items-center justify-content-center" style={{ height: `${heightContent2?.height}px` }}>
-        <span className="text-900 text-center">No results found.</span>
+      <span className="text-900 text-center">No results found.</span>
     </div>
-);
+  );
 
-// const onFilterCustom = (options, e) => {
-//   console.log('options', options)
-//   console.log('e', e)
-//   options.filterApplyCallback(e.target.value)
-// }
+  // const onFilterCustom = (options, e) => {
+  //   console.log('options', options)
+  //   console.log('e', e)
+  //   options.filterApplyCallback(e.target.value)
+  // }
 
 
 
-const filterCustom = (options)=>{
-  // setLoading(true);
+  const filterCustom = (options) => {
+    // setLoading(true);
     return (
-        <InputText 
+      <InputText
         // value={options.value} 
         // onInput={(e) => options.filterApplyCallback(e.target.value)} 
         onKeyDown={(word) => {
           // debugger
-          if (word && word.keyCode ===  13) { // 13 is Enter
+          if (word && word.keyCode === 13) { // 13 is Enter
             setlazyState(prev => {
-                let newFilter = { ...prev };
-                let option = options.field;
-                // setLoading(false);
+              let newFilter = { ...prev };
+              let option = options.field;
+              // setLoading(false);
 
-                newFilter.filters[option].value = word.target.value
-                // newFilter.filters.locationName.value = word.target.value
-                return newFilter
+              newFilter.filters[option].value = word.target.value
+              // newFilter.filters.locationName.value = word.target.value
+              return newFilter
             })
           }
         }}
-        // placeholder="Keyword Search" 
-        />
+      // placeholder="Keyword Search" 
+      />
     )
   }
 
@@ -727,7 +733,7 @@ const filterCustom = (options)=>{
             stripedRows
             showGridlines
             size="small"
-            tableStyle={{ minWidth: "75rem", height: "5rem",}}
+            tableStyle={{ minWidth: "75rem", height: "5rem", }}
             scrollable
             paginator
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
@@ -742,7 +748,7 @@ const filterCustom = (options)=>{
             loading={loading}
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             id="gridMainCuslo"
-            style={{ width: "100%"}}
+            style={{ width: "100%" }}
           >
             {/* <Column
               field=""
@@ -819,7 +825,7 @@ const filterCustom = (options)=>{
               header="User Modified"
               filter
               showFilterMenu={false}
-              style={{ width: "18%", minWidth: '130px'}}
+              style={{ width: "18%", minWidth: '130px' }}
               filterElement={filterCustom}
             ></Column>
             <Column
@@ -833,35 +839,65 @@ const filterCustom = (options)=>{
           </DataTable>
         </>
       ) : (
-        <DataTable size="medium" value={items} className="p-datatable-striped">
+        <DataTable size="small" value={items} className="p-datatable-striped">
           <Column
-            field="name"
-            header="Name"
-            style={{ width: "20%" }}
+            field="locationCode"
+            header="Location Code"
+            style={{ width: "10%", minWidth: '150px' }}
             body={<Skeleton />}
           ></Column>
           <Column
-            field="country.name"
-            header="Country"
-            style={{ width: "20%" }}
+            field="locationName"
+            header="Location Name"
+            style={{ width: "25%", minWidth: '300px' }}
             body={<Skeleton />}
           ></Column>
           <Column
-            field="company"
-            header="Company"
-            style={{ width: "20%" }}
+            field="provinceState"
+            header="Province/State"
+            style={{ width: "10%", minWidth: '100px' }}
             body={<Skeleton />}
           ></Column>
           <Column
-            field="representative"
-            header="Representative"
-            style={{ width: "20%" }}
+            field="districtCity"
+            header="District/City"
+            style={{ width: "10%", minWidth: '100px' }}
             body={<Skeleton />}
           ></Column>
           <Column
-            field="date"
-            header="Date"
-            style={{ width: "20%" }}
+            field="postalCode"
+            header="Postal Code"
+            style={{ width: "10%", minWidth: '120px' }}
+            body={<Skeleton />}
+          ></Column>
+          <Column
+            field="serviceType"
+            header="Service Type"
+            style={{ width: "10%", minWidth: '120px' }}
+            body={<Skeleton />}
+          ></Column>
+          <Column
+            field="userCreated"
+            header="User Created"
+            style={{ width: "10%", minWidth: '120px' }}
+            body={<Skeleton />}
+          ></Column>
+          <Column
+            field="dtCreated"
+            header="Datetime Created"
+            style={{ width: "15%", minWidth: '160px' }}
+            body={<Skeleton />}
+          ></Column>
+          <Column
+            field="userModified"
+            header="User Modified"
+            style={{ width: "18%", minWidth: '130px' }}
+            body={<Skeleton />}
+          ></Column>
+          <Column
+            field="dtModified"
+            header="Datetime Modified"
+            style={{ width: "25%", minWidth: '170px' }}
             body={<Skeleton />}
           ></Column>
         </DataTable>
