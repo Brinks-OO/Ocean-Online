@@ -13,7 +13,7 @@ const Login = () => {
 
   const handleLogin = () => {
     if (username === "admin" && password === "password") {
-      router.push("/home");
+      router.push("/v2/home");
     } else {
       console.log("Invalid username or password");
     }
@@ -74,7 +74,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <p className="pt-3 text-500">Copyright © 2024, Brinks Incorporated. All Rights Reserved.</p>
+      <p className="pt-3 text-500">Copyright © 2024, Brink's Incorporated. All Rights Reserved.</p>
     </div>
   );
 };

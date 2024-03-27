@@ -227,7 +227,7 @@ function Toolbar(props) {
                                     className=" w-full"
                                     style={{ fontSize: "14px", lineHeight: "8px" }}
                                 />
-                                <label htmlFor="brinkCompany"> &nbsp;Brinks Company</label>
+                                <label htmlFor="brinkCompany"> &nbsp;Brink's Company</label>
                             </div>
                         </span>
                     </div>
@@ -260,7 +260,7 @@ function Toolbar(props) {
 
     const headerContent = (
         <div className="inline-flex align-items-center justify-content-center gap-2">
-            <span className="text-sm text-white">Select Brinks Site</span>
+            <span className="text-sm text-white">Select Brink's Site</span>
         </div>
     );
 
@@ -299,7 +299,7 @@ function Toolbar(props) {
                         <div className="p-inputgroup h-2rem">
                             <InputText id='brinkSite' placeholder="Please Select..." value='Tum test' />
                             <Button icon="pi pi-search" className="p-button-primary" style={{ borderRadius: "0px 5px 5px 0px" }} onClick={() => setOpenBrinkSite(true)} />
-                            <label htmlFor="brinkSite">Brinks Site</label>
+                            <label htmlFor="brinkSite">Brink's Site</label>
                         </div>
                     </span>
                 </div >
@@ -366,7 +366,7 @@ function Toolbar(props) {
                         </span> */}
                         <i className="pi pi-desktop text-2xl font-bold  text-blue-500 p-link display-tooltip" onClick={(e) => menu.current.toggle(e)} data-pr-tooltip="Display" data-pr-position="left"></i>
                     </div>
-                    <div className="flex justify-items-end  align-items-center h-2rem ml-2 tooltip-info-status-job"
+                    <div className="flex justify-items-end  align-items-center h-2rem ml-2 tooltip-info-status-job p-link"
                         data-pr-position="left" data-pr-my="right top">
                         <i className="pi pi-info-circle text-2xl font-bold  text-blue-500" ></i>
                     </div>

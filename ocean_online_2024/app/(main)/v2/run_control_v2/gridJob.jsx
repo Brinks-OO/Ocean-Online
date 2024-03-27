@@ -11,6 +11,7 @@ import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
 import { useResizeListener } from 'primereact/hooks';
 import { Tooltip } from 'primereact/tooltip';
+import { FilterMatchMode } from 'primereact/api';
 
 function GridJob(props) {
 
@@ -101,6 +102,27 @@ function GridJob(props) {
     { separator: true },
     { label: 'Job Properties', command: () => console.log("Job Properties") },
   ];
+
+  const [filters, setFilters] = useState({
+    SeqIndex: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    JobNo: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    ServiceJobTypeNameAbb: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    JobStatus: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    ActionFlag: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    LOBAbbrevaitionName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    STC: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    MachineID: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    LocationName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    LocationAddress: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    Country: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    District: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    RouteGroupDetailName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    WindowsTimeServiceTimeStart: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    ActualTime: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    DepartTime: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    UserModifed: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    Remarks: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  });
 
   const itemRenderer = (item) => (
     <a className="flex align-items-center p-menuitem-link">
@@ -330,8 +352,8 @@ function GridJob(props) {
           <div className="flex align-items-center">
             {/* <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
             <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label> */}
-            <i className="pi pi-sliders-h text-xl  text-white filter-options" onClick={(e) => optionMenu.current.toggle(e)} data-pr-tooltip="Filter Options" data-pr-position="left" ></i>
-    
+            <i className="pi pi-sliders-h text-xl  text-white filter-options p-link" onClick={(e) => optionMenu.current.toggle(e)} data-pr-tooltip="Filter Options" data-pr-position="left" ></i>
+
 
           </div>
         </span>
@@ -419,6 +441,10 @@ function GridJob(props) {
               resizableColumns
               showGridlines
               stripedRows
+              filters={filters}
+              globalFilterFields={['SeqIndex', 'JobNo', 'ServiceJobTypeNameAbb', 'JobStatus', 'ActionFlag', 'LOBAbbrevaitionName',
+                'STC', 'MachineID', 'LocationName', 'LocationAddress', 'Country', 'District', 'RouteGroupDetailName', 'WindowsTimeServiceTimeStart',
+                'ActualTime', 'DepartTime', 'UserModifed', 'Remarks']}
               filterDisplay="row"
               header={header}
               emptyMessage={headerssss}
@@ -442,7 +468,7 @@ function GridJob(props) {
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }}></Column>
               <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
               {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
-              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false}  style={{ minWidth: '50px' }}></Column>
+              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
               <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
               <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
               <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>

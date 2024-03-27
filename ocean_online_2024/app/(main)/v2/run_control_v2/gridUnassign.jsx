@@ -11,6 +11,7 @@ import { Tag } from 'primereact/tag';
 import { Skeleton } from 'primereact/skeleton';
 import { CarService } from '../../../services/CarService'
 import { useResizeListener } from 'primereact/hooks';
+import { FilterMatchMode } from 'primereact/api';
 
 function GridUnassign(props) {
 
@@ -36,6 +37,26 @@ function GridUnassign(props) {
   //     unbindWindowResizeListener();
   //   };
   // }, [bindWindowResizeListener, unbindWindowResizeListener]);
+
+  const [filters, setFilters] = useState({
+    JobNo: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    ServiceJobTypeNameAbb: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    JobStatus: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    ActionFlag: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    LOBAbbrevaitionName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    STC: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    MachineID: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    LocationName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    LocationAddress: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    Country: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    District: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    RouteGroupDetailName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    WindowsTimeServiceTimeStart: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    ActualTime: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    DepartTime: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    UserModifed: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    Remarks: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  });
 
 
   const menu = useRef(null);
@@ -78,6 +99,9 @@ function GridUnassign(props) {
   ];
 
   const optionMenu = useRef(null);
+
+  const [totalSTC, setTotalSTC] = useState(props.totalSTC);
+  const [totalSelectSTC, setTotalSelectSTC] = useState(0);
 
   const itemRenderer = (item) => (
     <a className="flex align-items-center p-menuitem-link">
@@ -129,6 +153,18 @@ function GridUnassign(props) {
       }, 100);
     }
   }, [props.flagRefreshPage])
+
+  useEffect(() => {
+    if (selectedJob && selectedJob.length !=0) {
+      let total = 0;
+      selectedJob.forEach(item=>{
+        total += parseFloat(item.STC);
+      })
+      setTotalSelectSTC(total);
+    }else{
+      setTotalSelectSTC(0);
+    }
+  }, [selectedJob])
 
   function handleOnSelectionChange(e) {
     setSelectedJob(e.value)
@@ -204,15 +240,6 @@ function GridUnassign(props) {
     cm.current.show(e.originalEvent)
   }
 
-  function bodyIconContextMenu(rowData) {
-    return (
-      <>
-        <div>
-          <i className="pi pi-bars" onClick={openContextMenu}></i>
-        </div>
-      </>
-    )
-  }
 
   const jobStatusFlag = (rowData) => {
     let colorFlag = 'transparent';
@@ -265,13 +292,13 @@ function GridUnassign(props) {
           <Button size="small" style={{ border: 'none', background: 'transparent', height: '1.7rem' }} onClick={(e) => menu.current.toggle(e)} >Action<i className="pi pi-angle-down"></i></Button>
         </span>
         <span className="text-sm font-bold">
-          Unassigned Job(s) | Total Job(s): {data?.props?.value?.length} | Total STC:{0} | Total Selected(s): {selectedJob?.length} | Total STC Selected : {0}
+          Unassigned Job(s) | Total Job(s): {data?.props?.value?.length} | Total STC: {totalSTC.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} | Total Selected(s): {selectedJob?.length | 0} | Total STC Selected: {totalSelectSTC.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </span>
         <span className="font-light mr-2">
           <div className="flex align-items-center">
             {/* <Checkbox inputId="ingredient1" name="pizza" value="Cheese" onChange={e => setChecked(e.checked)} checked={checked} />
             <label htmlFor="ingredient1" className="ml-2">Show Cancel Jobs.</label> */}
-            <i className="pi pi-sliders-h text-xl  text-white" onClick={(e) => optionMenu.current.toggle(e)}></i>
+            <i className="pi pi-sliders-h text-xl p-link  text-white" onClick={(e) => optionMenu.current.toggle(e)}></i>
 
           </div>
         </span>
@@ -399,6 +426,10 @@ function GridUnassign(props) {
               resizableColumns
               showGridlines
               stripedRows
+              filters={filters}
+              globalFilterFields={['JobNo', 'ServiceJobTypeNameAbb', 'JobStatus', 'ActionFlag', 'LOBAbbrevaitionName', 'STC',
+                'MachineID', 'LocationName', 'LocationAddress', 'Country', 'District', 'RouteGroupDetailName', 'WindowsTimeServiceTimeStart', 'ActualTime',
+                'DepartTime', 'UserModifed', 'Remarks']}
               filterDisplay="row"
               header={header}
               // virtualScrollerOptions={{ lazy: true, onLazyLoad: loadCarsLazy, itemSize: 20, delay: 200, showLoader: true, loading: lazyLoading, loadingTemplate }}
@@ -422,7 +453,7 @@ function GridUnassign(props) {
               <Column draggable={true} selectionMode="multiple" style={{ minWidth: '50px' }} ></Column>
               <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
               {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
-              <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column>
+              {/* <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column> */}
               <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
               <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
               <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>

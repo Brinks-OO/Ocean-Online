@@ -32,11 +32,10 @@ const AppMenu = () => {
         {
             label: "Home",
             items: [
-                {
-                    label: "Home v1",
-                    //   icon: "pi pi-fw pi-home",
-                    to: "/home",
-                },
+                // {
+                //     label: "Home v1",
+                //     to: "/home",
+                // },
                 {
                     label: "Home",
                     //   icon: "pi pi-fw pi-home",

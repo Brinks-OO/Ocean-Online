@@ -11,12 +11,17 @@ import { useResizeListener } from "primereact/hooks";
 import OpenLayersMap from "./map";
 
 export default function DetailTab(props) {
-  const { setAllData, allData, setDetailData, detailData } = props;
+  const { setAllData, allData, setDetailData, detailData, validateDetail, setValidateDetail, isSave } = props;
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
 
-  // console.log('selectedCountry', selectedCountry)
-  //   console.log("selectedCity", selectedCity);
+
+  useEffect(() => {
+    if (selectedCountry === null || selectedCountry === "" || selectedCountry === undefined) {
+      setSelectedCity(null)
+    }
+  }, [selectedCountry])
+
   const [selectedItem, setSelectedItem] = useState(null);
 
   const [value1, setValue1] = useState("");
@@ -36,6 +41,15 @@ export default function DetailTab(props) {
   const maxLength = 10;
   const [isFocused, setIsFocused] = useState(false);
 
+  useEffect(() => {
+    // if (isSave) {}
+    if (selectedItem === null) {
+      setValidateDetail(true)
+    } else {
+      setValidateDetail(false)
+    }
+  }, [selectedItem]);
+
   const handleChange = (e) => {
     const newValue = e.target.value;
     setValue2(newValue);
@@ -54,7 +68,6 @@ export default function DetailTab(props) {
   //   console.log("dates2", typeof(dates2));
 
   useEffect(() => {
-    console.log("locatCodeRef", locatCodeRef);
     setDetailData(
       {
         locationCode: locatCodeRef,
@@ -138,6 +151,8 @@ export default function DetailTab(props) {
       setLoading(false);
     }, Math.random() * 1000 + 250);
   };
+
+
 
   return (
     <>
@@ -256,7 +271,8 @@ export default function DetailTab(props) {
                 onChange={(e) => setSelectedItem(e.value)}
                 options={items.current}
                 placeholder="Select Item"
-                className="w-full border-1"
+                // className=`${validateDetail} === true ? 'p-invalid'  'w-full border-1'`
+                className={`${validateDetail === true && isSave === true ? 'p-invalid' : ''} w-full border-1`}
                 virtualScrollerOptions={{
                   lazy: true,
                   onLazyLoad: onLazyLoad,
@@ -265,12 +281,17 @@ export default function DetailTab(props) {
                   loading: loading,
                   delay: 250,
                 }}
-                style={{ height: "38px"}}
+                style={{ height: "38px", lineHeight: "14px"}}
               />
               <label htmlFor="customer">
                 Customer <span className="text-red-500">*</span>
               </label>
             </span>
+             {(validateDetail === true && isSave === true)  && (
+              <small id="reference-help" className="absolute mt-1 text-red-500">
+                Customer is required.
+              </small>
+            )}
           </div>
           <div className="col-4 mt-2">
             <span className="p-float-label ">
@@ -288,11 +309,11 @@ export default function DetailTab(props) {
               <label htmlFor="reference">Reference</label>
 
             </span>
-            {(isFocused || value2.trim() !== '')  && (
+            {/* {(isFocused || value2.trim() !== '')  && (
               <small id="reference-help" className="absolute mt-1">
                 {charCount}/{maxLength}
               </small>
-            )}
+            )} */}
           </div>
           <div className="col-4 mt-2">
             <span className="p-float-label">
@@ -305,7 +326,7 @@ export default function DetailTab(props) {
               <label htmlFor="isa">ISA Client Code</label>
             </span>
           </div>
-          <div className="col-4 mt-3">
+          <div className="col-4 mt-5">
             <span className="p-float-label">
               <InputText
                 id="refcode"
@@ -316,7 +337,7 @@ export default function DetailTab(props) {
               <label htmlFor="refcode">24/7 Reference Code</label>
             </span>
           </div>
-          <div className="col-4 mt-3">
+          <div className="col-4 mt-5">
             <span className="p-float-label">
               <InputText
                 id="locoderef"
@@ -328,9 +349,10 @@ export default function DetailTab(props) {
             </span>
           </div>
         </div>
-        <Divider />
+        {/* <Divider /> */}
+        <div className="custom-divider p-0 mt-5 mb-3" style={{ color: ""}}></div>
         <div className="grid">
-          <div className="col-4 mt-2">
+          <div className="col-4 mt-4">
             {/* <span className="p-float-label p-input-icon-left">
             <i className="pi pi-map-marker w-full" />
             <InputText
@@ -363,7 +385,7 @@ export default function DetailTab(props) {
             </div>
           </div>
 
-          <div className="col-4 mt-2">
+          <div className="col-4 mt-4">
             <span className="p-float-label">
               <Dropdown
                 id="customer"
@@ -374,13 +396,13 @@ export default function DetailTab(props) {
                 options={country}
                 optionLabel="name"
                 showClear
-                style={{ height: "38px"}}
+                style={{ height: "38px", lineHeight: "14px"}}
 
               />
               <label htmlFor="customer">Province/State</label>
             </span>
           </div>
-          <div className="col-4 mt-2">
+          <div className="col-4 mt-4">
             <span className="p-float-label">
               <Dropdown
                 id="customer"
@@ -396,7 +418,7 @@ export default function DetailTab(props) {
                 options={city}
                 optionLabel="name"
                 showClear={selectedCity !== null && selectedCity !== undefined}
-                style={{ height: "38px"}}
+                style={{ height: "38px", lineHeight: "14px"}}
 
               />
               <label
@@ -410,7 +432,7 @@ export default function DetailTab(props) {
               </label>
             </span>
           </div>
-          <div className="col-4 mt-2">
+          <div className="col-4 mt-5">
             <span className="p-float-label">
               <InputText
                 id="locationName"
@@ -421,7 +443,7 @@ export default function DetailTab(props) {
               <label htmlFor="locationName">Location Name</label>
             </span>
           </div>
-          <div className="col-4 mt-2">
+          <div className="col-4 mt-5">
             <span className="p-float-label">
               <InputNumber
                 id="poscode"
@@ -436,9 +458,10 @@ export default function DetailTab(props) {
             </span>
           </div>
         </div>
-        <Divider />
+        {/* <Divider /> */}
+        <div className="custom-divider p-0 mt-5 mb-3" style={{ color: ""}}></div>
         <div className="grid">
-          <div className="col-4 mt-2">
+          <div className="col-4 mt-4">
             <span className="p-float-label">
               <InputText
                 id="Latitude"
@@ -450,7 +473,7 @@ export default function DetailTab(props) {
               <label htmlFor="Latitude">Latitude</label>
             </span>
           </div>
-          <div className="col-4 mt-2">
+          <div className="col-4 mt-4">
             <span className="p-float-label">
               <InputText
                 id="longitude"
@@ -461,7 +484,7 @@ export default function DetailTab(props) {
               <label htmlFor="longitude">Longitude</label>
             </span>
           </div>
-          <div className="col-4 mt-2">
+          <div className="col-4 mt-4">
             <span className="p-float-label" id="calendar-detail">
               <Calendar
                 value={dates2}

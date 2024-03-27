@@ -12,6 +12,8 @@ import { useResizeListener } from "primereact/hooks";
 
 export default function CustomerLocationNewPage(props) {
   const { onClickNew, onClickSave, setAllData, allData, setDetailData, detailData } = props;
+  const [validateDetail, setValidateDetail] = useState(false);
+  const [isSave, setIsSave] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [eventData, setEventData] = useState({ width: 0, height: 0 });
   const [heightNav, setHeightNav] = useState({ height: 0 });
@@ -70,7 +72,15 @@ export default function CustomerLocationNewPage(props) {
 
   // };
   const home = { icon: 'pi pi-home', url: '/v2/home', template: () => <Link href="/v2/home" className="text-white"><i className="pi pi-home"></i> </Link>}
+  const ValidateSave = () => {
+    setIsSave(true)
+    if (validateDetail) {
 
+    } else {
+      onClickSave(false)
+      setIsSave(false)
+    }
+  }
   return (
     <>
       <div
@@ -90,7 +100,7 @@ export default function CustomerLocationNewPage(props) {
           border-black-alpha-20 border-top-none "
         >
           <Button className="h-2rem p-2 my-1 w-5rem" size="small"
-            onClick={() => onClickSave(false)}
+            onClick={() => ValidateSave()}
           >
             <i className="pi pi-save pr-2 text-xs" />
             Save
@@ -122,7 +132,7 @@ export default function CustomerLocationNewPage(props) {
               header="Detail"
               contentStyle={{ height: `${heightContent.height - 193}px` }}
             >
-              <DetailTab setAllData={setAllData} allData={allData} setDetailData={setDetailData} detailData={detailData} />
+              <DetailTab isSave={isSave} validateDetail={validateDetail} setValidateDetail={setValidateDetail} setAllData={setAllData} allData={allData} setDetailData={setDetailData} detailData={detailData} />
             </TabPanel>
             <TabPanel
               header="Site Handle"

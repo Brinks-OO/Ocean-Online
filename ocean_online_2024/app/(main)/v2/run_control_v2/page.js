@@ -113,6 +113,7 @@ export default function Page() {
   useEffect(() => {
     if (overNight) {
       setGridRun(mockRunControl.getRunOverNight());
+      setSelectRun({ "Guid": "c8885611-5f81-96e3-f89e-d053e9c44b2f" })
     } else {
       setGridRun(mockRunControl.getRun());
       setSelectRun({ ...defaultSelect })
@@ -376,7 +377,7 @@ export default function Page() {
                 },
               }}
             >
-              <GridUnassign gridUnassign={gridUnassign} flagRefreshPage={flagRefreshPage} />
+              <GridUnassign gridUnassign={gridUnassign} flagRefreshPage={flagRefreshPage} totalSTC={mockRunControl.getUnAssignTotalSTC()} />
             </TabPanel>
           </TabView>
         </SplitterPanel>
