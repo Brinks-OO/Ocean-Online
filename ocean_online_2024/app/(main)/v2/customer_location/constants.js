@@ -452,12 +452,12 @@ const getBrinkSite = {
     getBrinkDataMain() {
       const brinkDataMain = [];
     
-      for (let i = 1; i <= 99; i++) {
+      for (let i = 1; i <= 999; i++) {
         brinkDataMain.push({
           id: i.toString(),
           name: `Brink Thailand ${i}`,
           lob: "CIT",
-          serviceType: "Delivery",
+          serviceType: i % 2 === 0 ? "Delivery" : "Pick Up",
           dayOfWeek: "Monday",
           startTime: "00.00",
           endTime: "23.59",
@@ -468,9 +468,9 @@ const getBrinkSite = {
           provinceState: i % 2 === 0 ? "United States" : "Thailand",
           districtCity: i % 2 === 0 ? "Texas" : "Sai Mai",
           postalCode: "10220",
-          userCreated: "Admin",
+          userCreated: i % 2 === 0 ? "Admin Cat" : "Admin Dog",
           dtCreated: "20/02/2024",
-          userModified: "Admin",
+          userModified: i % 2 === 0 ? "Admin" : "Admin 2",
           dtModified: "22/02/2024",
         });
       }

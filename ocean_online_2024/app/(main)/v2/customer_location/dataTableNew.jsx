@@ -8,11 +8,11 @@ import { Skeleton } from "primereact/skeleton";
 import getBrinkSite from "./constants";
 import { ContextMenu } from "primereact/contextmenu";
 import { Toast } from "primereact/toast";
+import { InputText } from "primereact/inputtext";
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
 
 export default function DataTableNewSave(props) {
   const { dataForTable, filter, mode, allData, onRefresh, filter2, filter3, filter4 } = props;
-//   console.log("allData DataTableNewSave", allData);
-//   console.log("filter4 filter4", filter4);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loadingDone, setLoadingDone] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -27,13 +27,22 @@ export default function DataTableNewSave(props) {
     sortField: null,
     sortOrder: null,
     filters: {
-      name: { value: "", matchMode: "contains" },
-      "country.name": { value: "", matchMode: "contains" },
-      company: { value: "", matchMode: "contains" },
-      "representative.name": { value: "", matchMode: "contains" },
-      date: { value: "", matchMode: "contains" },
+      serviceType: { value: "", matchMode: FilterMatchMode.CONTAINS  },
+      districtCity: { value: "", matchMode: FilterMatchMode.CONTAINS  },
+      provinceState: { value: "", matchMode: FilterMatchMode.CONTAINS  },
+      locationName: { value: "", matchMode: FilterMatchMode.CONTAINS  },
+      districtCity: { value: "", matchMode: "contains" },
+      dtCreated: { value: "", matchMode: "contains" },
+      dtModified: { value: "", matchMode: "contains" },
+      locationCode: { value: "", matchMode: FilterMatchMode.CONTAINS },
+      // "country.name": { value: "", matchMode: "contains" },
+      // company: { value: "", matchMode: "contains" },
+      // "representative.name": { value: "", matchMode: "contains" },
+      // date: { value: "", matchMode: "contains" },
     },
   });
+
+
   const toast = useRef(null);
   const cm = useRef(null);
 
@@ -104,7 +113,7 @@ export default function DataTableNewSave(props) {
   let networkTimeout = null;
 
   useEffect(() => {
-    loadLazyData();
+    // loadLazyData();
   }, [lazyState, eventData.height]);
 
   const loadLazyData = () => {
@@ -136,7 +145,6 @@ export default function DataTableNewSave(props) {
     // const elementEmpty = document?.querySelector(".p-datatable-tbody > .p-datatable-emptymessage");
     if (loadingDone) {
       const newHeight = element.offsetHeight;
-      // console.log('newHeight', newHeight)
       const newHeight2 = element2.offsetHeight;
       const newHeight3 = element3.offsetHeight;
       const newHeight4 = element4.offsetHeight;
@@ -176,9 +184,14 @@ export default function DataTableNewSave(props) {
     setlazyState(event);
   };
 
-  const onFilter = (event) => {
+  // const onFilter = (event) => {
+  //   event["first"] = 0;
+  //   setlazyState(event);
+  // };
+
+   const onFilter = (event) => {
     event["first"] = 0;
-    setlazyState(event);
+    // setlazyState(event);
   };
 
   const onSelectionChange = (event) => {
@@ -406,6 +419,78 @@ useEffect(() => {
         LoadDataTest()
     }, [onRefresh])
 
+    function LoadLazyDataTest() {
+      setLoading(true);
+      setLoadingDone(false);
+  
+      if (networkTimeout) {
+        clearTimeout(networkTimeout);
+      }
+  
+      // console.log("dataForTable", dataForTable);
+      // if (dataForTable?.length > 0) {
+      //     setBrinkDataAll(allData.tab4);
+      // } else {
+  
+      // CustomerService.getCustomers({
+      //   lazyEvent: JSON.stringify(lazyState),
+      // }).then((data) => {
+      //   setTotalRecords(data.totalRecords);
+      //   setCustomers(data.customers);
+      //   setLoading(false);
+      //   setLoadingDone(true);
+      // });
+  
+      networkTimeout = setTimeout(() => {
+      //   console.log("dataForTable", dataForTable);
+      //   console.log("brinkDataAll", brinkDataAll);
+      //   console.log("allData?.tab4 333", allData?.tab4);
+  
+      //   if (allData?.tab4?.length > 0) {
+      //     const newData = brinkDataAll.unshift(allData?.tab4)
+      //     setBrinkDataAll(newData);
+      //     // setBrinkDataAll(allData?.tab4);
+      //     setLoading(false);
+      //     setLoadingDone(true);
+      //   } else {
+          getBrinksMiniMain().then((data) => {
+              
+              setBrinkDataAll(data);
+              if (allData?.tab4?.length > 0) {
+                  const newData = [ ...allData.tab4, ...data ];
+                  setBrinkDataAll(newData);
+                  // const newData = data?.unshift(allData?.tab4)
+                  // setBrinkDataAll(newData);
+              }
+  
+          //   setBrinkDataAll(prevData => {
+          //     const newData = [...data];
+          //     newData?.unshift(...prevData?.tab4);
+          //     return { ...prevData, tab4: newData };
+          // });
+  
+            setLoading(false);
+            setLoadingDone(true);
+          });
+      //   }
+      }, Math.random() * 1000 + 250);
+
+      networkTimeout = setTimeout(() => {
+        CustomerService.getCustomers({
+          lazyEvent: JSON.stringify(lazyState),
+        }).then((data) => {
+          setTotalRecords(data.totalRecords);
+          setCustomers(data.customers);
+          setLoading(false);
+          setLoadingDone(true);
+        });
+      }, Math.random() * 1000 + 250);
+      // }
+      // getBrinksMini().then((data) => setProducts1(data));
+      // ProductService.getProductsMini().then((data) => setProducts(data));
+  //   }, []);
+  }
+
 function LoadDataTest() {
     setLoading(true);
     setLoadingDone(false);
@@ -441,7 +526,6 @@ function LoadDataTest() {
     //     setLoadingDone(true);
     //   } else {
         getBrinksMiniMain().then((data) => {
-            // console.log('data 444', data)
             setBrinkDataAll(data);
             if (allData?.tab4?.length > 0) {
                 const newData = [ ...allData.tab4, ...data ];
@@ -589,6 +673,39 @@ function LoadDataTest() {
     </div>
 );
 
+// const onFilterCustom = (options, e) => {
+//   console.log('options', options)
+//   console.log('e', e)
+//   options.filterApplyCallback(e.target.value)
+// }
+
+
+
+const filterCustom = (options)=>{
+  // setLoading(true);
+    return (
+        <InputText 
+        // value={options.value} 
+        // onInput={(e) => options.filterApplyCallback(e.target.value)} 
+        onKeyDown={(word) => {
+          // debugger
+          if (word && word.keyCode ===  13) { // 13 is Enter
+            setlazyState(prev => {
+                let newFilter = { ...prev };
+                let option = options.field;
+                // setLoading(false);
+
+                newFilter.filters[option].value = word.target.value
+                // newFilter.filters.locationName.value = word.target.value
+                return newFilter
+            })
+          }
+        }}
+        // placeholder="Keyword Search" 
+        />
+    )
+  }
+
   return (
     <>
       {!loading ? (
@@ -616,9 +733,10 @@ function LoadDataTest() {
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             paginatorClassName="py-0"
             emptyMessage={headerssss}
-            //   onFilter={onFilter}
-            //   filters={lazyState.filters}
-            rowsPerPageOptions={[5, 10, 20, 50]}
+            // onFilter={onFilter}
+            dataKey="id"
+            filters={lazyState.filters}
+            rowsPerPageOptions={[5, 10, 20, 50, 100, 200]}
             first={lazyState.first}
             rows={20}
             loading={loading}
@@ -638,6 +756,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "10%", minWidth: '150px' }}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="locationName"
@@ -645,6 +764,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "25%", minWidth: '300px' }}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="provinceState"
@@ -652,6 +772,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "10%", minWidth: '100px' }}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="districtCity"
@@ -659,6 +780,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "10%", minWidth: '100px' }}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="postalCode"
@@ -666,6 +788,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "10%", minWidth: '120px' }}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="serviceType"
@@ -673,6 +796,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "10%", minWidth: '120px' }}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="userCreated"
@@ -680,6 +804,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "10%", minWidth: '120px' }}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="dtCreated"
@@ -687,6 +812,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "15%", minWidth: '160px' }}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="userModified"
@@ -694,6 +820,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "18%", minWidth: '130px'}}
+              filterElement={filterCustom}
             ></Column>
             <Column
               field="dtModified"
@@ -701,6 +828,7 @@ function LoadDataTest() {
               filter
               showFilterMenu={false}
               style={{ width: "25%", minWidth: '170px' }}
+              filterElement={filterCustom}
             ></Column>
           </DataTable>
         </>

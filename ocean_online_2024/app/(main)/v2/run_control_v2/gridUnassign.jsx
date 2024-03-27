@@ -12,6 +12,7 @@ import { Skeleton } from 'primereact/skeleton';
 import { CarService } from '../../../services/CarService'
 import { useResizeListener } from 'primereact/hooks';
 import { FilterMatchMode } from 'primereact/api';
+import { InputText } from 'primereact/inputtext';
 
 function GridUnassign(props) {
 
@@ -356,6 +357,23 @@ function GridUnassign(props) {
   //   );
   // };
 
+  const customFilter = (option) => {
+    return (
+      <InputText
+        onKeyDown={(word) => {
+          if (word && word.keyCode === 13) { // 13 is Enter
+            setFilters(prev => {
+              let newFilter = { ...prev };
+              newFilter[option.field].value = word.target.value
+              return newFilter
+            })
+          }
+        }}
+
+      />
+    )
+  }
+
   return (
     <>
       <div id='gridUnAssignContainer' style={{
@@ -454,23 +472,23 @@ function GridUnassign(props) {
               <Column draggable={true} body={jobStatusFlag} style={{ minWidth: '50px' }}></Column>
               {/* <Column draggable={true} style={{ minWidth: '50px' }}></Column> */}
               {/* <Column field="SeqIndex" header="Seq" filter showFilterMenu={false} style={{ minWidth: '50px' }}></Column> */}
-              <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }}></Column>
-              <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }}></Column>
-              <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
-              <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }}></Column>
+              <Column field="JobNo" header="Job ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter} ></Column>
+              <Column field="ServiceJobTypeNameAbb" header="Type" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="JobStatus" header="Job Status" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="ActionFlag" header="Action" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="LOBAbbrevaitionName" header="LOB" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="STC" header="STC" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="MachineID" header="Machine ID" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="LocationName" header="Location" filter showFilterMenu={false} style={{ minWidth: '300px' }} filterElement={customFilter}></Column>
+              <Column field="LocationAddress" header="Location Address" filter showFilterMenu={false} style={{ minWidth: '200px' }} filterElement={customFilter}></Column>
+              <Column field="Country" header="Province/State" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="District" header="District/City" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="RouteGroupDetailName" header="Route Group" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="WindowsTimeServiceTimeStart" header="Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="ActualTime" header="Actual Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="DepartTime" header="Departune Time" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="UserModifed" header="Modify By" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
+              <Column field="Remarks" header="Remarks" filter showFilterMenu={false} style={{ minWidth: '100px' }} filterElement={customFilter}></Column>
             </DataTable>
         }
 
